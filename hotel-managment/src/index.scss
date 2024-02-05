@@ -1,0 +1,10 @@
+@import './styling-properties.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+   margin: 0;
+   font-family: $main-font;
+}
