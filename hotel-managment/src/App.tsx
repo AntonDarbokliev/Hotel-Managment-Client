@@ -6,7 +6,9 @@ function App() {
   return (
     <>
     <p>Hello test</p>
+    <div>
     <Navigation></Navigation>
+    </div>
     </>
   )
 }

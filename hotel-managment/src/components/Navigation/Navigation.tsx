@@ -1,9 +1,20 @@
+import { useState } from 'react';
 import styles from './Navigation.module.scss';
 
 export const Navigation = () => {
+
+    const [isSideBarClosed,setIsSideBarClosed ] = useState(false)
+
+    const CloseOpenNavigation = () => {
+        setIsSideBarClosed(!isSideBarClosed)
+    }
+
     return (
         <>
-            <div className={styles["sideBar"]}>
+            <button className={`${styles["navigation-button"]} 
+            ${isSideBarClosed ? styles["navigation-button-closed"] : styles["navigation-button-opened"]} `}
+            onClick={CloseOpenNavigation}>&#8801;</button>
+            <div className={` ${isSideBarClosed?  styles["closed"] : styles["opened"]} ${styles["sideBar"]}`}>
                 <div className={styles['hotelImage-container']}>
                     <img src="" alt="" className={styles['hotelImage']} />
                 </div>
