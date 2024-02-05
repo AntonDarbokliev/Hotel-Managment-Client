@@ -1,0 +1,47 @@
+@import '../../styling-properties.scss';
+
+.sideBar {
+    background-color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .hotelImage-container{
+        width: 7rem;
+        height: 7rem;
+        border: 1px black solid;
+        margin-top: 1rem;
+        border-radius: $main-border-radius;
+
+        // .hotelImage {
+        // }
+    }
+
+
+    .sideBar-list{
+        list-style: none; 
+        padding: 0;
+
+        li {
+            margin: 5rem 0;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: $main-color-text;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media (min-width: $min-width-media) {
+    .sideBar {
+        width: 15vw
+    }
+}
