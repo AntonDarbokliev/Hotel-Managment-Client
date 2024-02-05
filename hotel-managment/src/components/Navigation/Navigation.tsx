@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styles from './Navigation.module.scss';
+import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
 
-    const [isSideBarClosed,setIsSideBarClosed ] = useState(false)
+    const [isSideBarClosed,setIsSideBarClosed ] = useState(true)
 
     const CloseOpenNavigation = () => {
         setIsSideBarClosed(!isSideBarClosed)
@@ -21,9 +22,9 @@ export const Navigation = () => {
                     <p>Hotel Bulgaria</p>
 
                 <ul className={styles['sideBar-list']}>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Login</a></li>
-                    <li><a href="">Register</a></li>
+                    <li><Link to="/" onClick={() => setIsSideBarClosed(true)}>Home</Link></li>
+                    <li><Link to="/login" onClick={() => setIsSideBarClosed(true)}>Login</Link></li>
+                    <li><Link to="/register" onClick={() => setIsSideBarClosed(true)}>Register</Link></li>
                 </ul>
             </div>
         </>

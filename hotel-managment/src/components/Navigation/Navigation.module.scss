@@ -54,15 +54,18 @@
 
 .navigation-button{
     position: fixed;
-    // bottom: 50%;
     top: 0;
-    width: 5vw;
+    width: 10vw;
     color: $main-color;
     font-weight: 800;
-    font-size: 5rem;
-    // background: yellow;
+    font-size: 3.3rem;
     border: none;
     height: 100vh;
+
+    &:hover {
+        background: darken( #f0f0f0, 30%);
+        cursor: pointer;
+    }
 
     &.navigation-button-opened{
         right: 40vw;
@@ -91,6 +94,7 @@
     }
 
     .navigation-button{
+        width: 5vw;
         &.navigation-button-opened{
             right: 15vw;
           }
