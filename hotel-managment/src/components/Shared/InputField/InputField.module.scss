@@ -1,0 +1,12 @@
+@import '../../../styling-properties.scss';
+
+.input-field {
+    margin: 1rem 0;
+    height: 1.8rem ;
+    width: 50vw;
+    max-width: 350px;
+    border-radius: $main-border-radius ;
+    border: none;
+    border: 1px solid black;
+    text-align: center;
+}
