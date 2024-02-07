@@ -1,5 +1,14 @@
 @import '../../../styling-properties.scss';
 
+.input-div{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    align-items: center;
+    padding: 0.5rem;
+}
+
 .input-field {
     margin: 1rem 0;
     height: 1.8rem ;
@@ -9,4 +18,12 @@
     border: none;
     border: 1px solid black;
     text-align: center;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 70%;
+    text-wrap: nowrap;
 }
