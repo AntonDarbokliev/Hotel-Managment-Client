@@ -5,10 +5,15 @@ import styles from './Register.module.scss'
 import { useForm } from '../../../hooks/useForm'
 import { useFormValidation } from '../../../hooks/useFormValidation'
 import { useRegisterValidations } from './RegisterHook'
+import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
+import { useState } from 'react'
 
 export const Register = () => {
 
+    const [hasRegistered, setHasRegistered] = useState(false)
+
     const onFormSubmit = () => {
+        setHasRegistered(true)
         console.log('Submitted')
     }
 
@@ -42,12 +47,13 @@ export const Register = () => {
         isRepeatPasswordValid,
         disableButton
     } = useRegisterValidations(formValues, validationValues)
-
+    
     
     return (
         <div className={styles["login"]}>
     
-
+            {!hasRegistered && 
+            <>
             <h1>Welcome!</h1>
 
             <form className={styles["login-form"]} onSubmit={onSubmit}>
@@ -76,7 +82,7 @@ export const Register = () => {
                 onBlurHandler={() => onBlurHandler('location')}
                 onFocusHandler={() => onFocusHandler('location')}
                 isValid={{boolean: !isLocationValid, errorMessage: 'Location should be at least 3 characters long'}}
-
+                
                 >Country, City, Address</InputField>
 
                 <InputField 
@@ -109,6 +115,11 @@ export const Register = () => {
                 <Button disable={disableButton}>Register</Button>
             </form>
             <p>Already registered your hotel? <Link to="/login">Sign in.</Link></p>
+                </>
+            }
+            {hasRegistered && 
+            <ConfirmEmail></ConfirmEmail>
+            }
         </div>
     )
 }
