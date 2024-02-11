@@ -6,17 +6,53 @@ import { useForm } from '../../../hooks/useForm'
 import { useFormValidation } from '../../../hooks/useFormValidation'
 import { useRegisterValidations } from './RegisterHook'
 import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
+import { authServiceFactory } from '../../../services/auth'
+
+interface Data {
+    [key: string]: string | File;
+}
+
+const authService = authServiceFactory()
 
 export const Register = () => {
 
     const [hasRegistered, setHasRegistered] = useState(false)
+    const [hotelImage, setHotelImage ] = useState<File | undefined>()
+    const [isImageValid,setIsImageValid] = useState(true)
 
-    const onFormSubmit = () => {
-        setHasRegistered(true)
-        console.log('Submitted')
+    const onFormSubmit = async () => {
+        if(hotelImage) {
+            setIsImageValid(true)
+            const data: Data = {
+                HotelName: formValues.hotelName,
+                HotelLocation: formValues.location,
+                HotelTelephoneNumber: formValues.phoneNumber,
+                HotelPicture: hotelImage,
+                HotelEmailAddress: formValues.email,
+                Password: formValues.password,
+                
+            }
+
+            const formData = new FormData();
+
+            const array = Object.entries(data)
+
+            for (const [key,value] of array) {
+                formData.append(key, value);
+            }
+
+            try{
+                await authService.register(formData)
+                setHasRegistered(true)
+            }catch(err){
+                throw new Error(String(err))
+            }
+        }else{
+            setIsImageValid(false)
+        }
+
     }
-
 
     const {formValues,onChangeHandler,onSubmit} = useForm({
         email: '',
@@ -26,6 +62,13 @@ export const Register = () => {
         password: '',
         repeatPassword:''
     },onFormSubmit)
+
+    const onImageChangeHandler = (e: FormEvent) =>{
+        const target = e.target as HTMLInputElement & {
+            files: FileList
+        }
+        setHotelImage(target.files[0])
+    }
 
 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
@@ -111,6 +154,9 @@ export const Register = () => {
                 onFocusHandler={() => onFocusHandler('repeatPassword')}
                 isValid={{boolean: !isRepeatPasswordValid, errorMessage: 'Passwords not matching'}}
                 >Repeat-Password</InputField>
+
+                <InputField accept="image/*" onChange={onImageChangeHandler} name='hotelImage' isValid= { {boolean: isImageValid, errorMessage: 'Hotel Image is required'}} type='file'>Hotel Image</InputField>
+                {/* <input type="file" name='hotelImage' className='hotel-image' onChange={onImageChangeHandler} /> */}
 
                 <Button disable={disableButton}>Register</Button>
             </form>
