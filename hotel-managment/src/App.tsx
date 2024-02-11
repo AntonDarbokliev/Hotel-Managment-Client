@@ -27,7 +27,6 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-
   return (
     <>
     {/* <p>Hello test</p> */}

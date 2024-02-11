@@ -4,8 +4,9 @@ import styles from './InputField.module.scss'
 export interface InputFieldProps {
     children : ReactNode,
     type?: string,
-    value: string | number,
+    value?: string | number,
     name: string,
+    accept?: string,
     onChange: (e:FormEvent)  => void,
     onBlurHandler?: FocusEventHandler<HTMLInputElement>,
     onFocusHandler?: FocusEventHandler<HTMLInputElement>,
@@ -23,6 +24,7 @@ export const InputField = (props: InputFieldProps) => {
             <label>{props.children}</label>
 
             <input 
+            accept={props.accept}
             type={props.type} 
             className={styles["input-field"]} 
             value={props.value} 
