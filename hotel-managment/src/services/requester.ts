@@ -21,17 +21,15 @@ const request = async ({method, url, data}: RequestProps) =>  {
 
     
     if(method != 'GET' && method != 'DELETE') {
-        options.headers = {
-            'Content-Type' : 'multipart/form-data'
-        }
+        // options.headers = {
+        //     'Content-Type' : 'multipart/form-data'   // Server returns 400 when the headers are being set manually 
+        // }                                            // https://stackoverflow.com/questions/64139168/formdata-not-added-properly-to-the-post-request
         console.log("Testing Data",data)
         options.body = data!
     }
     
     const response = await fetch(url,options)
 
-    console.log('Testing response',response)
-    console.log('Testing options',options)
     if(!response.ok){
         throw new Error(response.statusText)
     }
@@ -40,8 +38,11 @@ const request = async ({method, url, data}: RequestProps) =>  {
         return {}
     } 
 
-
-    return await response.json()
+    if(url.includes('Register')){
+        return response
+    }else {
+        return response.json()
+    }
 
 }
 
