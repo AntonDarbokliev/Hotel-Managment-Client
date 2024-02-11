@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../Shared/Button/Button";
 import { InputField } from "../../Shared/InputField/InputField";
 import styles from "./Login.module.scss";
@@ -12,7 +12,7 @@ const authService = authServiceFactory();
 
 export const Login = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const onFormSubmit = async () => {
     const data = new FormData();
@@ -20,8 +20,11 @@ export const Login = () => {
     data.append("Password", formValues.password);
 
     try {
-      await authService.login(data);
-      setIsLoggedIn(true);
+      const response = await authService.login(data);
+      const token = response.token; 
+      localStorage.setItem("token", token);
+      
+      navigate("/");
     } catch (error) {
       console.error("Login failed", error);
       setLoginError(String(error));
@@ -51,7 +54,6 @@ export const Login = () => {
   return (
     <div className={styles["login"]}>
       <h1>Welcome back!</h1>
-      {isLoggedIn && <h1>You are now logged in</h1>}
 
       <form className={styles["login-form"]} onSubmit={onSubmit}>
         <InputField
