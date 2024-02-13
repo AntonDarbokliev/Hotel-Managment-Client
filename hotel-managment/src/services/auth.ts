@@ -10,5 +10,4 @@ export const authServiceFactory = ( ) => {
         register: (data: FormData) => request.post(baseUrl + '/Register/Hotel',data),
         login: (data: FormData) => request.post(`${baseUrl}/Login/Hotel`, data),
     }   
-
 }
