@@ -1,0 +1,27 @@
+@import '../../../styling-properties.scss';
+
+.hotel-card {
+    background: white;
+    width:  95%;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    border-radius: $main-border-radius;
+    margin: 0.5rem 0;
+
+    .hotel-card-image__div {
+        width: 60%;
+        padding: 0.5rem;
+        .hotel-card__image {
+            width: 100%;
+            border-radius: $main-border-radius;
+        }
+    }
+
+    .hotel-card-info__div {
+        width: 50%;
+        // padding: 0.5rem;
+    }
+
+    
+}

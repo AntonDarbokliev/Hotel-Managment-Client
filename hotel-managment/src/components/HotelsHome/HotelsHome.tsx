@@ -1,5 +1,6 @@
 import { Button } from "../Shared/Button/Button"
 import styles from './HotelsHome.module.scss'
+import { HotelsHomeCard } from "./HotelsHomeCard/HotelsHomeCard"
 
 export const HotelsHome = () => {
     
@@ -14,7 +15,7 @@ export const HotelsHome = () => {
                 </div>
 
                 <div className={styles["hotels-list"]}>
-                    <li>Hotel Cards Here</li>
+                    <HotelsHomeCard/>
                 </div>
             </div> 
         </div>
