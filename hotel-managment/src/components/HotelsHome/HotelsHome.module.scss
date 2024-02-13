@@ -1,0 +1,29 @@
+@import '../../styling-properties.scss';
+
+.container{
+    height: 100vh;
+    width: 100vw - $side-nav-width-mobile; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.hotels-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-wrapper {
+    background: #b8b7c9 ;
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.hotels-list {
+    background: #b8b7c9 ;
+    min-height: 60vh;
+    width: 80vw;
+}
