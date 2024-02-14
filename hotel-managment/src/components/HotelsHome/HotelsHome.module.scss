@@ -1,7 +1,7 @@
 @import '../../styling-properties.scss';
 
 .container{
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw - $side-nav-width-mobile; 
     display: flex;
     justify-content: center;
@@ -14,13 +14,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
 }
 
 .button-wrapper {
-    background: #b8b7c9 ;
+    // background: #b8b7c9 ;
     margin-bottom: 1rem;
     display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: $main-border-radius;
+
+    p{
+        margin: 0 0.2rem;
+        width: 50%;
+        text-wrap: nowrap;
+        color: $main-color
+    }
 }
 
 .hotels-list {
@@ -31,4 +41,13 @@
     align-items: center;
     flex-direction: column;
     border-radius: $main-border-radius;
+}
+
+@media (min-width: $min-width-media){
+    .button-wrapper {
+        margin-left: auto;
+        p{
+            margin-right: 1rem;
+        }
+    }
 }
