@@ -8,6 +8,10 @@
     align-items: center;
     border-radius: $main-border-radius;
     margin: 0.5rem 0;
+    
+    &:hover {
+        background: darken(white, 10%);
+    }
 
     .hotel-card-image__div {
         width: 60%;
@@ -16,6 +20,7 @@
             width: 100%;
             border-radius: $main-border-radius;
         }
+        
     }
 
     .hotel-card-info__div {
