@@ -20,8 +20,54 @@
 
     .hotel-card-info__div {
         width: 50%;
-        // padding: 0.5rem;
+        h4 {
+            margin: auto;
+        }
+
+        p {
+            margin:  0.4rem 0;
+            max-width: 0.2rem;
+        }
+
+            }
+
+
+    .hotel-card-info-email, .hotel-card-info-address {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        // text-overflow: ellipsis;      //TODO: Make text-overflow actually work
+        svg {
+            margin-right: 0.3rem;
+            color: $main-color;
+        }
+
+        // p {
+        //     text-wrap: nowrap;
+        // }
+    }
+    
+    @media (min-width: $min-width-media){
+
+        height: 20vh;
+        font-size: 1.2rem;
+        
+        .hotel-card-image__div {
+            width: 19%;
+            padding: 0.5rem;
+        }
+        .hotel-card-info-email, .hotel-card-info-address {
+                p{
+                    text-wrap: nowrap;
+                }
+        }
+
+        .hotel-card-info__div {
+            margin-left: auto;
+            text-align: left;
+        }
+
     }
 
-    
 }
+
