@@ -10,7 +10,7 @@ import { FormEvent, useState } from 'react'
 import { authServiceFactory } from '../../../services/auth'
 
 interface Data {
-    [key: string]: string | File;
+    [key: string]: string | File ;
 }
 
 const authService = authServiceFactory()
@@ -25,13 +25,7 @@ export const Register = () => {
         if(hotelImage) {
             setIsImageValid(true)
             const data: Data = {
-                HotelName: formValues.hotelName,
-                HotelLocation: formValues.location,
-                HotelTelephoneNumber: formValues.phoneNumber,
-                HotelPicture: hotelImage,
-                HotelEmailAddress: formValues.email,
-                Password: formValues.password,
-                
+                ...formValues
             }
 
             const formData = new FormData();
@@ -55,12 +49,14 @@ export const Register = () => {
     }
 
     const {formValues,onChangeHandler,onSubmit} = useForm({
-        email: '',
-        phoneNumber: '',
-        location: '',
-        hotelName: '',
-        password: '',
-        repeatPassword:''
+        FirstName: '',
+        MiddleName: '',
+        LastName: '',
+        Address: '',
+        EGN : '',
+        Password: '',
+        RepeatPassword:'',
+        Email: '',
     },onFormSubmit)
 
     const onImageChangeHandler = (e: FormEvent) =>{
@@ -72,91 +68,126 @@ export const Register = () => {
 
 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
-        email : false,
-        phoneNumber : false,
-        location : false,
-        hotelName : false,
-        password: false,
-        repeatPassword : false,
+        FirstName : false,
+        MiddleName : false,
+        LastName : false,
+        EGN : false,
+        Address : false,
+        Password: false,
+        Email : false,
+        RepeatPassword : false,
 
     })
 
     const { 
-        isEmailValid, 
-        isHotelNameValid, 
-        isLocationValid, 
-        isPasswordValid, 
-        isPhoneNumberValid, 
+        isFirstNameValid,
+        isMiddleNameValid,
+        isLastNameValid,
+        isEGNValid,
+        isAddressValid,
+        isPasswordValid,
         isRepeatPasswordValid,
+        isEmailValid,
         disableButton
     } = useRegisterValidations(formValues, validationValues)
     
     
     return (
-        <div className={styles["login"]}>
+        <div className={styles["register"]}>
     
             {!hasRegistered && 
             <>
             <h1>Welcome!</h1>
 
-            <form className={styles["login-form"]} onSubmit={onSubmit}>
-                <InputField 
-                onChange={(e) => onChangeHandler(e)} 
-                value={formValues.email} 
-                name='email'
-                onBlurHandler={() => onBlurHandler('email')}
-                onFocusHandler={() => onFocusHandler('email')}
-                isValid={{boolean: !isEmailValid, errorMessage: 'Invalid Email'}}
-                >E-mail</InputField>
+            <form className={styles["register-form"]} onSubmit={onSubmit}>
+
+            <div className={styles["register-group-fields-wrapper"]}>
+
+               
+
+                <div className={styles['register-group-input-fields']}>
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.FirstName} 
+                    name='FirstName'
+                    onBlurHandler={() => onBlurHandler('FirstName')}
+                    onFocusHandler={() => onFocusHandler('FirstName')}
+                    isValid={{boolean: !isFirstNameValid, errorMessage: 'First Name should be at least 2 characters long'}}
+                    >FirstName</InputField>
+                    
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.MiddleName} 
+                    name='MiddleName'
+                    onBlurHandler={() => onBlurHandler('MiddleName')}
+                    onFocusHandler={() => onFocusHandler('MiddleName')}
+                    isValid={{boolean: !isMiddleNameValid, errorMessage: 'MiddleName should be at least 2 characters long'}}
+                    >MiddleName</InputField>
+
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.LastName} 
+                    name='LastName'
+                    onBlurHandler={() => onBlurHandler('LastName')}
+                    onFocusHandler={() => onFocusHandler('LastName')}
+                    isValid={{boolean: !isLastNameValid, errorMessage: 'LastName should be at least 2 characters long'}}
+                    
+                    >LastName</InputField>
+
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.EGN} 
+                    name='EGN' type='number'
+                    onBlurHandler={() => onBlurHandler('EGN')}
+                    onFocusHandler={() => onFocusHandler('EGN')}
+                    isValid={{boolean: !isEGNValid, errorMessage: 'EGN should be at least 10 characters long'}}
+                    >EGN</InputField>
+                </div>
+
+
+                <div className={styles['register-group-input-fields']}>
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.Email} 
+                    name='Email' type='email'
+                    onBlurHandler={() => onBlurHandler('Email')}
+                    onFocusHandler={() => onFocusHandler('Email')}
+                    isValid={{boolean: !isEmailValid, errorMessage: 'Email should be at least 10 characters long'}}
+                    >Email</InputField>
+
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.Address}
+                    name='Address'
+                    onBlurHandler={() => onBlurHandler('Address')}
+                    onFocusHandler={() => onFocusHandler('Address')}
+                    isValid={{boolean: !isAddressValid, errorMessage: 'Address should be at least 5 characters long'}}
+                    >Address</InputField>
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.Password} 
+                    name='Password' type='password'
+                    onBlurHandler={() => onBlurHandler('Password')}
+                    onFocusHandler={() => onFocusHandler('Password')}
+                    isValid={{boolean: !isPasswordValid, errorMessage: 'Password should be at least 5 characters long'}}
+                    >Password</InputField>
+
+                    <InputField 
+                    onChange={(e) => onChangeHandler(e)} 
+                    value={formValues.RepeatPassword} 
+                    name='RepeatPassword' type='password'
+                    onBlurHandler={() => onBlurHandler('RepeatPassword')}
+                    onFocusHandler={() => onFocusHandler('RepeatPassword')}
+                    isValid={{boolean: !isRepeatPasswordValid, errorMessage: 'Passwords not matching'}}
+                    >Repeat Password</InputField>
+                </div>
+            </div>
+            
                 
-                <InputField 
-                onChange={(e) => onChangeHandler(e)} 
-                value={formValues.phoneNumber} 
-                name='phoneNumber' type='number'
-                onBlurHandler={() => onBlurHandler('phoneNumber')}
-                onFocusHandler={() => onFocusHandler('phoneNumber')}
-                isValid={{boolean: !isPhoneNumberValid, errorMessage: 'Phone Number should be at least 7 characters long'}}
-                >Phone Number</InputField>
-
-                <InputField 
-                onChange={(e) => onChangeHandler(e)} 
-                value={formValues.location} 
-                name='location'
-                onBlurHandler={() => onBlurHandler('location')}
-                onFocusHandler={() => onFocusHandler('location')}
-                isValid={{boolean: !isLocationValid, errorMessage: 'Location should be at least 3 characters long'}}
-                
-                >Country, City, Address</InputField>
-
-                <InputField 
-                onChange={(e) => onChangeHandler(e)} 
-                value={formValues.hotelName} 
-                name='hotelName'
-                onBlurHandler={() => onBlurHandler('hotelName')}
-                onFocusHandler={() => onFocusHandler('hotelName')}
-                isValid={{boolean: !isHotelNameValid, errorMessage: 'Hotel Name should be at least 3 characters long'}}
-                >Hotel Name</InputField>
-
-                <InputField 
-                onChange={(e) => onChangeHandler(e)} 
-                value={formValues.password}
-                name='password' type='password'
-                onBlurHandler={() => onBlurHandler('password')}
-                onFocusHandler={() => onFocusHandler('password')}
-                isValid={{boolean: !isPasswordValid, errorMessage: 'Password should be at least 5 characters long'}}
-                >Password</InputField>
-
-                <InputField 
-                onChange={(e) => onChangeHandler(e)} 
-                value={formValues.repeatPassword} 
-                name='repeatPassword' type='password'
-                onBlurHandler={() => onBlurHandler('repeatPassword')}
-                onFocusHandler={() => onFocusHandler('repeatPassword')}
-                isValid={{boolean: !isRepeatPasswordValid, errorMessage: 'Passwords not matching'}}
-                >Repeat-Password</InputField>
-
                 <InputField accept="image/*" onChange={onImageChangeHandler} name='hotelImage' isValid= { {boolean: isImageValid, errorMessage: 'Hotel Image is required'}} type='file'>Hotel Image</InputField>
-                {/* <input type="file" name='hotelImage' className='hotel-image' onChange={onImageChangeHandler} /> */}
+
+                
+
 
                 <Button disable={disableButton}>Register</Button>
             </form>
