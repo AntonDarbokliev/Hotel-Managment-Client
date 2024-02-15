@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { checkLengthValidation } from "../../utils/sharedValidations.ts";
 
 interface FormValues {
-    hotelName: string,
-    email: string,
-    location: string,
-    addInfo: string
+    [key: string]: string
+    Name: string,
+    Email: string,
+    Address: string,
+    TelephoneNumber: string
 }
 
 interface ValidationValues {
-    hotelName: boolean,
-    email: boolean,
-    location: boolean,
-    addInfo: boolean
+    Name: boolean,
+    Email: boolean,
+    Address: boolean,
+    TelephoneNumber: boolean
 }
 
 export const useAddHotelValidations = (formValues: FormValues, validationValues: ValidationValues) => {
@@ -19,32 +21,33 @@ export const useAddHotelValidations = (formValues: FormValues, validationValues:
     const [disableButton, setDisableButton] = useState(true)
 
     const isHotelNameValid = (
-        !/^.{3,}$/.test(formValues['hotelName'])
-        && formValues.hotelName !== ''
-        && validationValues.hotelName === true
+        checkLengthValidation('Name', 2, formValues) &&
+        validationValues.Name === true
     )
 
     const isEmailValid = (
         !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
-            .test(formValues['email'])
-        && formValues.email !== ''
-        && validationValues.email === true
-    );
+            .test(formValues['Email'])
+        && formValues.Email !== ''
+        && validationValues.Email === true
+    )
 
-    const isLocationValid = (
-        !/^.{3,}$/.test(formValues['location'])
-        && formValues.location !== ''
-        && validationValues.location === true
-    );
+    const isAddressValid = (
+        checkLengthValidation('Address', 5, formValues) &&
+        validationValues.Address === true
+    )
 
-    const isAddInfoValid = formValues.addInfo.length >= 300;
+    const isTelephoneNumberValid = (
+        checkLengthValidation('TelephoneNumber',10, formValues) &&
+        validationValues.TelephoneNumber === true
+    )
 
     useEffect(() => {
         if (!isHotelNameValid &&
             !isEmailValid &&
-            !isLocationValid &&
-            !isAddInfoValid &&
-            Object.values(formValues).every(x => x.length != 0)) {
+            !isAddressValid &&
+            !isTelephoneNumberValid &&
+            Object.values(formValues).every(x => x.length !== 0)) {
             setDisableButton(false)
         } else {
             setDisableButton(true);
@@ -53,16 +56,16 @@ export const useAddHotelValidations = (formValues: FormValues, validationValues:
         formValues,
         isHotelNameValid,
         isEmailValid,
-        isLocationValid,
-        isAddInfoValid,
+        isAddressValid,
+        isTelephoneNumberValid
     ]);
 
     return {
         isHotelNameValid,
         isEmailValid,
-        isLocationValid,
-        isAddInfoValid,
-        disableButton
+        isTelephoneNumberValid,
+        isAddressValid,
+        disableButton,
     }
 }
 

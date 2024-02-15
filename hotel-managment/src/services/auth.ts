@@ -7,7 +7,7 @@ export const authServiceFactory = ( ) => {
     const request = RequestFactory()
     
     return {
-        register: (data: FormData) => request.post(baseUrl + '/Register/Hotel',data),
-        login: (data: FormData) => request.post(`${baseUrl}/Login/Hotel`, data),
+        register: (data: FormData) => request.post(baseUrl + '/Register',data),
+        login: (data: FormData) => request.post(`${baseUrl}/Login`, data),
     }   
 }
