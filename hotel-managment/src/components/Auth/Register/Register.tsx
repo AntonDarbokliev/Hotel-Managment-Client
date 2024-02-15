@@ -9,24 +9,24 @@ import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
 import { FormEvent, useState } from 'react'
 import { authServiceFactory } from '../../../services/auth'
 
-interface Data {
-    [key: string]: string | File ;
-}
+// interface Data {
+//     [key: string]: string | File ;
+// }
 
 const authService = authServiceFactory()
 
 export const Register = () => {
 
     const [hasRegistered, setHasRegistered] = useState(false)
-    const [hotelImage, setHotelImage ] = useState<File | undefined>()
+    const [userImage, setUserImage ] = useState<File | undefined>()
     const [isImageValid,setIsImageValid] = useState(true)
 
     const onFormSubmit = async () => {
-        if(hotelImage) {
+        if(userImage) {
             setIsImageValid(true)
-            const data: Data = {
-                ...formValues
-            }
+            
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars  
+            const { RepeatPassword, ...data} = formValues
 
             const formData = new FormData();
 
@@ -35,6 +35,7 @@ export const Register = () => {
             for (const [key,value] of array) {
                 formData.append(key, value);
             }
+            formData.append("ProfilePicture",userImage );
 
             try{
                 await authService.register(formData)
@@ -63,7 +64,7 @@ export const Register = () => {
         const target = e.target as HTMLInputElement & {
             files: FileList
         }
-        setHotelImage(target.files[0])
+        setUserImage(target.files[0])
     }
 
 
@@ -137,10 +138,11 @@ export const Register = () => {
                     <InputField 
                     onChange={(e) => onChangeHandler(e)} 
                     value={formValues.EGN} 
-                    name='EGN' type='number'
+                    name='EGN'
                     onBlurHandler={() => onBlurHandler('EGN')}
                     onFocusHandler={() => onFocusHandler('EGN')}
                     isValid={{boolean: !isEGNValid, errorMessage: 'EGN should be at least 10 characters long'}}
+                    maxLength={10}
                     >EGN</InputField>
                 </div>
 
@@ -152,7 +154,7 @@ export const Register = () => {
                     name='Email' type='email'
                     onBlurHandler={() => onBlurHandler('Email')}
                     onFocusHandler={() => onFocusHandler('Email')}
-                    isValid={{boolean: !isEmailValid, errorMessage: 'Email should be at least 10 characters long'}}
+                    isValid={{boolean: !isEmailValid, errorMessage: 'Invalid Email'}}
                     >Email</InputField>
 
                     <InputField 
@@ -184,7 +186,13 @@ export const Register = () => {
             </div>
             
                 
-                <InputField accept="image/*" onChange={onImageChangeHandler} name='hotelImage' isValid= { {boolean: isImageValid, errorMessage: 'Hotel Image is required'}} type='file'>Hotel Image</InputField>
+                <InputField 
+                accept="image/*" 
+                onChange={onImageChangeHandler} 
+                name='userImage' 
+                isValid= { {boolean: isImageValid, errorMessage: 'Hotel Image is required'}} 
+                type='file'
+                >Hotel Image</InputField>
 
                 
 

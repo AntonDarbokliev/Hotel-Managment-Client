@@ -21,7 +21,7 @@ export const Login = () => {
 
     try {
       const response = await authService.login(data);
-      const token = response.token; 
+      const token = response.success; 
       localStorage.setItem("token", token);
       
       navigate("/");

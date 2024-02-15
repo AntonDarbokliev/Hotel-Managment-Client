@@ -40,27 +40,33 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
     }
 
     const isFirstNameValid = (
-        checkLengthValidation('FirstName',2)
+        checkLengthValidation('FirstName',2) &&
+        validationValues.FirstName === true
     ) 
 
     const isMiddleNameValid = (
-        checkLengthValidation('MiddleName',2)
+        checkLengthValidation('MiddleName',2)  &&
+        validationValues.FirstName === true
     )
 
     const isLastNameValid = (
-        checkLengthValidation('LastName',2)
+        checkLengthValidation('LastName',2) &&
+        validationValues.LastName === true
     )
 
     const isEGNValid = (
-        checkLengthValidation('EGN',10)
+        checkLengthValidation('EGN',10) &&
+        validationValues.EGN === true
     )
 
     const isAddressValid = (
-        checkLengthValidation('Address',5)
+        checkLengthValidation('Address',5) &&
+        validationValues.Address === true
         )
 
     const isPasswordValid = (
-           checkLengthValidation('Password',5)
+           checkLengthValidation('Password',5) &&
+           validationValues.Password === true
         )
 
     const isEmailValid =  (
