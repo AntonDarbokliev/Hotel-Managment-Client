@@ -13,7 +13,8 @@ export interface InputFieldProps {
     isValid?: {
         boolean: boolean,
         errorMessage: string
-    }
+    },
+    maxLength?: number
 } 
 
 export const InputField = (props: InputFieldProps) => {
@@ -24,6 +25,7 @@ export const InputField = (props: InputFieldProps) => {
             <label>{props.children}</label>
 
             <input 
+            maxLength={props.maxLength}
             accept={props.accept}
             type={props.type} 
             className={styles["input-field"]} 

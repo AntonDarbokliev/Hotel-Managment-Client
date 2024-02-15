@@ -1,24 +1,18 @@
-.register-form {
+.add-form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
 
-.register {
+.add h1{
+    text-align: center;
+}
+
+.login {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
-
-.register-group-fields-wrapper{
-    display: flex;
-}
-
-.register-group-input-fields {
-    display: flex;
-    flex-direction: column;
 }

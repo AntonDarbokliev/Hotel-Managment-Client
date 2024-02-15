@@ -25,6 +25,7 @@ export const Navigation = () => {
                     <li><Link to="/hotels" onClick={() => setIsSideBarClosed(true)}>Home</Link></li>
                     <li><Link to="/login" onClick={() => setIsSideBarClosed(true)}>Login</Link></li>
                     <li><Link to="/register" onClick={() => setIsSideBarClosed(true)}>Register</Link></li>
+                    <li><Link to="/add" onClick={() => setIsSideBarClosed(true)}>Add</Link></li>
                 </ul>
             </div>
         </>
