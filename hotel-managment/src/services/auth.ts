@@ -1,7 +1,7 @@
 // import { RegisterData } from "../types/AuthTypes";
 import { RequestFactory } from "./requester";
 
-const baseUrl = `${import.meta.env.VITE_BASE_URL}/Account`
+const baseUrl = `${import.meta.env.VITE_BASE_URL}/Account/removethislater`
 
 export const authServiceFactory = ( ) => {
     const request = RequestFactory()

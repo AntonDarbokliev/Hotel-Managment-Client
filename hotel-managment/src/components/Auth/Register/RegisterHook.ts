@@ -1,96 +1,119 @@
 import { useEffect, useState } from "react";
 
 interface FormValues {
-    email: string;
-    phoneNumber: string;
-    location: string;
-    hotelName: string;
-    password: string;
-    repeatPassword: string;
+    FirstName: string,
+    MiddleName: string,
+    LastName: string,
+    Address: string,
+    EGN : string,
+    Password: string,
+    RepeatPassword:string,
+    Email: string,
 }
 
 interface ValidationValues {
-    email: boolean;
-    phoneNumber: boolean;
-    location: boolean;
-    hotelName: boolean;
-    password: boolean;
+    FirstName: boolean,
+    MiddleName: boolean,
+    LastName: boolean,
+    Address: boolean,
+    EGN : boolean,
+    Password: boolean,
+    RepeatPassword:boolean,
+    Email: boolean,
 }
 
+
 export const useRegisterValidations = (formValues: FormValues,validationValues: ValidationValues) => {
-
+    
     const [disableButton,setDisableButton] = useState(true)
+    
+    // const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
+    //     const regex = new RegExp(`^.{${desiredLength},}$`);
+    //     return  regex.test(String(formValues[formValue])) 
+    //     && formValues[formValue] !== '' 
+    //     && validationValues[formValue] === true
+    // }
 
+    const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
+        const regex = new RegExp(`^.{0,${desiredLength - 1}}$`);
+        return formValues[formValue] !== '' && regex.test(String(formValues[formValue]));
+    }
+
+    const isFirstNameValid = (
+        checkLengthValidation('FirstName',2)
+    ) 
+
+    const isMiddleNameValid = (
+        checkLengthValidation('MiddleName',2)
+    )
+
+    const isLastNameValid = (
+        checkLengthValidation('LastName',2)
+    )
+
+    const isEGNValid = (
+        checkLengthValidation('EGN',10)
+    )
+
+    const isAddressValid = (
+        checkLengthValidation('Address',5)
+        )
+
+    const isPasswordValid = (
+           checkLengthValidation('Password',5)
+        )
 
     const isEmailValid =  (
         !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
-        .test(formValues['email']) 
-        && formValues.email !== '' 
-        && validationValues.email === true
+        .test(formValues['Email']) 
+        && formValues.Email !== '' 
+        && validationValues.Email === true
         ) 
-
-    const isPhoneNumberValid = (
-        !/^.{7,}$/.test(formValues['phoneNumber']) 
-        && formValues.phoneNumber !== '' 
-        && validationValues.phoneNumber === true
-
-    )
-
-    const isLocationValid = (
-        !/^.{3,}$/.test(formValues['location']) 
-        && formValues.location !== '' 
-        && validationValues.location === true
-
-    )
-
-    const isHotelNameValid = (
-        !/^.{3,}$/.test(formValues['hotelName']) 
-        && formValues.hotelName !== '' 
-        && validationValues.hotelName === true
-
-    )
-
-    const isPasswordValid = (
-        !/^.{5,}$/.test(formValues['password']) 
-        && formValues.password !== '' 
-        && validationValues.password === true
-
-    )
+        
 
     const isRepeatPasswordValid = (
-        !(formValues['repeatPassword'] == formValues['password'])
-        && formValues.password !== '' 
-        && validationValues.password === true
+        !(formValues['RepeatPassword'] == formValues['Password'])
+        && formValues.Password !== '' 
+        && validationValues.Password === true
 
     )
 
     useEffect(() => {
-        if(!isEmailValid && 
-            !isHotelNameValid && 
-            !isLocationValid && 
+        if(
+            !isFirstNameValid && 
+            !isMiddleNameValid && 
+            !isLastNameValid && 
+            !isEGNValid && 
+            !isAddressValid && 
             !isPasswordValid && 
             !isRepeatPasswordValid && 
+            !isEmailValid && 
             Object.values(formValues).every(x => x.length != 0)){
             setDisableButton(false)
         }else {
             setDisableButton(true)
         }
     },[
-        formValues,
-        isEmailValid,
-        isHotelNameValid,
-        isLocationValid,
+        isFirstNameValid,
+        isMiddleNameValid,
+        isLastNameValid,
+        isEGNValid,
+        isAddressValid,
         isPasswordValid,
         isRepeatPasswordValid,
+        isEmailValid,
+        formValues,
     ])
 
     return {
-        isEmailValid,
-        isHotelNameValid,
-        isLocationValid,
+        isFirstNameValid,
+        isMiddleNameValid,
+        isLastNameValid,
+        isEGNValid,
+        isAddressValid,
         isPasswordValid,
-        isPhoneNumberValid,
         isRepeatPasswordValid,
+        isEmailValid,
         disableButton
     }
 } 
