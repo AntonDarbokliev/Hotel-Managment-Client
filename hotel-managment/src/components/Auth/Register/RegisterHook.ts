@@ -26,13 +26,6 @@ interface ValidationValues {
 export const useRegisterValidations = (formValues: FormValues,validationValues: ValidationValues) => {
     
     const [disableButton,setDisableButton] = useState(true)
-    
-    // const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
-    //     const regex = new RegExp(`^.{${desiredLength},}$`);
-    //     return  regex.test(String(formValues[formValue])) 
-    //     && formValues[formValue] !== '' 
-    //     && validationValues[formValue] === true
-    // }
 
     const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
         const regex = new RegExp(`^.{0,${desiredLength - 1}}$`);
@@ -40,27 +33,35 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
     }
 
     const isFirstNameValid = (
-        checkLengthValidation('FirstName',2)
+        checkLengthValidation('FirstName',2) &&
+        validationValues.FirstName === true
     ) 
 
     const isMiddleNameValid = (
-        checkLengthValidation('MiddleName',2)
+        checkLengthValidation('MiddleName',2)  &&
+        validationValues.MiddleName === true
     )
 
     const isLastNameValid = (
-        checkLengthValidation('LastName',2)
+        checkLengthValidation('LastName',2) &&
+        validationValues.LastName === true
     )
 
     const isEGNValid = (
-        checkLengthValidation('EGN',10)
+        checkLengthValidation('EGN',10) &&
+        validationValues.EGN === true
     )
 
     const isAddressValid = (
-        checkLengthValidation('Address',5)
+        checkLengthValidation('Address',5) &&
+        validationValues.Address === true
         )
 
     const isPasswordValid = (
-           checkLengthValidation('Password',5)
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+        .test(formValues.Password) &&
+           validationValues.Password === true &&
+           formValues.Password !== '' 
         )
 
     const isEmailValid =  (
