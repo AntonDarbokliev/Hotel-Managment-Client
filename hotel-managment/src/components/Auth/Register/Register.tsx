@@ -6,20 +6,17 @@ import { useForm } from '../../../hooks/useForm'
 import { useFormValidation } from '../../../hooks/useFormValidation'
 import { useRegisterValidations } from './RegisterHook'
 import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
-import { FormEvent, useState } from 'react'
+import {  useState } from 'react'
 import { authServiceFactory } from '../../../services/auth'
-
-// interface Data {
-//     [key: string]: string | File ;
-// }
-
-const authService = authServiceFactory()
+import { onImageChangeHandler } from '../../../utils/imageChangeHandler'
 
 export const Register = () => {
-
+    
     const [hasRegistered, setHasRegistered] = useState(false)
     const [userImage, setUserImage ] = useState<File | undefined>()
     const [isImageValid,setIsImageValid] = useState(true)
+    
+    const authService = authServiceFactory()
 
     const onFormSubmit = async () => {
         if(userImage) {
@@ -59,14 +56,6 @@ export const Register = () => {
         RepeatPassword:'',
         Email: '',
     },onFormSubmit)
-
-    const onImageChangeHandler = (e: FormEvent) =>{
-        const target = e.target as HTMLInputElement & {
-            files: FileList
-        }
-        setUserImage(target.files[0])
-    }
-
 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
         FirstName : false,
@@ -171,7 +160,10 @@ export const Register = () => {
                     name='Password' type='password'
                     onBlurHandler={() => onBlurHandler('Password')}
                     onFocusHandler={() => onFocusHandler('Password')}
-                    isValid={{boolean: !isPasswordValid, errorMessage: 'Password should be at least 5 characters long'}}
+                    isValid={{
+                        boolean: !isPasswordValid, 
+                        errorMessage: 'Password must be 6 characters with at least one capital letter, one lowercase letter, and one symbol.'
+                    }}
                     >Password</InputField>
 
                     <InputField 
@@ -188,7 +180,7 @@ export const Register = () => {
                 
                 <InputField 
                 accept="image/*" 
-                onChange={onImageChangeHandler} 
+                onChange={(e) => onImageChangeHandler(e,setUserImage)} 
                 name='userImage' 
                 isValid= { {boolean: isImageValid, errorMessage: 'Hotel Image is required'}} 
                 type='file'
@@ -203,7 +195,7 @@ export const Register = () => {
                 </>
             }
             {hasRegistered && 
-            <ConfirmEmail></ConfirmEmail>
+            <ConfirmEmail/>
             }
         </div>
     )

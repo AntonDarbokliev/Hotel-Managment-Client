@@ -26,13 +26,6 @@ interface ValidationValues {
 export const useRegisterValidations = (formValues: FormValues,validationValues: ValidationValues) => {
     
     const [disableButton,setDisableButton] = useState(true)
-    
-    // const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
-    //     const regex = new RegExp(`^.{${desiredLength},}$`);
-    //     return  regex.test(String(formValues[formValue])) 
-    //     && formValues[formValue] !== '' 
-    //     && validationValues[formValue] === true
-    // }
 
     const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
         const regex = new RegExp(`^.{0,${desiredLength - 1}}$`);
@@ -46,7 +39,7 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
 
     const isMiddleNameValid = (
         checkLengthValidation('MiddleName',2)  &&
-        validationValues.FirstName === true
+        validationValues.MiddleName === true
     )
 
     const isLastNameValid = (
@@ -65,8 +58,10 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
         )
 
     const isPasswordValid = (
-           checkLengthValidation('Password',5) &&
-           validationValues.Password === true
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+        .test(formValues.Password) &&
+           validationValues.Password === true &&
+           formValues.Password !== '' 
         )
 
     const isEmailValid =  (
