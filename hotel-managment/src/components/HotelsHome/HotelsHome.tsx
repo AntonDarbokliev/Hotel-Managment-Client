@@ -11,7 +11,8 @@ export const HotelsHome = () => {
 
                 <div className={styles["button-wrapper"]}>
                     <p>You have more hotels?</p>
-                    <Button color="#1b5e1d">Add a Hotel</Button>
+                    <Button >Add a Hotel</Button>
+                    {/* color="#1b5e1d" */}
                 </div>
 
                 <div className={styles["hotels-list"]}>

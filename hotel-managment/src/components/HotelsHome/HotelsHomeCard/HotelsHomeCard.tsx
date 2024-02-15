@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
     const testHotel: Hotel = {
         name: 'Hotel Bulgaria',
-        email: 'hotelbulgaria@gmail.com',
+        email: 'hotelbulgariaaaaaaaaaaaaaaaaaaa@gmail.com',
         location: 'Sofia, Bulgaria',
         photo: testImage
     }

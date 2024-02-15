@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: $main-border-radius;
+    border-radius: $main-border-radius;    
 
     p{
         margin: 0 0.2rem;
@@ -32,6 +32,7 @@
         color: $main-color
     }
 }
+
 
 .hotels-list {
     background: #b8b7c9 ;
