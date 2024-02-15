@@ -27,11 +27,16 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
     
     const [disableButton,setDisableButton] = useState(true)
     
+    // const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
+    //     const regex = new RegExp(`^.{${desiredLength},}$`);
+    //     return  regex.test(String(formValues[formValue])) 
+    //     && formValues[formValue] !== '' 
+    //     && validationValues[formValue] === true
+    // }
+
     const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
-        const regex = new RegExp(`^.{${desiredLength},}$`);
-        return  regex.test(String(formValues[formValue])) 
-        && formValues[formValue] !== '' 
-        && validationValues[formValue] === true
+        const regex = new RegExp(`^.{0,${desiredLength - 1}}$`);
+        return formValues[formValue] !== '' && regex.test(String(formValues[formValue]));
     }
 
     const isFirstNameValid = (
