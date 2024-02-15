@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { hotelServiceFactory } from "../../services/hotel.ts";
 import { useForm } from "../../hooks/useForm.ts";
 import { useFormValidation } from "../../hooks/useFormValidation.ts";
-import { addHotelValidations } from "./AddHotelHook.ts";
+import { useAddHotelValidations } from "./AddHotelHook.ts";
 import styles from './AddHotel.module.scss';
 import { InputField } from "../Shared/InputField/InputField.tsx";
 import { Button } from "../Shared/Button/Button.tsx";
@@ -79,7 +79,7 @@ export const AddHotel = () => {
         isLocationValid,
         isAddInfoValid,
         disableButton
-    } = addHotelValidations(formValues, validationValues);
+    } = useAddHotelValidations(formValues, validationValues);
 
     return (
         <div className={styles["add"]}>

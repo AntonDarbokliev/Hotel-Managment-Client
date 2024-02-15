@@ -14,7 +14,7 @@ interface ValidationValues {
     addInfo: boolean
 }
 
-export const addHotelValidations = (formValues: FormValues, validationValues: ValidationValues) => {
+export const useAddHotelValidations = (formValues: FormValues, validationValues: ValidationValues) => {
 
     const [disableButton, setDisableButton] = useState(true)
 

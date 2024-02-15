@@ -33,7 +33,6 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
         !/^.{7,}$/.test(formValues['phoneNumber']) 
         && formValues.phoneNumber !== '' 
         && validationValues.phoneNumber === true
-
     )
 
     const isLocationValid = (
