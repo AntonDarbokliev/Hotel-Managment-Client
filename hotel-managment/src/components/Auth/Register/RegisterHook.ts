@@ -52,7 +52,7 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
         validationValues.EGN === true
     )
 
-    // Test
+    // Test 2
     const isAddressValid = (
         checkLengthValidation('Address',5) &&
         validationValues.Address === true
