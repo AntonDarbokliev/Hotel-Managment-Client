@@ -7,7 +7,8 @@ interface RequestProps {
 
 interface Options {
     headers: {
-        "Content-Type"? : string
+        "Content-Type"? : string,
+        "Authorization"?:string,
     },
     body?:FormData,
     method: 'GET' | 'POST' | 'DELETE'
@@ -21,6 +22,13 @@ const request = async ({method, url, data}: RequestProps) =>  {
 
     
     if(method != 'GET' && method != 'DELETE') {
+        if(method === 'POST' && url === 'https://hotel-management-api-j8y8.onrender.com/api/Hotel') {
+            const token = localStorage.getItem('token');
+            if(!token) {
+                throw new Error('Token is missing');
+            }
+            options.headers['Authorization'] = `Bearer ${token}`;
+        }
         // options.headers = {
         //     'Content-Type' : 'multipart/form-data'   // Server returns 400 when the headers are being set manually 
         // }                                            // https://stackoverflow.com/questions/64139168/formdata-not-added-properly-to-the-post-request
