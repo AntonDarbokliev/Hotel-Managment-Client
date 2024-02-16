@@ -5,4 +5,4 @@ export const onImageChangeHandler = (e: FormEvent, imageSetter: React.Dispatch<R
         files: FileList
     }
     imageSetter(target.files[0])
-}
+

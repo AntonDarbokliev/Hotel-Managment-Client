@@ -22,7 +22,7 @@ export const Navigation = () => {
                     <p>Hotel Bulgaria</p>
 
                 <ul className={styles['sideBar-list']}>
-                    <li><Link to="/" onClick={() => setIsSideBarClosed(true)}>Home</Link></li>
+                    <li><Link to="/hotels" onClick={() => setIsSideBarClosed(true)}>Home</Link></li>
                     <li><Link to="/login" onClick={() => setIsSideBarClosed(true)}>Login</Link></li>
                     <li><Link to="/register" onClick={() => setIsSideBarClosed(true)}>Register</Link></li>
                     <li><Link to="/add" onClick={() => setIsSideBarClosed(true)}>Add</Link></li>

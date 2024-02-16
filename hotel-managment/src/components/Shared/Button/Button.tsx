@@ -4,13 +4,16 @@ import styles from './Button.module.scss';
 interface Props {
     children: ReactNode,
     onClick? : () => void,
-    disable? : boolean
+    disable? : boolean,
+    color?: string,
 }
 
 export const Button  = (props: Props) => {
     return (
-        <>
-        <button disabled={props.disable} className={styles["shared-button"]}>{props.children}</button>
-        </>
+        <button 
+        style={ props.color ? {background: props.color} : {}}
+        disabled={props.disable} 
+        className={styles["shared-button"]}
+        >{props.children}</button>
     )
 }
