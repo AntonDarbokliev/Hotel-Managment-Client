@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { hotelServiceFactory } from "../../services/hotel.ts";
 import { useForm } from "../../hooks/useForm.ts";
 import { useFormValidation } from "../../hooks/useFormValidation.ts";
-import { addHotelValidations } from "./AddHotelHook.ts";
+import { useAddHotelValidations } from "./AddHotelHook.ts";
 import styles from './AddHotel.module.scss';
 import { InputField } from "../Shared/InputField/InputField.tsx";
 import { Button } from "../Shared/Button/Button.tsx";
@@ -22,13 +22,14 @@ export const AddHotel = () => {
     const navigate = useNavigate();
 
     const onFormSubmit = async() => {
+        console.log("Form submitted");
         if(hotelImage) {
             setIsImageValid(true);
             const data: Data = {  
-                HotelName: formValues.hotelName,
-                HotelEmailAddress: formValues.email,
-                HotelLocaion: formValues.location,
-                HotelAddInfo: formValues.addInfo,
+                Name: formValues.Name,
+                Email: formValues.Email,
+                Address: formValues.Address,
+                TelephoneNumber: formValues.TelephoneNumber,
             }
 
             const formData = new FormData();
@@ -53,10 +54,10 @@ export const AddHotel = () => {
     };
 
     const {formValues, onChangeHandler, onSubmit} = useForm({
-        hotelName: '',
-        email: '',
-        location: '',
-        addInfo: ''
+        Name: '',
+        Email: '',
+        Address: '',
+        TelephoneNumber: ''
     }, onFormSubmit);
 
     const onImageChangeHandler = (e:FormEvent) => {
@@ -67,64 +68,64 @@ export const AddHotel = () => {
     }
 
     const {onBlurHandler, onFocusHandler, validationValues} = useFormValidation({
-        hotelName: false, 
-        email: false, 
-        location: false, 
-        addInfo: false,
+        Name: false, 
+        Email: false, 
+        Address: false, 
+        TelephoneNumber: false,
     })
 
     const {
         isHotelNameValid,
-        isEmailValid, 
-        isLocationValid,
-        isAddInfoValid,
+        isEmailValid,
+        isAddressValid,
+        isTelephoneNumberValid,
         disableButton
-    } = addHotelValidations(formValues, validationValues);
+    } = useAddHotelValidations(formValues, validationValues);
 
     return (
         <div className={styles["add"]}>
             {!hasAddHotel && 
             <>
                 <h1>Add Your Hotel</h1>
-                <form className={styles["add-form"]} onSubmit={onSubmit}>
-                    <InputField
+                <form className={styles["add-form"]} onSubmit={onSubmit}>                    <InputField
                     onChange={(e) => onChangeHandler(e)}
-                    value={formValues.hotelName}
-                    name="hotelName"
-                    onBlurHandler={() => onBlurHandler('hotelName')}
-                    onFocusHandler={() => onFocusHandler('hotelName')}
-                    isValid={{boolean: !isHotelNameValid, errorMessage: 'Invalid Hotel Name'}}
+                    value={formValues.Name}
+                    name="Name"
+                    onBlurHandler={() => onBlurHandler('Name')}
+                    onFocusHandler={() => onFocusHandler('Name')}
+                    isValid={{boolean: !isHotelNameValid, errorMessage: 'Hotel Name should be at least 2 characters long'}}
                     > Hotel Name
                     </InputField>
 
                     <InputField
                     onChange={(e) => onChangeHandler(e)}
-                    value={formValues.email}
-                    name="email"
-                    onBlurHandler={() => onBlurHandler('email')}
-                    onFocusHandler={() => onFocusHandler('email')}
-                    isValid={{boolean: !isEmailValid, errorMessage: 'Invalid Email Address'}}
+                    value={formValues.Email}
+                    name="Email"
+                    onBlurHandler={() => onBlurHandler('Email')}
+                    onFocusHandler={() => onFocusHandler('Email')}
+                    isValid={{boolean: !isEmailValid, errorMessage: 'Invalid Email'}}
                     > E-mail
                     </InputField>
 
                     <InputField
                     onChange={(e) => onChangeHandler(e)}
-                    value={formValues.location}
-                    name="location"
-                    onBlurHandler={() => onBlurHandler('location')}
-                    onFocusHandler={() => onFocusHandler('location')}
-                    isValid={{boolean: !isLocationValid, errorMessage: 'Invalid Location Place'}}
-                    > Location
+                    value={formValues.Address}
+                    name="Address"
+                    onBlurHandler={() => onBlurHandler('Address')}
+                    onFocusHandler={() => onFocusHandler('Address')}
+                    isValid={{boolean: !isAddressValid, errorMessage: 'Address should be at least 5 characters long'}}
+                    > Address
                     </InputField>
 
                     <InputField
                     onChange={(e) => onChangeHandler(e)}
-                    value={formValues.addInfo}
-                    name="addInfo"
-                    onBlurHandler={() => onBlurHandler('addInfo')}
-                    onFocusHandler={() => onFocusHandler('addInfo')}
-                    isValid={{boolean: !isAddInfoValid, errorMessage: 'Invalid Additional Information'}}
-                    > Additional Information
+                    value={formValues.TelephoneNumber}
+                    name="TelephoneNumber"
+                    onBlurHandler={() => onBlurHandler('TelephoneNumber')}
+                    onFocusHandler={() => onFocusHandler('TelephoneNumber')}
+                    isValid={{boolean: !isTelephoneNumberValid, errorMessage: 'Telephone Number should be 10 characters long'}}
+                    maxLength={10}
+                    > Telephone Number
                     </InputField>
 
                     <InputField accept="image/*" onChange={onImageChangeHandler} name="hotelImage" isValid={{boolean:isImageValid, errorMessage:'Hotel Image is required'}} type='file'>Hotel Image</InputField>
