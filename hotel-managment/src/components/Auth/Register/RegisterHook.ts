@@ -40,19 +40,6 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
     const isMiddleNameValid = (
         checkLengthValidation('MiddleName',2)  &&
         validationValues.MiddleName === true
-
-    // const isEmailValid =  (
-    //     !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
-    //     .test(formValues['email']) 
-    //     && formValues.email !== '' 
-    //     && validationValues.email === true
-    //     ) 
-
-    // const isPhoneNumberValid = (
-    //     !/^.{7,}$/.test(formValues['phoneNumber']) 
-    //     && formValues.phoneNumber !== '' 
-    //     && validationValues.phoneNumber === true
-
     )
 
     const isLastNameValid = (
@@ -65,7 +52,6 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
         validationValues.EGN === true
     )
 
-    // Test
     const isAddressValid = (
         checkLengthValidation('Address',5) &&
         validationValues.Address === true
