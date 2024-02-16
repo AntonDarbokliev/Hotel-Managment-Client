@@ -6,7 +6,7 @@ interface FormValues {
     Name: string,
     Email: string,
     Address: string,
-    TelephoneNumber: string
+    TelephoneNumber: string,
 }
 
 interface ValidationValues {
