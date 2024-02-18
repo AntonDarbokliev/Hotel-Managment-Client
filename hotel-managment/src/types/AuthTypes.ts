@@ -6,3 +6,9 @@ export interface RegisterData {
     HotelEmailAddress: string,
     Password: string
 }
+
+export interface AuthInfo {
+    nameId: string,
+    FullName: string,
+    ProfilePicture: string
+}
