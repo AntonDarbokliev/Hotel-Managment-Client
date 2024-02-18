@@ -1,4 +1,4 @@
-import { createStore } from "zustand"
+import { create } from "zustand"
 import { authObjectFromStorage } from "../utils/authObjectFromStorage"
 // import { AuthInfo } from '../types/AuthTypes'
 
@@ -15,7 +15,7 @@ interface AuthStore  {
 }
 
 
-export const useAuthStore = createStore<AuthStore>((set) => ({
+export const useAuthStore = create<AuthStore>((set) => ({
     user: {
         fullName: '',
         picture: '',
