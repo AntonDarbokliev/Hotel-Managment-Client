@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
 interface RequestProps {
     method: 'GET' | 'POST' | 'DELETE',
     url : string,
-    data : FormData | null
+    data? : FormData | null 
 }
 
 interface Options {
@@ -10,7 +11,7 @@ interface Options {
         "Content-Type"? : string,
         "Authorization"?:string,
     },
-    body?:FormData,
+    body?:FormData ,
     method: 'GET' | 'POST' | 'DELETE'
 }
 const request = async ({method, url, data}: RequestProps) =>  {
@@ -21,13 +22,13 @@ const request = async ({method, url, data}: RequestProps) =>  {
     };
 
 
-    if( url === 'https://hotel-management-api-j8y8.onrender.com/api/Hotel') {
+    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/Hotel.*/.test(url)) {
             const token = localStorage.getItem('token');
             if(!token) {
                 throw new Error('Token is missing');
             }
             options.headers['Authorization'] = `Bearer ${token}`;
-}
+    }
 
         // options.headers = {
         //     'Content-Type' : 'multipart/form-data'   // Server returns 400 when the headers are being set manually 
@@ -35,7 +36,6 @@ const request = async ({method, url, data}: RequestProps) =>  {
        if(data){
            options.body = data
        }
-    
     
     const response = await fetch(url,options)
 
@@ -56,7 +56,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
 }
 
 export const RequestFactory = ( ) => {
-    const getRequest = (url:string) => request({method:'GET', url,data: null})
+    const getRequest = (url:string) => request({ method: 'GET', url })
     const postRequest =  (url:string, data: FormData) => request({method:'POST', url,data})
 
     return {
