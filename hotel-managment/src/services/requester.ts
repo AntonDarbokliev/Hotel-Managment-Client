@@ -20,21 +20,22 @@ const request = async ({method, url, data}: RequestProps) =>  {
         method
     };
 
-    
-    if(method != 'GET' && method != 'DELETE') {
-        if(method === 'POST' && url === 'https://hotel-management-api-j8y8.onrender.com/api/Hotel') {
+
+    if( url === 'https://hotel-management-api-j8y8.onrender.com/api/Hotel') {
             const token = localStorage.getItem('token');
             if(!token) {
                 throw new Error('Token is missing');
             }
             options.headers['Authorization'] = `Bearer ${token}`;
-        }
+}
+
         // options.headers = {
         //     'Content-Type' : 'multipart/form-data'   // Server returns 400 when the headers are being set manually 
         // }                                            // https://stackoverflow.com/questions/64139168/formdata-not-added-properly-to-the-post-request
-        console.log("Testing Data",data)
-        options.body = data!
-    }
+       if(data){
+           options.body = data
+       }
+    
     
     const response = await fetch(url,options)
 
@@ -55,7 +56,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
 }
 
 export const RequestFactory = ( ) => {
-    const getRequest = (url:string, data: null) => request({method:'GET', url,data})
+    const getRequest = (url:string) => request({method:'GET', url,data: null})
     const postRequest =  (url:string, data: FormData) => request({method:'POST', url,data})
 
     return {
