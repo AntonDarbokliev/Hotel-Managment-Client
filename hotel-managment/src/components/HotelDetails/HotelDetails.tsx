@@ -1,7 +1,9 @@
+import styles  from './HotelDetails.module.scss'
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { hotelServiceFactory } from "../../services/hotel"
 import { Hotel } from "../../types/HotelTypes"
+import { TabButton } from './TabButton/TabButton'
 const hotelService = hotelServiceFactory()
 
 export const HotelDetails = () => {
@@ -22,8 +24,18 @@ export const HotelDetails = () => {
 
     return (
         <>
-        <h1>Details</h1>
-        <p>{hotel.name}</p>
+        <div className={styles['container']}>
+                <h1>Control your hotel</h1>
+            <div className={styles["details"]}>
+                <div className={styles["tabs"]}>
+                        <TabButton>Rooms</TabButton>
+                        <TabButton>Employees</TabButton>
+                </div>
+                <div className={styles["tab-content"]}>
+                    <p>Content goes here</p>
+                </div>
+            </div>
+        </div>
         </>
     )
 }

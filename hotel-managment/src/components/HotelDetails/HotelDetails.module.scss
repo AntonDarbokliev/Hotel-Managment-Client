@@ -1,0 +1,42 @@
+@import '../../styling-properties.scss';
+
+.container{
+    min-height: 100vh;
+    width: 100vw - $side-nav-width-mobile; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+@mixin details-shared {
+    background: $background-color;
+    min-height: 60vh;
+    margin: 0 0.5rem;
+    border-radius: $main-border-radius;
+    overflow: auto;
+}
+
+.tabs, .tab-content {
+    @include details-shared();
+}
+
+.tabs{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tab-content {
+    flex: 2;
+    // flex-shrink: 0
+}
