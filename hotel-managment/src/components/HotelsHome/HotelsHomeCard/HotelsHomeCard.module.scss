@@ -15,6 +15,9 @@
     }
 
     .hotel-card-image__div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 60%;
         padding: 0.5rem;
         .hotel-card__image {

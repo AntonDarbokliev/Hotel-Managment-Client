@@ -6,6 +6,7 @@ import { Register } from "./components/Auth/Register/Register";
 import { AddHotel } from "./components/AddHotel/AddHotel.tsx";
 
 import { HotelsHome } from "./components/HotelsHome/HotelsHome";
+import { HotelDetails } from "./components/HotelDetails/HotelDetails.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
       path: 'hotels',
       element: <HotelsHome/>
+    },
+    {
+      path: 'hotels/:id',
+      element: <HotelDetails/>
     }
     
       ],
