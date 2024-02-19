@@ -9,9 +9,7 @@ const hotelService = hotelServiceFactory()
 export const HotelsHome = () => {
         const [hotels, setHotels ] = useState<Hotel[]>([])
     useEffect(() => {
-        hotelService.getAll().then( data => setHotels(data))
-        console.log('useEffect');
-        
+        hotelService.getAll().then( data => setHotels(data))        
     },[])
 
     return (
@@ -22,14 +20,10 @@ export const HotelsHome = () => {
                 <div className={styles["button-wrapper"]}>
                     <p>You have more hotels?</p>
                     <Button >Add a Hotel</Button>
-                    {/* color="#1b5e1d" */}
                 </div>
 
                 <div className={styles["hotels-list"]}>
-                    {hotels.map((hotel) => {
-                        console.log(hotel) 
-                        return <HotelsHomeCard key={hotel.id} hotel={hotel}/>
-                        })}
+                    {hotels.map((hotel) =><HotelsHomeCard key={hotel.id} hotel={hotel}/>)}
                 </div>
             </div> 
         </div>
