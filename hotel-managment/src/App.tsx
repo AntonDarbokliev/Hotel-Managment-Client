@@ -7,6 +7,8 @@ import { AddHotel } from "./components/AddHotel/AddHotel.tsx";
 
 import { HotelsHome } from "./components/HotelsHome/HotelsHome";
 import { HotelDetails } from "./components/HotelDetails/HotelDetails.tsx";
+import { Rooms } from "./components/HotelDetails/Rooms/Rooms.tsx";
+import { Employees } from "./components/HotelDetails/Employees/Employees.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +34,17 @@ const router = createBrowserRouter([
     },
     {
       path: 'hotels/:id',
-      element: <HotelDetails/>
+      element: <HotelDetails/>,
+      children: [
+        {
+          path: "rooms",
+          element: <Rooms/>,
+      },
+      {
+        path: "employees",
+        element: <Employees/>,
+    },
+      ]
     }
     
       ],
@@ -44,8 +56,6 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-    {/* <p>Hello test</p> */}
-    {/* <Navigation/> */}
     <RouterProvider router={router}/>   
     </>
   )

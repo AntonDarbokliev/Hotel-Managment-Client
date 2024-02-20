@@ -1,6 +1,6 @@
 import styles  from './HotelDetails.module.scss'
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Outlet, useParams } from "react-router-dom"
 import { hotelServiceFactory } from "../../services/hotel"
 import { Hotel } from "../../types/HotelTypes"
 import { TabButton } from './TabButton/TabButton'
@@ -32,7 +32,7 @@ export const HotelDetails = () => {
                         <TabButton>Employees</TabButton>
                 </div>
                 <div className={styles["tab-content"]}>
-                    <p>Content goes here</p>
+                    <Outlet/>
                 </div>
             </div>
         </div>
