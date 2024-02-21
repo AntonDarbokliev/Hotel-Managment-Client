@@ -8,6 +8,7 @@
     align-items: center;
     border-radius: $main-border-radius;
     margin: 0.5rem 0;
+    box-shadow: $main-box-shadow;
     
     &:hover {
         background: darken(white, 10%);

@@ -15,6 +15,7 @@ export const Button  = (props: Props) => {
         style={{width:props.width}}
         disabled={props.disable} 
         className={styles["shared-button"]}
+        onClick={props.onClick}
         >{props.children}</button>
     )
 }
