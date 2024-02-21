@@ -6,12 +6,13 @@ interface Props {
     onClick? : () => void,
     disable? : boolean,
     color?: string,
+    width?: string
 }
 
 export const Button  = (props: Props) => {
     return (
         <button 
-        style={ props.color ? {background: props.color} : {}}
+        style={{width:props.width}}
         disabled={props.disable} 
         className={styles["shared-button"]}
         >{props.children}</button>

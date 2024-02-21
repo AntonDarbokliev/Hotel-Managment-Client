@@ -23,11 +23,16 @@
 .buttons {
     position: sticky;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     bottom: 0rem;
     width: 99%;
     padding: 0.5rem;
     // height: 1rem;
     background-color: $background-color;
+    button {
+        margin: 0.1rem 0;
+    }
   
 }

@@ -25,7 +25,8 @@ export const Rooms = () => {
             </div>
             }
             <div className={styles["buttons"]}>
-                <Button>Add a Floor</Button>
+                <Button width="90%">Add a Floor</Button>
+                <Button width="90%">Add a Room</Button>
             </div>
         </div>
         </>
