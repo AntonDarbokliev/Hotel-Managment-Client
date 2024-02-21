@@ -19,7 +19,7 @@
 
 @mixin details-shared {
     background: $background-color;
-    min-height: 60vh;
+    height: 60vh;
     margin: 0 0.5rem;
     border-radius: $main-border-radius;
     overflow: auto;
@@ -38,5 +38,7 @@
 
 .tab-content {
     flex: 2;
+    display: flex;
+    justify-content: center;
     // flex-shrink: 0
 }

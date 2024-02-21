@@ -1,0 +1,11 @@
+@import '../../../styling-properties.scss';
+
+.dropdown {
+    border: none;
+    margin: 0 0.5rem;
+    width: 35%;
+    height: 2rem;
+    border-radius: $main-border-radius;
+    text-align: center;
+    color: $main-color;
+}
