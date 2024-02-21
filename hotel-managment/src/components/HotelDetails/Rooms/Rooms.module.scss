@@ -1,0 +1,33 @@
+@import '../../../styling-properties.scss';
+
+.rooms {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.rooms-list {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdowns {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    bottom: 0rem;
+    width: 99%;
+    padding: 0.5rem;
+    // height: 1rem;
+    background-color: $background-color;
+  
+}
