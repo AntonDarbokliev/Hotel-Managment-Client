@@ -1,0 +1,26 @@
+@import '../../../styling-properties.scss';
+
+.toast-notification {
+    background: rgba(242, 59, 59, 0.9);;
+    border-radius: $main-border-radius;
+    color: white;
+    position: fixed;
+    top: 0.8rem;
+    left: 0.8rem;
+    min-height: 10vh;
+    max-width: 50vw;
+    text-align: center;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+
+    h1{
+        margin: 0;
+    }
+
+    p {
+        width: 100%;
+    }
+}
