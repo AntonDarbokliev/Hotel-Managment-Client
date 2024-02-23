@@ -26,13 +26,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    bottom: 0rem;
+    bottom: 0;
     width: 99%;
     padding: 0.5rem;
-    // height: 1rem;
     background-color: $background-color;
+    margin-top: auto;
     button {
         margin: 0.1rem 0;
     }
   
+}
+
+@media (min-width: $min-width-media) {
+    .rooms-list {
+        width: 70%;
+    }
+
+    .buttons {
+        flex-direction: row;
+        // bottom: 1rem;
+        // padding: 1rem;
+        button {
+            width: 40% !important;
+            margin: 0 2rem;
+        }
+    }
 }
