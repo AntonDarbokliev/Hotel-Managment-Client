@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
         return (
             <>
             <div className={styles['hotel-card']} onClick={() => {
-                navigate('/hotels/' + hotel.id)
+                navigate('/hotels/' + hotel.id + '/rooms')
                 
             } }>
                 

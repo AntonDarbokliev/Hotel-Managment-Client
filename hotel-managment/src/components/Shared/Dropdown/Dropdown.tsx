@@ -1,15 +1,18 @@
-import { ReactNode } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
 import styles from './Dropdown.module.scss'
 
 interface Props {
     children: ReactNode,
-    options: number[]
+    options: number[],
+    onChange? : (e:ChangeEvent) => void,
+    value?:string,
+    name? :string,
 }
 
-export const Dropdown: React.FC<Props> = ({options,children}) => {
+export const Dropdown: React.FC<Props> = ({options,children,onChange,value,name}) => {
     return (
-        <select name="" id="" className={styles['dropdown']}>
-            <option value="blank">{children}</option>
+        <select name={name} className={styles['dropdown']} onChange={onChange} value={value}>
+            <option value="">{children}</option>
             {options.map((value) => <option key={value} value={value}>{value}</option>)}
         </select>
     )
