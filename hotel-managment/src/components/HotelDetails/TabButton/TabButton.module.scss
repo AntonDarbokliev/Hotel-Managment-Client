@@ -10,3 +10,8 @@
     margin: 0.5rem 0;
     box-shadow: $main-box-shadow;
 }
+
+.active {
+    color: $main-color;
+    background: darken(white,20%);
+}
