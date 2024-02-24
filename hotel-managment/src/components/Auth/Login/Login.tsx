@@ -7,13 +7,17 @@ import { useFormValidation } from "../../../hooks/useFormValidation";
 import { useLoginValidations } from "./LoginHook";
 import { authServiceFactory } from "../../../services/auth.ts";
 import { useState } from "react";
+import { useAuthStore } from "../../../stores/Auth.ts";
 
 const authService = authServiceFactory();
 
+
 export const Login = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const updateUser = useAuthStore((s) => s.updateUser)
 
+  const navigate = useNavigate();
+  
   const onFormSubmit = async () => {
     const data = new FormData();
     data.append("LoginCode", formValues.hotelCode);
@@ -23,6 +27,8 @@ export const Login = () => {
       const response = await authService.login(data);
       const token = response.success; 
       localStorage.setItem("token", token);
+      
+      updateUser()
       
       navigate("/");
     } catch (error) {
