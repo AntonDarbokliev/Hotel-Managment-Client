@@ -7,8 +7,7 @@ import { Modal } from "../../Shared/Modal/Modal"
 import { InputField } from "../../Shared/InputField/InputField"
 import { ToastNotification } from "../../Shared/ToastNotification/ToastNotification"
 import { useForm } from "../../../hooks/useForm"
-import { useParams } from "react-router-dom"
-import { roomServiceFactory } from "../../../services/room"
+import { useRooms } from "./RoomsHook"
 
 export const Rooms = () => {
     const floorTestOptions = [1,2,3,4]
@@ -22,9 +21,6 @@ export const Rooms = () => {
         const [rooms,setRooms ] = useState(roomTestOptions)
         const [roomModal,setRoomModal] = useState(false)
         const [toastText, setToastText] = useState('')
-
-        const params = useParams()
-        const roomService = roomServiceFactory()
     
         const {formValues,onChangeHandler} = useForm({
         floorValue: '',
@@ -32,32 +28,10 @@ export const Rooms = () => {
         roomNumber: '',
     },() => {})
 
-    const onAddRoomClick = () => {
-        if(formValues.floorValue !== ''){
-            setRoomModal(true)
-        }else {
-            setToastText('Plase select a Floor before adding a Room')
-            setRoomModal(false)
-        }
-    }
-
-    const onAddRoomHandler = async (e:React.MouseEvent) => {
-        e.preventDefault()
-        console.log('Room Number: ',formValues.roomNumber)
-        const hotelId = params.id
-        const formData = new FormData()
-        formData.append('RoomNumber',formValues.roomNumber)
-        formData.append('Floor',formValues.floorValue)
-        formData.append('HotelId',String(hotelId))
-        try {
-            await roomService.add(formData)
-        }catch(error) {
-            console.log(error)
-            setToastText('An error occured, please try again later')
-        }
-        setRoomModal(false)
-        
-    }
+    const {
+        onAddRoomClick,
+        onAddRoomHandler
+    } = useRooms(setRoomModal,formValues,setToastText)
 
     return (
         <>
