@@ -22,7 +22,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
     };
 
 
-    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/Hotel.*/.test(url)) {
+    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/(Hotel|Room).*/.test(url)) {
             const token = localStorage.getItem('token');
             if(!token) {
                 throw new Error('Token is missing');
