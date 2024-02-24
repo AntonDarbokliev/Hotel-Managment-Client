@@ -6,6 +6,8 @@ import { Register } from "./components/Auth/Register/Register";
 import { AddHotel } from "./components/AddHotel/AddHotel.tsx";
 
 import { HotelsHome } from "./components/HotelsHome/HotelsHome";
+import { useEffect } from "react";
+import { useAuthStore } from "./stores/Auth.ts";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +39,14 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const updateUser = useAuthStore(s => s.updateUser)
+
+  useEffect(() => {
+    updateUser()
+  },[])
+
   return (
     <>
-    {/* <p>Hello test</p> */}
-    {/* <Navigation/> */}
     <RouterProvider router={router}/>   
     </>
   )

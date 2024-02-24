@@ -10,7 +10,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    // justify-content: center;
     z-index: 1;
+    overflow-y:scroll;
 
     &.closed {
         display: none;
@@ -21,7 +23,7 @@
 
     .hotelImage-container{
         width: 7rem;
-        height: 7rem;
+        min-height: 7rem;
         border: 1px black solid;
         margin-top: 1rem;
         border-radius: $main-border-radius;
@@ -76,6 +78,16 @@
       }
 }
 
+.log-out__div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 4rem;
+    .log-out {
+    color: #ff0000 !important;
+    padding: 0.5rem;
+    }
+}
 // @keyframes slideInRight {
 //     from {
 //       transform: translateX(100%); /* Start off-screen to the right */

@@ -1,6 +1,5 @@
 import { create } from "zustand"
 import { authObjectFromStorage } from "../utils/authObjectFromStorage"
-// import { AuthInfo } from '../types/AuthTypes'
 
 interface User {
     fullName: string,
@@ -11,7 +10,8 @@ interface User {
 interface AuthStore  {
     user: User
     isLoggedIn: boolean,
-    updateUser: () => void
+    updateUser: () => void,
+    clearUser: () => void
 }
 
 
@@ -22,21 +22,44 @@ export const useAuthStore = create<AuthStore>((set) => ({
         id: '',
     },
     isLoggedIn: false,
+    clearUser: () => {
+        set(() => ({
+            user: {
+                fullName: "",
+                id: "",
+                picture: "",
+            },
+            isLoggedIn: false,
+        }))
+    },
+
     updateUser: () => {
         const newUser = authObjectFromStorage()
+        
         if(newUser.FullName.length > 0){
+            console.log('New User: ',newUser)
             set((state) => ({
                 ...state,
                 user: {
-                    ...state.user,
                     fullName: newUser.FullName,
                     id: newUser.nameId,
                     picture: newUser.ProfilePicture
                 },
                 isLoggedIn: true
             }));
+        } else {
+            set((state) => ({
+                ...state,
+                user: {
+                    fullName: '',
+                    id: '',
+                    picture: ''
+                },
+                isLoggedIn: false
+            }));
         }
-    }
+    },
+    
 }))
 
     

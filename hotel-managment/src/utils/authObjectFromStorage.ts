@@ -7,7 +7,6 @@ export const authObjectFromStorage = () => {
 
     if(token){
         const authInfo:AuthInfo = jwtDecode(token)
-        console.log("Decoded token: " ,authInfo)
         return authInfo
     }else {
         return {
