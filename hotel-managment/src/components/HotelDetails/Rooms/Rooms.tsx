@@ -20,6 +20,7 @@ export const Rooms = () => {
     
         const [rooms,setRooms ] = useState(roomTestOptions)
         const [roomModal,setRoomModal] = useState(false)
+        const [floorModal, setFloorModal] = useState(false)
         const [toastText, setToastText] = useState('')
     
         const {formValues,onChangeHandler} = useForm({
@@ -37,7 +38,7 @@ export const Rooms = () => {
         <>
             {roomModal && 
             <Modal stateSetter={setRoomModal} title="Add a Room">
-                <form action="">
+                <form action="" className={styles["room-modal-form"]}>
                     <InputField type="number" 
                     name="roomNumber" 
                     value={formValues.roomNumber}
@@ -48,6 +49,15 @@ export const Rooms = () => {
                     <Button width="12rem" disable={formValues.roomNumber == ''} onClick={(event) => onAddRoomHandler(event!)}>Add Room</Button>
                 </form>
             </Modal>
+            }
+
+            { floorModal && 
+                <Modal stateSetter={setFloorModal} title="Are you sure you want to add a Floor?">
+                    <div className={styles["floor-modal-buttons"]}>
+                    <Button width="8rem">Yes</Button>
+                    <Button width="8rem" onClick={() =>setFloorModal(false)}>Cancel</Button>
+                    </div>
+                </Modal>
             }
 
             { toastText !== ''  && 
@@ -67,7 +77,7 @@ export const Rooms = () => {
             </div>
             }
             <div className={styles["buttons"]}>
-                <Button width="90%">Add a Floor</Button>
+                <Button width="90%" onClick={() => setFloorModal(true)}>Add a Floor</Button>
                 <Button width="90%" onClick={onAddRoomClick}>Add a Room</Button>
             </div>
         </div>

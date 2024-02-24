@@ -37,6 +37,19 @@
   
 }
 
+.floor-modal-buttons {
+    display:flex;
+    flex-direction: column;
+    margin: 1rem;
+    button {
+        margin: 1rem;
+    }
+}
+
+.room-modal-form  {
+    margin-bottom: 1rem;
+}
+
 @media (min-width: $min-width-media) {
     .rooms-list {
         width: 70%;
@@ -44,11 +57,14 @@
 
     .buttons {
         flex-direction: row;
-        // bottom: 1rem;
-        // padding: 1rem;
         button {
             width: 40% !important;
             margin: 0 2rem;
         }
+    }
+
+    .floor-modal-buttons {
+        flex-direction: row;
+        margin-top: 2rem;
     }
 }
