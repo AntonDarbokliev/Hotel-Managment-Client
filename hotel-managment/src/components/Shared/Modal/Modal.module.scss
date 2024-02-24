@@ -40,3 +40,10 @@
         }
     }
 }
+
+@media(min-width: $min-width-media){
+    .modal {
+        min-width: 25vw;
+        max-width: 30vw;
+    }
+}
