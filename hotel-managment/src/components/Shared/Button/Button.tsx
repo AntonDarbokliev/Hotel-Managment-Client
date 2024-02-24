@@ -3,7 +3,7 @@ import styles from './Button.module.scss';
 
 interface Props {
     children: ReactNode,
-    onClick? : () => void,
+    onClick?: (event?: React.MouseEvent) => void
     disable? : boolean,
     color?: string,
     width?: string
