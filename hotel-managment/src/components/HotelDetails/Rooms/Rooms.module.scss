@@ -7,13 +7,6 @@
     position: relative;
 }
 
-.rooms-list {
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
 .dropdowns {
     width: 100%;
     display: flex;
@@ -51,9 +44,6 @@
 }
 
 @media (min-width: $min-width-media) {
-    .rooms-list {
-        width: 70%;
-    }
 
     .buttons {
         flex-direction: row;
