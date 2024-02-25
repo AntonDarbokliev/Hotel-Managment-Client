@@ -22,7 +22,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
     };
 
 
-    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/(Hotel|Room).*/.test(url)) {
+    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/(Hotel|Room|Floor).*/.test(url)) {
             const token = localStorage.getItem('token');
             if(!token) {
                 throw new Error('Token is missing');
@@ -39,6 +39,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
     
     const response = await fetch(url,options)
 
+    console.log(response)
     if(!response.ok){
         throw new Error(response.statusText)
     }
@@ -47,10 +48,12 @@ const request = async ({method, url, data}: RequestProps) =>  {
         return {}
     } 
 
+    // console.log(url)
     if(url.includes('Register')){
         return response
     }else {
-        return response.json()
+        // return response
+        return response.json() // Remove later
     }
 
 }

@@ -6,6 +6,7 @@ export const roomServiceFactory = () => {
     const request = RequestFactory()
 
     return {
-        add: (data: FormData) => request.post(baseUrl,data)
+        add: (data: FormData) => request.post(baseUrl,data),
+        get: (floorId:string) => request.get(baseUrl + `/floor/${floorId}`)
     }
 }
