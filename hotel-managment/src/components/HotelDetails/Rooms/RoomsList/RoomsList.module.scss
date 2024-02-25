@@ -1,0 +1,14 @@
+@import '../../../../styling-properties.scss';
+
+.rooms-list {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: $min-width-media) { 
+    .rooms-list {
+        width: 70%;
+    }
+}
