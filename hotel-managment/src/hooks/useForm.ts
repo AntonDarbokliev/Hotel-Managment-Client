@@ -14,9 +14,14 @@ export const useForm = <T>(initialValue : T,onSubmitHandler : (values: T) => voi
         onSubmitHandler(formValues)
     }
 
+    const resetForm = () => {
+        setFormValues(initialValue)
+    }
+
     return {
         formValues,
         onSubmit,
-        onChangeHandler
+        onChangeHandler,
+        resetForm
     }
 }
