@@ -107,7 +107,7 @@
     }
 
     .navigation-button{
-        width: 5vw;
+        width: $side-nav-width-pc;
         &.navigation-button-opened{
             right: 15vw;
           }

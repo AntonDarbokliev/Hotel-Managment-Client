@@ -8,6 +8,7 @@ export const hotelServiceFactory = ( ) => {
     
     return {
         add: (data: FormData) => request.post(baseUrl,data),
-        getAll: () => request.get(baseUrl)
-    }   
+        getAll: () => request.get(baseUrl),
+        getSingle: (id:string) => request.get(baseUrl + `/${id}`)
+    }    
 }

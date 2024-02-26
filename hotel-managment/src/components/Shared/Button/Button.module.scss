@@ -2,21 +2,20 @@
 
 .shared-button {
     background:linear-gradient(to bottom left, $main-color 40%, #9a59a8); ;
-    // background: $main-color ;
-    border: 1px solid white;
+    border: none;
     color: white;
     padding: 0.5rem;
-    width: 10rem;
     height: 2.5rem;
     border-radius: $main-border-radius;
     font-size: 1.5rem;
     font-weight: 300;
     line-height: 1.5rem;
-
+    box-shadow: $main-box-shadow;
+    
     &:hover {
         background: white;
         color: $main-color;
-        border: 1px solid $main-color;
+        outline: 1px solid $main-color;
         cursor: pointer;
     }
 }

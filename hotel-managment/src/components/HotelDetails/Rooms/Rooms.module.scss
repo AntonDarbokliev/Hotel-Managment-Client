@@ -1,0 +1,65 @@
+@import '../../../styling-properties.scss';
+
+.rooms {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+
+    p {
+        text-align: center;
+    }
+}
+
+.dropdowns {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    width: 99%;
+    padding: 0.5rem;
+    background-color: $background-color;
+    margin-top: auto;
+    button {
+        margin: 0.1rem 0;
+    }
+  
+}
+
+.floor-modal-buttons {
+    display:flex;
+    flex-direction: column;
+    margin: 1rem;
+    button {
+        margin: 1rem;
+    }
+}
+
+.room-modal-form  {
+    margin-bottom: 1rem;
+}
+
+@media (min-width: $min-width-media) {
+
+    .buttons {
+        flex-direction: row;
+        button {
+            width: 40% !important;
+            margin: 0 2rem;
+        }
+    }
+
+    .floor-modal-buttons {
+        flex-direction: row;
+        margin-top: 2rem;
+    }
+}

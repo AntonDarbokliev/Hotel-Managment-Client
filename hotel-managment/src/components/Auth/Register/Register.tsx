@@ -189,7 +189,7 @@ export const Register = () => {
                 
 
 
-                <Button disable={disableButton}>Register</Button>
+                <Button width='10rem' disable={disableButton}>Register</Button>
             </form>
             <p>Already registered your hotel? <Link to="/login">Sign in.</Link></p>
                 </>

@@ -93,7 +93,7 @@ export const Login = () => {
         </InputField>
         {loginError && <p className={styles.error}>{loginError}</p>}
 
-        <Button disable={disableButton}>Login</Button>
+        <Button width='10rem' disable={disableButton}>Login</Button>
       </form>
 
       <p>

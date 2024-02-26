@@ -1,4 +1,4 @@
-import { FocusEventHandler, FormEvent, ReactNode } from 'react'
+import { FocusEventHandler, FormEvent, ForwardedRef, ReactNode, forwardRef } from 'react'
 import styles from './InputField.module.scss'
 
 export interface InputFieldProps {
@@ -14,10 +14,11 @@ export interface InputFieldProps {
         boolean: boolean,
         errorMessage: string
     },
-    maxLength?: number
+    maxLength?: number,
+    // ref?: RefObject<HTMLInputElement>
 } 
 
-export const InputField = (props: InputFieldProps) => {
+export const InputField = forwardRef( (props: InputFieldProps,ref: ForwardedRef<HTMLInputElement>) => {
     return (
         <>
         <div className={styles['input-div']}>
@@ -35,9 +36,10 @@ export const InputField = (props: InputFieldProps) => {
             onFocus={props.onFocusHandler}
             onBlur={props.onBlurHandler}
             style={props.isValid?.boolean === false ?{border: 'red 1px solid'} : {} } 
+            ref={ref}
             ></input>
             {!props.isValid?.boolean ? <p className={styles['error-message']}>{props.isValid?.errorMessage}</p>: <></> }
         </div>
         </>
     )   
-}
+})
