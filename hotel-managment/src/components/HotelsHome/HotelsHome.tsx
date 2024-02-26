@@ -4,12 +4,18 @@ import styles from './HotelsHome.module.scss'
 import { HotelsHomeCard } from "./HotelsHomeCard/HotelsHomeCard"
 import { hotelServiceFactory } from "../../services/hotel"
 import { Hotel } from "../../types/HotelTypes"
+import { useLoading } from "../../hooks/useLoading"
+import Spinner from "../Shared/LoadSpinner/LoadSpinner"
 const hotelService = hotelServiceFactory()
 
 export const HotelsHome = () => {
-        const [hotels, setHotels ] = useState<Hotel[]>([])
+    const [hotels, setHotels ] = useState<Hotel[]>([])
+
+    const {isLoading,requestWithLoading } = useLoading()
+
     useEffect(() => {
-        hotelService.getAll().then( data => setHotels(data))        
+        requestWithLoading(() => hotelService.getAll().then( data => setHotels(data)))
+           
     },[])
 
     return (
@@ -23,8 +29,16 @@ export const HotelsHome = () => {
                 </div>
 
                 <div className={styles["hotels-list"]}>
+                    {!isLoading &&
+                    <>
                     {hotels.map((hotel) =><HotelsHomeCard key={hotel.id} hotel={hotel}/>)}
+                    </>
+                    }
+
                 </div>
+                    {isLoading && 
+                    <Spinner></Spinner>
+                    }
             </div> 
         </div>
 

@@ -11,6 +11,7 @@ import { RoomsList } from "./RoomsList/RoomsList"
 import { floorServiceFactory } from "../../../services/floors"
 import { useParams } from "react-router-dom"
 import { roomServiceFactory } from "../../../services/room"
+import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
 
 export const Rooms = () => {
     
@@ -18,7 +19,8 @@ export const Rooms = () => {
         const [roomModal,setRoomModal] = useState(false)
         const [floorModal, setFloorModal] = useState(false)
         const [toastText, setToastText] = useState('')
-        const [floors, setFloors ] = useState<{floorNumber:number,id:string }[]>([]) 
+        const [floors, setFloors ] = useState<{floorNumber:number,id:string }[]>([])
+        const [noRoomsFound, setNoRoomsFound] = useState(false)
 
         const floorService = floorServiceFactory()
         const roomService = roomServiceFactory()
@@ -26,26 +28,34 @@ export const Rooms = () => {
         const params = useParams()
 
         useEffect(() => {
-            floorService.get(String(params.id))
-            .then( data => setFloors(data.floors))
-            .catch(err => console.error(err))
+                floorService.get(String(params.id))
+                .then( data => setFloors(data.floors))
+                .catch(err => console.error(err))
         },[])
     
         const {formValues,onChangeHandler} = useForm({
         floorValue: '',
         roomValue: '',
         roomNumber: '',
-    },() => {})
+        },() => {})
 
     useEffect (() => {
+        setRooms([])
         if(formValues.floorValue == ''){
-            setRooms([])
             return;
         }
             const floorId = floors.find(x => String(x.floorNumber) == formValues.floorValue)?.id
             if(floorId){
                 roomService.get(floorId)
-                .then(data => setRooms(data.rooms))
+                .then(data => {
+                    setRooms(data.rooms)
+                    if(data.rooms.length === 0 ){
+                        setNoRoomsFound(true)
+                    }else {
+                        setNoRoomsFound(false)
+                    }
+                    console.log(noRoomsFound)
+                })
             }
     },[formValues.floorValue])
 
@@ -91,16 +101,19 @@ export const Rooms = () => {
             <div className={styles["dropdowns"]}>
                 <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue} options={floors}>Floor</Dropdown>
             </div>
-            {rooms.length > 0 && 
-
+            { rooms.length > 0 && 
                 <RoomsList rooms={rooms}/>
+            }
+
+            { rooms.length == 0 && !noRoomsFound && formValues.floorValue != '' && 
+            <Spinner/>
             }
 
             { formValues.floorValue == '' &&
                 <p>Select a floor to view rooms</p>
             }
 
-            {rooms.length == 0 && formValues.floorValue != '' && 
+            {noRoomsFound && 
                 <p>No rooms added yet</p>
             }
             <div className={styles["buttons"]}>
