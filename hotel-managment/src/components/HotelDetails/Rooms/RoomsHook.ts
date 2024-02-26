@@ -1,4 +1,3 @@
-// import { useParams } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { roomServiceFactory } from "../../../services/room"
 import { floorServiceFactory } from "../../../services/floors";
@@ -6,7 +5,6 @@ import { floorServiceFactory } from "../../../services/floors";
 interface FormValues {
     [name:string] : string 
 }
-
 
 export const useRooms = (
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -37,18 +35,16 @@ export const useRooms = (
 
     const onAddRoomHandler = async (e:React.MouseEvent) => {
         e.preventDefault()
-        // const hotelId = params.id
         const floorId = floors.find(x => String(x.floorNumber) == formValues.floorValue)!.id
         const formData = new FormData()
         formData.append('RoomNumber',formValues.roomNumber)
         formData.append('FLoorId',floorId)
         try {
             const data = await roomService.add(formData)
-            console.log(data)
             roomsSetter(state => [...state,data.room])
         }catch(error) {
             console.log(error)
-            toastSetter('An error occured, please try again laterrr')
+            toastSetter('An error occured, please try again later')
         }
         modalSetter(false)
         
@@ -60,7 +56,7 @@ export const useRooms = (
         formData.append('FloorNumber',String(floors.length + 1))
         try {
             const data = await floorService.add(formData)
-            floorSetter(state => [...state,{floorNumber: state.length + 1,id: data.currentFloor.id}]) 
+            floorSetter(state => [...state,{floorNumber:  data.currentFloor.floorNumber,id: data.currentFloor.id}]) 
             floorModalSetter(false)
         } catch (error) {
             toastSetter('An error occured while adding a floor, please try again later')

@@ -39,7 +39,6 @@ const request = async ({method, url, data}: RequestProps) =>  {
     
     const response = await fetch(url,options)
 
-    console.log(response)
     if(!response.ok){
         throw new Error(response.statusText)
     }
@@ -48,12 +47,10 @@ const request = async ({method, url, data}: RequestProps) =>  {
         return {}
     } 
 
-    // console.log(url)
     if(url.includes('Register')){
         return response
     }else {
-        // return response
-        return response.json() // Remove later
+        return response.json() 
     }
 
 }

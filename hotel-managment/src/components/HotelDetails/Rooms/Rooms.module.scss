@@ -5,6 +5,11 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+    width: 100%;
+
+    p {
+        text-align: center;
+    }
 }
 
 .dropdowns {

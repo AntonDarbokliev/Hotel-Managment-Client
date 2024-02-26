@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {useEffect, useState } from "react"
 import { Dropdown } from "../../Shared/Dropdown/Dropdown"
 import styles from './Rooms.module.scss'
 import { Button } from "../../Shared/Button/Button"
@@ -55,6 +55,7 @@ export const Rooms = () => {
         onAddFloor
     } = useRooms(setRoomModal,formValues,setToastText,setRooms,setFloors,floors,setFloorModal)
 
+    
     return (
         <>
             {roomModal && 
@@ -89,11 +90,18 @@ export const Rooms = () => {
             <h1>Rooms</h1>
             <div className={styles["dropdowns"]}>
                 <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue} options={floors}>Floor</Dropdown>
-                {/* <Dropdown onChange={onChangeHandler} name="roomValue" value={formValues.roomValue} options={roomTestOptions}>Room</Dropdown> */}
-                {/* DONT REMOVE YET */}
             </div>
-            {rooms && 
+            {rooms.length > 0 && 
+
                 <RoomsList rooms={rooms}/>
+            }
+
+            { formValues.floorValue == '' &&
+                <p>Select a floor to view rooms</p>
+            }
+
+            {rooms.length == 0 && formValues.floorValue != '' && 
+                <p>No rooms added yet</p>
             }
             <div className={styles["buttons"]}>
                 <Button width="90%" onClick={() => setFloorModal(true)}>Add a Floor</Button>
