@@ -37,7 +37,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
         const newUser = authObjectFromStorage()
         
         if(newUser.FullName.length > 0){
-            console.log('New User: ',newUser)
             set((state) => ({
                 ...state,
                 user: {
