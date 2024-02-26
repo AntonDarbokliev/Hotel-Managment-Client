@@ -6,9 +6,14 @@ import { Register } from "./components/Auth/Register/Register";
 import { AddHotel } from "./components/AddHotel/AddHotel.tsx";
 
 import { HotelsHome } from "./components/HotelsHome/HotelsHome";
+
 import { HotelDetails } from "./components/HotelDetails/HotelDetails.tsx";
 import { Rooms } from "./components/HotelDetails/Rooms/Rooms.tsx";
 import { Employees } from "./components/HotelDetails/Employees/Employees.tsx";
+
+import { useEffect } from "react";
+import { useAuthStore } from "./stores/Auth.ts";
+
 
 const router = createBrowserRouter([
   {
@@ -54,6 +59,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const updateUser = useAuthStore(s => s.updateUser)
+
+  useEffect(() => {
+    updateUser()
+  },[])
+
   return (
     <>
     <RouterProvider router={router}/>   

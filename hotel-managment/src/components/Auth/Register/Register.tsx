@@ -15,7 +15,7 @@ export const Register = () => {
     const [hasRegistered, setHasRegistered] = useState(false)
     const [userImage, setUserImage ] = useState<File | undefined>()
     const [isImageValid,setIsImageValid] = useState(true)
-    
+
     const authService = authServiceFactory()
 
     const onFormSubmit = async () => {
