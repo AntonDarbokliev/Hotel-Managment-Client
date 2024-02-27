@@ -31,6 +31,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
             },
             isLoggedIn: false,
         }))
+
+        localStorage.removeItem('token')
     },
 
     updateUser: () => {
