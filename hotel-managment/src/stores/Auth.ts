@@ -39,9 +39,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
         const newUser = authObjectFromStorage()
         
         const currentTime =  Math.floor(Date.now() / 1000);
-        
+
         if(newUser.FullName.length > 0  && currentTime < newUser.exp!){
-            console.log('if')
             set((state) => ({
                 ...state,
                 user: {
@@ -52,7 +51,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
                 isLoggedIn: true
             }));
         } else {
-            console.log('else')
             set((state) => ({
                 ...state,
                 user: {
