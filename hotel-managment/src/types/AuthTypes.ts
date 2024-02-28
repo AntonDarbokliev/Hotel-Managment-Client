@@ -10,5 +10,6 @@ export interface RegisterData {
 export interface AuthInfo {
     nameId: string,
     FullName: string,
-    ProfilePicture: string
+    ProfilePicture: string,
+    exp? : number
 }

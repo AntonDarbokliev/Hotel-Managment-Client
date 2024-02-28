@@ -9,14 +9,22 @@ import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
 import {  useState } from 'react'
 import { authServiceFactory } from '../../../services/auth'
 import { onImageChangeHandler } from '../../../utils/imageChangeHandler'
+import { useLoading } from '../../../hooks/useLoading'
+import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
+import { ToastNotification } from '../../Shared/ToastNotification/ToastNotification'
+import { extractErrors } from '../../../utils/extractErrors'
+import { ErrorObj } from '../../../types/ErrorTypes'
 
 export const Register = () => {
     
     const [hasRegistered, setHasRegistered] = useState(false)
     const [userImage, setUserImage ] = useState<File | undefined>()
     const [isImageValid,setIsImageValid] = useState(true)
+    const [toastText,setToastText] = useState('')
 
     const authService = authServiceFactory()
+
+    const {isLoading,requestWithLoading} = useLoading()
 
     const onFormSubmit = async () => {
         if(userImage) {
@@ -35,10 +43,11 @@ export const Register = () => {
             formData.append("ProfilePicture",userImage );
 
             try{
-                await authService.register(formData)
+                await requestWithLoading( async () => await authService.register(formData))
                 setHasRegistered(true)
             }catch(err){
-                throw new Error(String(err))
+                const text = extractErrors(err as ErrorObj)
+                setToastText(text)
             }
         }else{
             setIsImageValid(false)
@@ -84,8 +93,12 @@ export const Register = () => {
     
     return (
         <div className={styles["register"]}>
-    
-            {!hasRegistered && 
+
+            {toastText !== '' && 
+                <ToastNotification text={toastText} setText={setToastText} timer={3000}/>
+            }
+
+            {!hasRegistered && !isLoading && 
             <>
             <h1>Welcome!</h1>
 
@@ -196,6 +209,10 @@ export const Register = () => {
             }
             {hasRegistered && 
             <ConfirmEmail/>
+            }
+
+            { isLoading &&
+                <Spinner/>
             }
         </div>
     )

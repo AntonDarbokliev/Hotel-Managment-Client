@@ -40,7 +40,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
     const response = await fetch(url,options)
 
     if(!response.ok){
-        throw new Error(response.statusText)
+        throw ( await response.json())
     }
 
     if(response.status == 204) {

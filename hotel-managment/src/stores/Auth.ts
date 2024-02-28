@@ -31,13 +31,16 @@ export const useAuthStore = create<AuthStore>((set) => ({
             },
             isLoggedIn: false,
         }))
+
+        localStorage.removeItem('token')
     },
 
     updateUser: () => {
         const newUser = authObjectFromStorage()
         
-        if(newUser.FullName.length > 0){
-            console.log('New User: ',newUser)
+        const currentTime =  Math.floor(Date.now() / 1000);
+
+        if(newUser.FullName.length > 0  && currentTime < newUser.exp!){
             set((state) => ({
                 ...state,
                 user: {
@@ -57,6 +60,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
                 },
                 isLoggedIn: false
             }));
+            localStorage.removeItem('token')
         }
     },
     

@@ -1,30 +1,28 @@
 import styles  from './HotelDetails.module.scss'
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Outlet, useParams } from "react-router-dom"
 import { hotelServiceFactory } from "../../services/hotel"
-import { Hotel } from "../../types/HotelTypes"
 import { TabButton } from './TabButton/TabButton'
+import { useLoading } from '../../hooks/useLoading'
+import Spinner from '../Shared/LoadSpinner/LoadSpinner'
 const hotelService = hotelServiceFactory()
 
 export const HotelDetails = () => {
-    const [hotel,setHotel] = useState<Hotel | null>(null)
     const {id} = useParams()
 
+    const {isLoading,requestWithLoading } = useLoading()
     useEffect(() => {
+        requestWithLoading( () =>
         hotelService.getSingle(id!)
-        .then(data => setHotel(data))
         .catch(err => console.error(err))
-    },[id])
-
-    if(!hotel) {
-        return(
-            <h1>Loading Hotel...</h1>
         )
-    }
+    },[id])
 
     return (
         <>
         <div className={styles['container']}>
+            {!isLoading && 
+            <>
                 <h1>Control your hotel</h1>
             <div className={styles["details"]}>
                 <div className={styles["tabs"]}>
@@ -35,6 +33,13 @@ export const HotelDetails = () => {
                     <Outlet/>
                 </div>
             </div>
+            </>
+            }
+
+            {isLoading && 
+                <Spinner/>
+            }
+
         </div>
         </>
     )

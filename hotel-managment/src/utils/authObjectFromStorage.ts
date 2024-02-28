@@ -4,6 +4,7 @@ import {AuthInfo}  from '../types/AuthTypes'
 
 export const authObjectFromStorage = () => {
     const token = localStorage.getItem('token')
+    console.log(token)
 
     if(token){
         const authInfo:AuthInfo = jwtDecode(token)
