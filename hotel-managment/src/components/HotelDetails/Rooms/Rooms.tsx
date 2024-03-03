@@ -15,7 +15,7 @@ import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
 
 export const Rooms = () => {
     
-        const [rooms,setRooms ] = useState<{roomNumber: number,floorId: string}[]>([])
+        const [rooms,setRooms ] = useState<{roomNumber: number,id: string}[]>([])
         const [roomModal,setRoomModal] = useState(false)
         const [floorModal, setFloorModal] = useState(false)
         const [toastText, setToastText] = useState('')

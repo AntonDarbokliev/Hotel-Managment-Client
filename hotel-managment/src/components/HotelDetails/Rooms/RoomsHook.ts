@@ -10,7 +10,7 @@ export const useRooms = (
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
     formValues: FormValues,
     toastSetter:React.Dispatch<React.SetStateAction<string>>,
-    roomsSetter: React.Dispatch<React.SetStateAction<{roomNumber:number,floorId:string}[]>>,
+    roomsSetter: React.Dispatch<React.SetStateAction<{roomNumber:number,id:string}[]>>,
     floorSetter: React.Dispatch<React.SetStateAction<{
         floorNumber: number;
         id: string;
