@@ -13,6 +13,8 @@ import { Employees } from "./components/HotelDetails/Employees/Employees.tsx";
 
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/Auth.ts";
+import { RoomDetails } from "./components/RoomDetails/RoomDetails.tsx";
+import { RoomInfo } from "./components/RoomDetails/RoomInfo/RoomInfo.tsx";
 
 
 const router = createBrowserRouter([
@@ -50,7 +52,18 @@ const router = createBrowserRouter([
         element: <Employees/>,
     },
       ]
-    }
+    },
+
+  {
+    path: 'room/:id',
+    element: <RoomDetails/>,
+    children: [
+      {
+        path: 'info',
+        element: <RoomInfo/>
+      }
+    ]
+  }
     
       ],
   
