@@ -6,7 +6,7 @@ import Spinner from '../LoadSpinner/LoadSpinner'
 interface Props {
     isLoading: boolean,
     tabs: string[]
-    title: string,
+    title?: string,
 }
 
 
@@ -18,7 +18,7 @@ export const Details: React.FC<Props> = ({isLoading,title,tabs}) => {
             <h1>{title}</h1>
         <div className={styles["details"]}>
             <div className={styles["tabs"]}>
-                {tabs.map(x => <TabButton>{x}</TabButton>)}
+                {tabs.map(x => <TabButton key={x}>{x}</TabButton>)}
             </div>
             <div className={styles["tab-content"]}>
                 <Outlet/>
