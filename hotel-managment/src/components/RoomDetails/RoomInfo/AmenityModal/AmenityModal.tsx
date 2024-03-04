@@ -42,14 +42,11 @@ export const AmenityModal:React.FC<Props> = ({modalSetter,currentAmenities,roomS
                         <InputField name="other" value={formValues.other} onChange={onChangeHandler}>Other: </InputField>
                         <Button width="2rem" >+</Button>  
                     </form>
-
                 <div className={styles["other-amenities"]}>
                     {otherAmenities.map(x => <p key={x.name}>{x.name}</p>)}
                 </div>
                 
                 <Button width="13rem" onClick={onSave}>Save</Button>
-
-
             </Modal>
     )
 }

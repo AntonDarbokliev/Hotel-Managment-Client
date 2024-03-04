@@ -33,6 +33,8 @@ export const RoomInfo = () => {
 
     return (
         <>
+        <div className={styles["container"]}>
+
         { amenityModal && 
             <AmenityModal currentAmenities={room!.roomExtras} roomSetter={setRoom} modalSetter={setAmenityModal}/>
         } 
@@ -40,7 +42,6 @@ export const RoomInfo = () => {
         {!isLoading && 
         
         <div className={styles["room-info"]}>
-                {/* <h1>Info</h1> */}
 
                 <div className={styles["info"]}>
                     <FontAwesomeIcon icon={faCircleInfo} color="#4844bf"/>
@@ -65,7 +66,8 @@ export const RoomInfo = () => {
         {isLoading && 
         <Spinner/>
         }
-
+        </div>
         </>
+
     )
 }

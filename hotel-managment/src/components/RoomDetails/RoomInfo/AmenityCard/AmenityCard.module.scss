@@ -1,17 +1,17 @@
 @import '../../../../styling-properties.scss';
 
 .amenity-card {
+    position: relative;
     background: white;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     border-radius: $main-border-radius;
     // min-width: 80%;
-    min-width: 80%;
-    max-width: 85%;
+    width: 95%;
     padding: 1rem;
     box-shadow: $main-box-shadow;
-    margin: 0.3rem 0rem;
+    margin: 0.3rem 0;
     p {
         margin: 0;
         font-size: 1.5rem;
@@ -31,4 +31,17 @@
         background: darken(white, 10%);;
     }
 
+}
+
+@media (min-width:$min-width-media) {
+    .amenity-card{
+        width: 55%;
+        margin: 0.6rem 0;
+        justify-content: center;
+    }
+
+    .check{
+       position: absolute;
+       right: 0rem;
+    }
 }
