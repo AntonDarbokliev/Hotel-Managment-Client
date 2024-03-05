@@ -16,7 +16,8 @@ export const useRooms = (
         id: string;
     }[]>>,
     floors: {floorNumber:number,id:string }[],
-    floorModalSetter: React.Dispatch<React.SetStateAction<boolean>>
+    floorModalSetter: React.Dispatch<React.SetStateAction<boolean>>,
+    deleteFloorModalSetter: React.Dispatch<React.SetStateAction<boolean>>
     ) => {
 
         const params = useParams()
@@ -63,11 +64,23 @@ export const useRooms = (
         } 
     }
 
+    const onDeleteFloor = async () => {
+        try {
+            const floorId = floors.filter(x => String(x.floorNumber) == formValues.floorValue)[0].id
+            floorService.delete(floorId)
+            floorSetter(state => state.filter(x => x.id !== floorId))
+            deleteFloorModalSetter(false)
+        } catch (error) {
+            toastSetter('An error occured while removing this floor, please try again later')
+        }
+    }
+
 
     return {
         onAddRoomClick,
         onAddRoomHandler,
-        onAddFloor
+        onAddFloor,
+        onDeleteFloor
     }
 
 } 

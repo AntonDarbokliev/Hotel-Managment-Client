@@ -69,7 +69,6 @@ export const useAmenityModal  = ({modalSetter,initialAmenities, initialOtherAmen
             }
         })
         modalSetter(false)
-        console.log(allAmenities)
     }
 
     return {

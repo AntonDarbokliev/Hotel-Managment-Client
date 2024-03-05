@@ -12,6 +12,8 @@ import { floorServiceFactory } from "../../../services/floors"
 import { useParams } from "react-router-dom"
 import { roomServiceFactory } from "../../../services/room"
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 export const Rooms = () => {
     
@@ -21,6 +23,7 @@ export const Rooms = () => {
         const [toastText, setToastText] = useState('')
         const [floors, setFloors ] = useState<{floorNumber:number,id:string }[]>([])
         const [noRoomsFound, setNoRoomsFound] = useState(false)
+        const [deleteFloorModal, setDeleteFloorModal] = useState(false)
 
         const floorService = floorServiceFactory()
         const roomService = roomServiceFactory()
@@ -54,7 +57,6 @@ export const Rooms = () => {
                     }else {
                         setNoRoomsFound(false)
                     }
-                    console.log(noRoomsFound)
                 })
             }
     },[formValues.floorValue])
@@ -62,8 +64,9 @@ export const Rooms = () => {
     const {
         onAddRoomClick,
         onAddRoomHandler,
-        onAddFloor
-    } = useRooms(setRoomModal,formValues,setToastText,setRooms,setFloors,floors,setFloorModal)
+        onAddFloor,
+        onDeleteFloor
+    } = useRooms(setRoomModal,formValues,setToastText,setRooms,setFloors,floors,setFloorModal,setDeleteFloorModal)
 
     
     return (
@@ -92,6 +95,14 @@ export const Rooms = () => {
                 </Modal>
             }
 
+            {deleteFloorModal && 
+                <Modal title="Are you sure you want to delete this Floor?" stateSetter={setDeleteFloorModal}>
+                    <p className={styles["delete-warning"]} >This will delete the current floor, along with all the rooms inside it.</p>
+                    <Button width="8rem" onClick={onDeleteFloor}>Yes</Button>
+                    <Button width="8rem" onClick={() => setDeleteFloorModal(false)}>Cancel</Button>
+                </Modal>
+            }
+
             { toastText !== ''  && 
                 <ToastNotification text={toastText} timer={3000} setText={setToastText}></ToastNotification>
             }
@@ -100,7 +111,13 @@ export const Rooms = () => {
             <h1>Rooms</h1>
             <div className={styles["dropdowns"]}>
                 <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue} options={floors}>Floor</Dropdown>
+                {formValues.floorValue !== '' && 
+                <Button onClick={() => setDeleteFloorModal(true)}>
+                    <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
+                </Button>}
             </div>
+
+
             { rooms.length > 0 && 
                 <RoomsList rooms={rooms}/>
             }
