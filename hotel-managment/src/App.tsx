@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Login } from "./components/Auth/Login/Login";
 import { Root } from "./components/Root/Root";
 import { Register } from "./components/Auth/Register/Register";
@@ -16,6 +16,12 @@ import { useAuthStore } from "./stores/Auth.ts";
 import { RoomDetails } from "./components/RoomDetails/RoomDetails.tsx";
 import { RoomInfo } from "./components/RoomDetails/RoomInfo/RoomInfo.tsx";
 
+const isLoggedIn = useAuthStore.getState().isLoggedIn
+
+const PrivateRoute = () => {
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+};
+
 
 const router = createBrowserRouter([
   {
@@ -30,40 +36,48 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register/>,
 
-    },{
-      path: "add",
-      element: <AddHotel/>
+    },
 
-    },
     {
-      path: 'hotels',
-      element: <HotelsHome/>
-    },
-    {
-      path: 'hotels/:id',
-      element: <HotelDetails/>,
+      element: <PrivateRoute/>,
       children: [
         {
-          path: "rooms",
-          element: <Rooms/>,
-      },
+          path: "add",
+          element: <AddHotel/>
+    
+        },
+        {
+          path: 'hotels',
+          element: <HotelsHome/>
+        },
+        {
+          path: 'hotels/:id',
+          element: <HotelDetails/>,
+          children: [
+            {
+              path: "rooms",
+              element: <Rooms/>,
+          },
+          {
+            path: "employees",
+            element: <Employees/>,
+        },
+          ]
+        },
+    
       {
-        path: "employees",
-        element: <Employees/>,
-    },
+        path: 'room/:id',
+        element: <RoomDetails/>,
+        children: [
+          {
+            path: 'info',
+            element: <RoomInfo/>
+          }
+        ]
+      }
+
       ]
     },
-
-  {
-    path: 'room/:id',
-    element: <RoomDetails/>,
-    children: [
-      {
-        path: 'info',
-        element: <RoomInfo/>
-      }
-    ]
-  }
     
       ],
   
