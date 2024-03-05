@@ -63,9 +63,11 @@ const request = async ({method, url, data}: RequestProps) =>  {
 export const RequestFactory = ( ) => {
     const getRequest = (url:string) => request({ method: 'GET', url })
     const postRequest =  (url:string, data: FormData | Amenity[]) => request({method:'POST', url,data})
+    const deleteRequest = (url:string) => request({ method: 'DELETE', url })
 
     return {
         get: getRequest,
-        post: postRequest
+        post: postRequest,
+        delete: deleteRequest
     }
 }
