@@ -1,4 +1,4 @@
-import { Navigate, Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Login } from "./components/Auth/Login/Login";
 import { Root } from "./components/Root/Root";
 import { Register } from "./components/Auth/Register/Register";
@@ -15,12 +15,9 @@ import { useEffect } from "react";
 import { useAuthStore } from "./stores/Auth.ts";
 import { RoomDetails } from "./components/RoomDetails/RoomDetails.tsx";
 import { RoomInfo } from "./components/RoomDetails/RoomInfo/RoomInfo.tsx";
+import { PrivateRoute } from "./components/Root/PrivateRoute/PrivateRoute.tsx";
 
-const isLoggedIn = useAuthStore.getState().isLoggedIn
 
-const PrivateRoute = () => {
-  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
-};
 
 
 const router = createBrowserRouter([
