@@ -2,69 +2,26 @@ import { Link } from 'react-router-dom'
 import { Button } from '../../Shared/Button/Button'
 import { InputField } from '../../Shared/InputField/InputField'
 import styles from './Register.module.scss'
-import { useForm } from '../../../hooks/useForm'
 import { useFormValidation } from '../../../hooks/useFormValidation'
 import { useRegisterValidations } from './RegisterHook'
 import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
 import {  useState } from 'react'
-import { authServiceFactory } from '../../../services/auth'
 import { onImageChangeHandler } from '../../../utils/imageChangeHandler'
-import { useLoading } from '../../../hooks/useLoading'
 import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
 import { ToastNotification } from '../../Shared/ToastNotification/ToastNotification'
-import { extractErrors } from '../../../utils/extractErrors'
-import { ErrorObj } from '../../../types/ErrorTypes'
+import { useRegister } from '../../../hooks/useRegister'
+import { InputFieldslist } from '../../Shared/InputFieldsList/InputFieldsList'
+import { InputFieldType } from '../../../types/InputField'
 
 export const Register = () => {
     
     const [hasRegistered, setHasRegistered] = useState(false)
-    const [userImage, setUserImage ] = useState<File | undefined>()
-    const [isImageValid,setIsImageValid] = useState(true)
     const [toastText,setToastText] = useState('')
 
-    const authService = authServiceFactory()
+    const onSuccess = () => setHasRegistered(true)
+    const onFail = (text:string) => setToastText(text)
 
-    const {isLoading,requestWithLoading} = useLoading()
-
-    const onFormSubmit = async () => {
-        if(userImage) {
-            setIsImageValid(true)
-            
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars  
-            const { RepeatPassword, ...data} = formValues
-
-            const formData = new FormData();
-
-            const array = Object.entries(data)
-
-            for (const [key,value] of array) {
-                formData.append(key, value);
-            }
-            formData.append("ProfilePicture",userImage );
-
-            try{
-                await requestWithLoading( async () => await authService.register(formData))
-                setHasRegistered(true)
-            }catch(err){
-                const text = extractErrors(err as ErrorObj)
-                setToastText(text)
-            }
-        }else{
-            setIsImageValid(false)
-        }
-
-    }
-
-    const {formValues,onChangeHandler,onSubmit} = useForm({
-        FirstName: '',
-        MiddleName: '',
-        LastName: '',
-        Address: '',
-        EGN : '',
-        Password: '',
-        RepeatPassword:'',
-        Email: '',
-    },onFormSubmit)
+    const {isLoading,onChangeHandler, onSubmit,setUserImage,formValues} = useRegister(onSuccess,onFail)
 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
         FirstName : false,
@@ -91,6 +48,30 @@ export const Register = () => {
     } = useRegisterValidations(formValues, validationValues)
     
     
+    const inputGroup1 = [
+        { name: 'FirstName',errorMessage: 'First Name should be at least 2 characters long' ,validation: !isFirstNameValid,},
+        { name: 'MiddleName',errorMessage: 'MiddleName should be at least 2 characters long' ,validation: !isMiddleNameValid},
+        { name: 'LastName',errorMessage: 'LastName should be at least 2 characters long' ,validation: !isLastNameValid},
+        { name: 'EGN',errorMessage: 'EGN should be at least 10 characters long' ,validation: !isEGNValid, maxLength: 10},
+    ] as InputFieldType[]
+
+    const inputGroup2 = [
+        { name: 'Email',errorMessage: 'Invalid Email' ,validation: !isEmailValid},
+        { name: 'Address',errorMessage: 'Address should be at least 5 characters long' ,validation: !isAddressValid},
+        { name: 'Password',
+        errorMessage: 'Password must be 6 characters with at least one capital letter, one lowercase letter, and one symbol.' ,
+        type: 'password',
+        validation: !isPasswordValid},
+        { name: 'RepeatPassword',errorMessage: 'Passwords not matching' ,validation: !isRepeatPasswordValid, type: 'password',},
+    ] as InputFieldType[]
+
+    const listProps = {
+        formValues,
+        onChangeHandler,
+        onBlurHandler,
+        onFocusHandler
+    }
+
     return (
         <div className={styles["register"]}>
 
@@ -106,87 +87,13 @@ export const Register = () => {
 
             <div className={styles["register-group-fields-wrapper"]}>
 
-               
-
                 <div className={styles['register-group-input-fields']}>
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.FirstName} 
-                    name='FirstName'
-                    onBlurHandler={() => onBlurHandler('FirstName')}
-                    onFocusHandler={() => onFocusHandler('FirstName')}
-                    isValid={{boolean: !isFirstNameValid, errorMessage: 'First Name should be at least 2 characters long'}}
-                    >FirstName</InputField>
-                    
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.MiddleName} 
-                    name='MiddleName'
-                    onBlurHandler={() => onBlurHandler('MiddleName')}
-                    onFocusHandler={() => onFocusHandler('MiddleName')}
-                    isValid={{boolean: !isMiddleNameValid, errorMessage: 'MiddleName should be at least 2 characters long'}}
-                    >MiddleName</InputField>
-
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.LastName} 
-                    name='LastName'
-                    onBlurHandler={() => onBlurHandler('LastName')}
-                    onFocusHandler={() => onFocusHandler('LastName')}
-                    isValid={{boolean: !isLastNameValid, errorMessage: 'LastName should be at least 2 characters long'}}
-                    
-                    >LastName</InputField>
-
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.EGN} 
-                    name='EGN'
-                    onBlurHandler={() => onBlurHandler('EGN')}
-                    onFocusHandler={() => onFocusHandler('EGN')}
-                    isValid={{boolean: !isEGNValid, errorMessage: 'EGN should be at least 10 characters long'}}
-                    maxLength={10}
-                    >EGN</InputField>
+                    <InputFieldslist {...listProps} inputs={inputGroup1} ></InputFieldslist>
                 </div>
 
 
                 <div className={styles['register-group-input-fields']}>
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.Email} 
-                    name='Email' type='email'
-                    onBlurHandler={() => onBlurHandler('Email')}
-                    onFocusHandler={() => onFocusHandler('Email')}
-                    isValid={{boolean: !isEmailValid, errorMessage: 'Invalid Email'}}
-                    >Email</InputField>
-
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.Address}
-                    name='Address'
-                    onBlurHandler={() => onBlurHandler('Address')}
-                    onFocusHandler={() => onFocusHandler('Address')}
-                    isValid={{boolean: !isAddressValid, errorMessage: 'Address should be at least 5 characters long'}}
-                    >Address</InputField>
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.Password} 
-                    name='Password' type='password'
-                    onBlurHandler={() => onBlurHandler('Password')}
-                    onFocusHandler={() => onFocusHandler('Password')}
-                    isValid={{
-                        boolean: !isPasswordValid, 
-                        errorMessage: 'Password must be 6 characters with at least one capital letter, one lowercase letter, and one symbol.'
-                    }}
-                    >Password</InputField>
-
-                    <InputField 
-                    onChange={(e) => onChangeHandler(e)} 
-                    value={formValues.RepeatPassword} 
-                    name='RepeatPassword' type='password'
-                    onBlurHandler={() => onBlurHandler('RepeatPassword')}
-                    onFocusHandler={() => onFocusHandler('RepeatPassword')}
-                    isValid={{boolean: !isRepeatPasswordValid, errorMessage: 'Passwords not matching'}}
-                    >Repeat Password</InputField>
+                    <InputFieldslist {...listProps} inputs={inputGroup2} ></InputFieldslist>
                 </div>
             </div>
             
@@ -195,11 +102,8 @@ export const Register = () => {
                 accept="image/*" 
                 onChange={(e) => onImageChangeHandler(e,setUserImage)} 
                 name='userImage' 
-                isValid= { {boolean: isImageValid, errorMessage: 'Hotel Image is required'}} 
                 type='file'
                 >Hotel Image</InputField>
-
-                
 
 
                 <Button width='10rem' disable={disableButton}>Register</Button>
