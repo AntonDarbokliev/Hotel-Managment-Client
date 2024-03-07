@@ -49,9 +49,9 @@ export const Register = () => {
     
     
     const inputGroup1 = [
-        { name: 'FirstName',errorMessage: 'First Name should be at least 2 characters long' ,validation: !isFirstNameValid,},
-        { name: 'MiddleName',errorMessage: 'MiddleName should be at least 2 characters long' ,validation: !isMiddleNameValid},
-        { name: 'LastName',errorMessage: 'LastName should be at least 2 characters long' ,validation: !isLastNameValid},
+        { name: 'FirstName',errorMessage: 'First Name should be at least 2 characters long' ,validation: !isFirstNameValid, display: 'First Name'},
+        { name: 'MiddleName',errorMessage: 'MiddleName should be at least 2 characters long' ,validation: !isMiddleNameValid, display: 'Middle Name'},
+        { name: 'LastName',errorMessage: 'LastName should be at least 2 characters long' ,validation: !isLastNameValid, display: 'Last Name'},
         { name: 'EGN',errorMessage: 'EGN should be at least 10 characters long' ,validation: !isEGNValid, maxLength: 10},
     ] as InputFieldType[]
 
@@ -62,7 +62,7 @@ export const Register = () => {
         errorMessage: 'Password must be 6 characters with at least one capital letter, one lowercase letter, and one symbol.' ,
         type: 'password',
         validation: !isPasswordValid},
-        { name: 'RepeatPassword',errorMessage: 'Passwords not matching' ,validation: !isRepeatPasswordValid, type: 'password',},
+        { name: 'RepeatPassword',errorMessage: 'Passwords not matching' ,validation: !isRepeatPasswordValid, type: 'password',display: 'Repeat Password'},
     ] as InputFieldType[]
 
     const listProps = {
@@ -97,7 +97,6 @@ export const Register = () => {
                 </div>
             </div>
             
-                
                 <InputField 
                 accept="image/*" 
                 onChange={(e) => onImageChangeHandler(e,setUserImage)} 
