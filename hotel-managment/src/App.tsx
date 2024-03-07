@@ -86,7 +86,7 @@ function App() {
   const updateUser = useAuthStore(s => s.updateUser)
 
   useEffect(() => {
-    updateUser()
+   updateUser()
   },[])
 
   return (

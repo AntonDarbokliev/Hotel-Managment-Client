@@ -9,7 +9,7 @@ interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
     initialAmenities: Amenity[],
     initialOtherAmenities: Amenity [],
-    roomSetter: React.Dispatch<React.SetStateAction<Room | undefined>>
+    roomSetter: React.Dispatch<React.SetStateAction<Room | undefined>>,
 }
 const roomService = roomServiceFactory()
 
@@ -28,8 +28,7 @@ export const useAmenityModal  = ({modalSetter,initialAmenities, initialOtherAmen
             name: formValues.other,
             roomId: roomId!
         }
-        
-        if(!otherAmenities.some(x => x.name === amenity.name) && amenity.name !== '') {
+        if(!otherAmenities.some(x => x.name === amenity.name) && amenity.name !== '' ) {
             setOtherAmenities(state => [...state,amenity])
             resetForm()
         }

@@ -41,7 +41,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
         const currentTime =  Math.floor(Date.now() / 1000);
 
         if(newUser.FullName.length > 0  && currentTime < newUser.exp!){
-            console.log('setting to true')
             set((state) => ({
                 ...state,
                 user: {

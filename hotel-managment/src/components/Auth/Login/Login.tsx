@@ -6,7 +6,7 @@ import { useLoginValidations } from "./LoginHook";
 import { useState } from "react";
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner.tsx";
 import { ToastNotification } from "../../Shared/ToastNotification/ToastNotification.tsx";
-import { useLogin } from "../../../hooks/useLogin.ts";
+import { useLogin } from "../../../hooks/Auth/useLogin.ts";
 import { InputFieldType } from "../../../types/InputField.ts";
 import { InputFieldslist } from "../../Shared/InputFieldsList/InputFieldsList.tsx";
 

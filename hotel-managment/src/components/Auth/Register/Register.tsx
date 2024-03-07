@@ -9,7 +9,7 @@ import {  useState } from 'react'
 import { onImageChangeHandler } from '../../../utils/imageChangeHandler'
 import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
 import { ToastNotification } from '../../Shared/ToastNotification/ToastNotification'
-import { useRegister } from '../../../hooks/useRegister'
+import { useRegister } from '../../../hooks/Auth/useRegister'
 import { InputFieldslist } from '../../Shared/InputFieldsList/InputFieldsList'
 import { InputFieldType } from '../../../types/InputField'
 

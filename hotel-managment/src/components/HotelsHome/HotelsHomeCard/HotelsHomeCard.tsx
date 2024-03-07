@@ -1,6 +1,5 @@
 import { Hotel } from '../../../types/HotelTypes'
 import styles from './HotelsHomeCard.module.scss'
-import testImage from '../../../assets/hotel-test.jpg'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +19,7 @@ import { useNavigate } from 'react-router-dom'
             } }>
                 
                 <div className={styles['hotel-card-image__div']}>
-                <img className={styles['hotel-card__image']} src={testImage} alt="" />
+                <img className={styles['hotel-card__image']} src={hotel.profilePicture} alt="" />
                 </div>
 
                 <div className={styles['hotel-card-info__div']}>
