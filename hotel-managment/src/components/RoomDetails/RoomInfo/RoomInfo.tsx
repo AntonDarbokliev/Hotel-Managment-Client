@@ -2,9 +2,7 @@ import { useEffect, useState } from "react"
 import { roomServiceFactory } from "../../../services/room"
 import { useParams } from "react-router-dom"
 import { AmenityCard } from "./AmenityCard/AmenityCard"
-import { IconDefinition, faVault } from '@fortawesome/free-solid-svg-icons'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { faBath } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from './RoomInfo.module.scss'
@@ -25,11 +23,6 @@ export const RoomInfo = () => {
     useEffect(() => {
         requestWithLoading(() => roomService.getSingle(params.id!).then((data: {room: Room}) => setRoom(data.room)))
     },[])
-
-   const extrasLib: Record<string, IconDefinition> = {
-        Safe: faVault,
-        Bathtub: faBath
-   }
 
     return (
         <>
@@ -55,7 +48,9 @@ export const RoomInfo = () => {
 
                 <h1>Amenities</h1>
                 <div className={styles["amenities"]}>
-                    {room?.roomExtras.map( extra => <AmenityCard key={extra.name} name={extra.name} icon={extrasLib[extra.name]}/>)}
+                    {room?.roomExtras.map( extra => 
+                    <AmenityCard key={extra.name} name={extra.name}/>
+                    )}
                 </div>
                 <Button onClick={() => setAmenityModal(true)}>Add Amenities</Button>
                 <br />

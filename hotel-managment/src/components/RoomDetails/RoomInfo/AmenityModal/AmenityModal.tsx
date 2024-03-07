@@ -2,8 +2,6 @@ import { Button } from "../../../Shared/Button/Button"
 import { InputField } from "../../../Shared/InputField/InputField"
 import { Modal } from "../../../Shared/Modal/Modal"
 import { AmenityCard } from "../AmenityCard/AmenityCard"
-import { faVault } from '@fortawesome/free-solid-svg-icons'
-import { faBath } from '@fortawesome/free-solid-svg-icons'
 import styles from './AmenityModal.module.scss'
 import { Amenity } from "../../../../types/AmenityType"
 import { Room } from "../../../../types/RoomType"
@@ -16,12 +14,12 @@ interface Props {
     roomSetter: React.Dispatch<React.SetStateAction<Room | undefined>>
 }
 
-const preDefinedAmenities = ['Bathtub','Safe']
+const predefinedAmenities = ['Bathtub','Safe','TV','Coffe','AC','Fridge']
 
 export const AmenityModal:React.FC<Props> = ({modalSetter,currentAmenities,roomSetter}) => {
 
-    const initialAmenities = currentAmenities.filter(x => preDefinedAmenities.includes(x.name))
-    const initialOtherAmenities = currentAmenities.filter(x => !preDefinedAmenities.includes(x.name))
+    const initialAmenities = currentAmenities.filter(x => predefinedAmenities.includes(x.name))
+    const initialOtherAmenities = currentAmenities.filter(x => !predefinedAmenities.includes(x.name))
 
     const { amenityOnClick, 
         onChangeHandler,
@@ -34,9 +32,17 @@ export const AmenityModal:React.FC<Props> = ({modalSetter,currentAmenities,roomS
     return (
         <Modal title="Add Amenities" stateSetter={modalSetter}>
                 
-                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="Bathtub" icon={faBath}></AmenityCard>
+                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="Bathtub" ></AmenityCard>
 
-                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="Safe" icon={faVault}></AmenityCard>
+                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="Safe" ></AmenityCard>
+
+                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="TV" ></AmenityCard>
+
+                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="Coffe" ></AmenityCard>
+
+                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="AC" ></AmenityCard>
+
+                <AmenityCard amenities={amenities} onClick={amenityOnClick} name="Fridge" ></AmenityCard>
                 
                     <form action=""className={styles["other"]} onSubmit={onSubmit}>
                         <InputField name="other" value={formValues.other} onChange={onChangeHandler}>Other: </InputField>
