@@ -29,7 +29,7 @@ export const InputFieldslist:React.FC<Props> = ({formValues,inputs,onBlurHandler
         maxLength={input.maxLength}
         accept={input.accept}
         type={input.type}
-        >{input.name}</InputField>)}
+        >{input.display ? input.display : input.name}</InputField>)}
         </>
     )
 }

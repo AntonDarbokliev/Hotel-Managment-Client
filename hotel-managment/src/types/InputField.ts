@@ -4,6 +4,7 @@ export interface InputFieldType {
     errorMessage?: string,
     accept? : string,
     maxLength? : number,
-    type?: string
+    type?: string,
+    display?: string
 }
 
