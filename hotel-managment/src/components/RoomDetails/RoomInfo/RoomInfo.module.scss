@@ -23,6 +23,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
+    justify-content: center;
     margin: 1rem 0;
 }
 
@@ -49,6 +50,16 @@
     .info{
         width: 25%;
         min-height: 35%;
+    }
+
+    .amenities {
+        // display: flex;
+        flex-direction: row;
+        width: 80%;
+        flex-wrap: wrap;
+        // width: 100%;
+        // align-items: center;
+        // margin: 1rem 0;
     }
 }
 

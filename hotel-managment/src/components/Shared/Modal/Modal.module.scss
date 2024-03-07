@@ -59,5 +59,8 @@
         max-height: 40vh;
         min-width: 25vw;
         max-width: 35vw;
+        div:has(svg) {
+            width: 75%;
+        }
     }
 }
