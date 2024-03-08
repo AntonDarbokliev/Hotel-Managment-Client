@@ -13,6 +13,11 @@ import { Employees } from "./components/HotelDetails/Employees/Employees.tsx";
 
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/Auth.ts";
+import { RoomDetails } from "./components/RoomDetails/RoomDetails.tsx";
+import { RoomInfo } from "./components/RoomDetails/RoomInfo/RoomInfo.tsx";
+import { PrivateRoute } from "./components/Root/PrivateRoute/PrivateRoute.tsx";
+
+
 
 
 const router = createBrowserRouter([
@@ -28,29 +33,48 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register/>,
 
-    },{
-      path: "add",
-      element: <AddHotel/>
+    },
 
-    },
     {
-      path: 'hotels',
-      element: <HotelsHome/>
-    },
-    {
-      path: 'hotels/:id',
-      element: <HotelDetails/>,
+      element: <PrivateRoute/>,
       children: [
         {
-          path: "rooms",
-          element: <Rooms/>,
-      },
+          path: "add",
+          element: <AddHotel/>
+    
+        },
+        {
+          path: 'hotels',
+          element: <HotelsHome/>
+        },
+        {
+          path: 'hotels/:id',
+          element: <HotelDetails/>,
+          children: [
+            {
+              path: "rooms",
+              element: <Rooms/>,
+          },
+          {
+            path: "employees",
+            element: <Employees/>,
+        },
+          ]
+        },
+    
       {
-        path: "employees",
-        element: <Employees/>,
-    },
+        path: 'room/:id',
+        element: <RoomDetails/>,
+        children: [
+          {
+            path: 'info',
+            element: <RoomInfo/>
+          }
+        ]
+      }
+
       ]
-    }
+    },
     
       ],
   
@@ -62,7 +86,7 @@ function App() {
   const updateUser = useAuthStore(s => s.updateUser)
 
   useEffect(() => {
-    updateUser()
+   updateUser()
   },[])
 
   return (

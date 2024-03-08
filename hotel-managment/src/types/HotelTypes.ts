@@ -2,6 +2,6 @@
     name:string,
     email: string,
     address: string,
-    photo: string 
+    profilePicture: string 
     id: string 
 }

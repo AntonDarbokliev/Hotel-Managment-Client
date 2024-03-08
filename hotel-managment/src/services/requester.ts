@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Amenity } from "../types/AmenityType";
 
 interface RequestProps {
     method: 'GET' | 'POST' | 'DELETE',
     url : string,
-    data? : FormData | null 
+    data? : FormData | null | Amenity[] 
 }
 
 interface Options {
@@ -11,7 +11,7 @@ interface Options {
         "Content-Type"? : string,
         "Authorization"?:string,
     },
-    body?:FormData ,
+    body?:FormData |string,
     method: 'GET' | 'POST' | 'DELETE'
 }
 const request = async ({method, url, data}: RequestProps) =>  {
@@ -34,7 +34,12 @@ const request = async ({method, url, data}: RequestProps) =>  {
         //     'Content-Type' : 'multipart/form-data'   // Server returns 400 when the headers are being set manually 
         // }                                            // https://stackoverflow.com/questions/64139168/formdata-not-added-properly-to-the-post-request
        if(data){
-           options.body = data
+        if(Array.isArray(data)){
+           options.body = JSON.stringify(data)
+           options.headers['Content-Type'] = 'application/json';
+        }else{
+            options.body = data
+        }
        }
     
     const response = await fetch(url,options)
@@ -57,10 +62,12 @@ const request = async ({method, url, data}: RequestProps) =>  {
 
 export const RequestFactory = ( ) => {
     const getRequest = (url:string) => request({ method: 'GET', url })
-    const postRequest =  (url:string, data: FormData) => request({method:'POST', url,data})
+    const postRequest =  (url:string, data: FormData | Amenity[]) => request({method:'POST', url,data})
+    const deleteRequest = (url:string) => request({ method: 'DELETE', url })
 
     return {
         get: getRequest,
-        post: postRequest
+        post: postRequest,
+        delete: deleteRequest
     }
 }

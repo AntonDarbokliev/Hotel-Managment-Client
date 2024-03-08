@@ -7,6 +7,7 @@ export const floorServiceFactory = () => {
 
     return {
         get: (id: string) => request.get(baseUrl + `/${id}`),
-        add: (data: FormData) => request.post(baseUrl,data)
+        add: (data: FormData) => request.post(baseUrl,data),
+        delete: (id:string) => request.delete(baseUrl + `/${id}`)
     }
 }

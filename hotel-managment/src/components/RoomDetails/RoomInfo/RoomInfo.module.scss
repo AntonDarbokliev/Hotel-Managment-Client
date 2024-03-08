@@ -1,0 +1,65 @@
+@import '../../../styling-properties.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.room-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    // overflow: hidden;
+}
+
+.amenities {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.info {
+    background: white;
+    width: 93%;
+    min-height: 30%;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: $main-border-radius;
+        align-items: center;
+        display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // text-align: right;
+    p{
+        margin: 0.3rem 0;
+        margin-left: 0.3rem;
+    }
+}
+
+@media (min-width:$min-width-media ){
+    .info{
+        width: 25%;
+        min-height: 35%;
+    }
+
+    .amenities {
+        // display: flex;
+        flex-direction: row;
+        width: 80%;
+        flex-wrap: wrap;
+        // width: 100%;
+        // align-items: center;
+        // margin: 1rem 0;
+    }
+}
+

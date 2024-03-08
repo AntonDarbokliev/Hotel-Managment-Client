@@ -18,7 +18,7 @@ export interface InputFieldProps {
     // ref?: RefObject<HTMLInputElement>
 } 
 
-export const InputField = forwardRef( (props: InputFieldProps,ref: ForwardedRef<HTMLInputElement>) => {
+export const InputField = forwardRef( (props: InputFieldProps,ref: ForwardedRef<HTMLInputElement>) => {    
     return (
         <>
         <div className={styles['input-div']}>
