@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { checkLengthValidation } from "../../../utils/sharedValidations";
+import { useDisableValidations } from "../../../hooks/Validations/useDisableValidations";
 
 interface FormValues {
+    [key:string]: string,
     FirstName: string,
     MiddleName: string,
     LastName: string,
@@ -24,36 +26,29 @@ interface ValidationValues {
 
 
 export const useRegisterValidations = (formValues: FormValues,validationValues: ValidationValues) => {
-    
-    const [disableButton,setDisableButton] = useState(true)
-
-    const checkLengthValidation = <K extends keyof FormValues>(formValue: K, desiredLength: number) => {
-        const regex = new RegExp(`^.{0,${desiredLength - 1}}$`);
-        return formValues[formValue] !== '' && regex.test(String(formValues[formValue]));
-    }
 
     const isFirstNameValid = (
-        checkLengthValidation('FirstName',2) &&
+        checkLengthValidation('FirstName',formValues,2) &&
         validationValues.FirstName === true
     ) 
 
     const isMiddleNameValid = (
-        checkLengthValidation('MiddleName',2)  &&
+        checkLengthValidation('MiddleName',formValues,2)  &&
         validationValues.MiddleName === true
     )
 
     const isLastNameValid = (
-        checkLengthValidation('LastName',2) &&
+        checkLengthValidation('LastName',formValues,2) &&
         validationValues.LastName === true
     )
 
     const isEGNValid = (
-        checkLengthValidation('EGN',10) &&
+        checkLengthValidation('EGN',formValues,10) &&
         validationValues.EGN === true
     )
 
     const isAddressValid = (
-        checkLengthValidation('Address',5) &&
+        checkLengthValidation('Address',formValues,5) &&
         validationValues.Address === true
         )
 
@@ -79,32 +74,18 @@ export const useRegisterValidations = (formValues: FormValues,validationValues: 
 
     )
 
-    useEffect(() => {
-        if(
-            !isFirstNameValid && 
-            !isMiddleNameValid && 
-            !isLastNameValid && 
-            !isEGNValid && 
-            !isAddressValid && 
-            !isPasswordValid && 
-            !isRepeatPasswordValid && 
-            !isEmailValid && 
-            Object.values(formValues).every(x => x.length != 0)){
-            setDisableButton(false)
-        }else {
-            setDisableButton(true)
-        }
-    },[
-        isFirstNameValid,
-        isMiddleNameValid,
-        isLastNameValid,
-        isEGNValid,
+    const validations = [
         isAddressValid,
-        isPasswordValid,
-        isRepeatPasswordValid,
+        isEGNValid,
         isEmailValid,
-        formValues,
-    ])
+        isFirstNameValid,
+        isLastNameValid,
+        isMiddleNameValid,
+        isPasswordValid,
+        isRepeatPasswordValid]
+
+    const {disableButton } = useDisableValidations(formValues,validations)
+
 
     return {
         isFirstNameValid,

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useDisableValidations } from "../../../hooks/Validations/useDisableValidations";
 
 interface FormValues {
+    [key:string]: string,
     hotelCode: string;
     password: string;
 }
@@ -12,29 +13,19 @@ interface ValidationValues {
 
 export const useLoginValidations = (formValues: FormValues, validationValues: ValidationValues) => {
 
-    const [disableButton,setDisableButton] = useState(true)
-
     const isCodeValid =  (
         !/^.{3,}$/.test(formValues['hotelCode']) 
         && formValues.hotelCode !== '' 
         && validationValues.hotelCode === true
         )
     
-        const isPasswordValid = (
-            !/^.{5,}$/.test(formValues['password']) 
-            && formValues.password !== '' 
-            && validationValues.password === true
-        )
+    const isPasswordValid = (
+        !/^.{5,}$/.test(formValues['password']) 
+        && formValues.password !== '' 
+        && validationValues.password === true
+    )
 
-        useEffect(() => {
-            if(!isPasswordValid && !isCodeValid && Object.values(formValues).every(x => x.length != 0)){
-                setDisableButton(false)
-            }else {
-                setDisableButton(true)
-            }
-        },[formValues,isPasswordValid,isCodeValid])
-
-        
+        const {disableButton} = useDisableValidations(formValues,[isCodeValid,isPasswordValid]) 
 
         return {
             isCodeValid,
