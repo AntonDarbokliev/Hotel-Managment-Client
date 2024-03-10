@@ -1,0 +1,37 @@
+@import '../../../../styling-properties.scss';
+
+.day-card {
+    // margin: 0 0.5rem;
+    margin: 0 0.2rem;
+    // height: 15%;
+    padding: 0.8rem;
+    height: 10%;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $main-border-radius;
+    &:hover {
+        background: $main-color;
+        color:white;
+        cursor: pointer;
+    }
+}
+
+.selected {
+    background: $main-color;
+    color: white;
+    &:hover {
+        cursor: default;
+    }
+}
+
+.highlighted {
+    background: $background-color;   
+}
+
+@media (min-width: $min-width-media ) {
+    .day-card {
+        width: 9%;
+    }
+}
