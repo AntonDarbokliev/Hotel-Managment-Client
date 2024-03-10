@@ -3,6 +3,9 @@
 .shared-button {
     background:linear-gradient(to bottom left, $main-color 40%, #9a59a8); ;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     padding: 0.5rem;
     height: 2.5rem;

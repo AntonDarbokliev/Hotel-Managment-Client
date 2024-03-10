@@ -18,6 +18,8 @@ import { useAddFloor } from "../../../hooks/Floors/useAddFloor"
 import { Floor } from "../../../types/FloorType"
 import { useDeleteFloor } from "../../../hooks/Floors/useDeleteFloor"
 
+import { AnimatePresence} from 'framer-motion'
+
 export const Rooms = () => {
     
     const [roomModal,setRoomModal] = useState(false)
@@ -58,6 +60,7 @@ export const Rooms = () => {
     
     return (
         <>
+        <AnimatePresence>
             {roomModal && 
             <Modal stateSetter={setRoomModal} title="Add a Room">
                 <form action="" className={styles["room-modal-form"]}>
@@ -86,6 +89,7 @@ export const Rooms = () => {
                 <Modal title="Are you sure you want to delete this Floor?" stateSetter={setDeleteFloorModal}>
                     <p className={styles["delete-warning"]} >This will delete the current floor, along with all the rooms inside it.</p>
                     <Button width="8rem" onClick={deleteFloor}>Yes</Button>
+                    <br />
                     <Button width="8rem" onClick={() => setDeleteFloorModal(false)}>Cancel</Button>
                 </Modal>
             }
@@ -93,6 +97,7 @@ export const Rooms = () => {
             { toastText !== ''  && 
                 <ToastNotification text={toastText} timer={3000} setText={setToastText}></ToastNotification>
             }
+    </AnimatePresence>
 
         <div className={styles["rooms"]}>
             <h1>Rooms</h1>
@@ -125,6 +130,7 @@ export const Rooms = () => {
                 <Button width="90%" onClick={onAddRoomClick}>Add a Room</Button>
             </div>
         </div>
-        </>
+    </>
+
     )
 }   
