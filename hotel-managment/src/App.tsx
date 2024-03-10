@@ -16,6 +16,7 @@ import { useAuthStore } from "./stores/Auth.ts";
 import { RoomDetails } from "./components/RoomDetails/RoomDetails.tsx";
 import { RoomInfo } from "./components/RoomDetails/RoomInfo/RoomInfo.tsx";
 import { PrivateRoute } from "./components/Root/PrivateRoute/PrivateRoute.tsx";
+import { RoomReservartions } from "./components/RoomDetails/RoomReservations/RoomReservations.tsx";
 
 
 
@@ -69,7 +70,11 @@ const router = createBrowserRouter([
           {
             path: 'info',
             element: <RoomInfo/>
-          }
+          },
+          {
+            path: 'reservations',
+            element: <RoomReservartions/>
+          },
         ]
       }
 

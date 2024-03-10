@@ -5,7 +5,7 @@ export const RoomDetails = () => {
     const isLoading = false
     const title = 'Room panel'
     
-    const tabs = ['Info', 'History']
+    const tabs = ['Info', 'Reservations','History']
 
     return (
         <Details isLoading={isLoading} title={title} tabs={tabs}></Details>
