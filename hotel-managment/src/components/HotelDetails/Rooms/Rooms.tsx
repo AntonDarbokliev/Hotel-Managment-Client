@@ -97,7 +97,6 @@ export const Rooms = () => {
             { toastText !== ''  && 
                 <ToastNotification text={toastText} timer={3000} setText={setToastText}></ToastNotification>
             }
-    </AnimatePresence>
 
         <div className={styles["rooms"]}>
             <h1>Rooms</h1>
@@ -130,6 +129,8 @@ export const Rooms = () => {
                 <Button width="90%" onClick={onAddRoomClick}>Add a Room</Button>
             </div>
         </div>
+    </AnimatePresence>
+
     </>
 
     )
