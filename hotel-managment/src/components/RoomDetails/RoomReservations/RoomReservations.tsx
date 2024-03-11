@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { RoomReservationModal } from './RoomReservationModal/RoomReservationModal'
 import { Calendar } from '../../Shared/Calendar/Calendar'
 import { useCalendarData } from '../../../hooks/Calendar/useCalendarData'
+import { AnimatePresence } from 'framer-motion'
+
 
 
 export const RoomReservartions = () => {
@@ -13,9 +15,11 @@ export const RoomReservartions = () => {
    
     return (
         <div className={styles["container"]}>
+            <AnimatePresence>
             {reserveModal && 
                 <RoomReservationModal date={{...calendarData}} modalSetter={setReserveModal}/>
             }
+            </AnimatePresence>
 
             <Calendar {...calendarData} />
             {!isNaN(calendarData.from) && !isNaN(calendarData.to) && 
