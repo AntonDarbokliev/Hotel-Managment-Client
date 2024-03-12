@@ -19,6 +19,8 @@ export const Button  = (props: Props) => {
         onClick={props.onClick}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
         transition={{ duration: 0.2}}
         >{props.children}</motion.button>
     )

@@ -62,7 +62,7 @@ export const Rooms = () => {
         <>
         <AnimatePresence>
             {roomModal && 
-            <Modal stateSetter={setRoomModal} title="Add a Room">
+            <Modal key={'room-modal'} stateSetter={setRoomModal} title="Add a Room">
                 <form action="" className={styles["room-modal-form"]}>
                     <InputField type="number" 
                     name="roomNumber" 
@@ -77,7 +77,7 @@ export const Rooms = () => {
             }
 
             { floorModal && 
-                <Modal stateSetter={setFloorModal} title="Are you sure you want to add a Floor?">
+                <Modal key={'floor-modal'} stateSetter={setFloorModal} title="Are you sure you want to add a Floor?">
                     <div className={styles["floor-modal-buttons"]}>
                     <Button width="8rem" onClick={onAddFloor}>Yes</Button>
                     <Button width="8rem" onClick={() => setFloorModal(false)}>Cancel</Button>
@@ -86,7 +86,7 @@ export const Rooms = () => {
             }
 
             {deleteFloorModal && 
-                <Modal title="Are you sure you want to delete this Floor?" stateSetter={setDeleteFloorModal}>
+                <Modal key={'delete-floor-modal'} title="Are you sure you want to delete this Floor?" stateSetter={setDeleteFloorModal}>
                     <p className={styles["delete-warning"]} >This will delete the current floor, along with all the rooms inside it.</p>
                     <Button width="8rem" onClick={deleteFloor}>Yes</Button>
                     <br />
