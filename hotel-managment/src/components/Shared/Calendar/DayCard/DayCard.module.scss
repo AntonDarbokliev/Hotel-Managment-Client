@@ -1,9 +1,7 @@
 @import '../../../../styling-properties.scss';
 
 .day-card {
-    // margin: 0 0.5rem;
     margin: 0 0.2rem;
-    // height: 15%;
     padding: 0.8rem;
     height: 10%;
     width: 10%;
@@ -23,6 +21,16 @@
     color: white;
     &:hover {
         cursor: default;
+    }
+}
+
+.has-passed {
+    // color: red;
+    background: gray;
+    &:hover {
+        background:gray;
+        color:$main-color-text;
+        cursor: not-allowed;
     }
 }
 

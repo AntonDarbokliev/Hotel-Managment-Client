@@ -8,11 +8,13 @@ interface Props {
     from: {setFrom :React.Dispatch<React.SetStateAction<number>>,from: number },
     to: {setTo :React.Dispatch<React.SetStateAction<number>>,to: number },
     animationVariant?: Variants,
+    today: {day: number, isMonthNow: boolean}
 }
 
-export const DaysList:React.FC<Props> = ({days,from,to,animationVariant}) => {
+export const DaysList:React.FC<Props> = ({days,from,to,animationVariant,today}) => {
 
   const [animationKey, setAnimationKey] = useState(0);
+
 
       useEffect(() => {
           setAnimationKey(animationKey + 1);
@@ -44,8 +46,8 @@ export const DaysList:React.FC<Props> = ({days,from,to,animationVariant}) => {
                 {days.map(day => <DayCard 
                 isHighlighted={ !isNaN(to.to) && day > from.from && day < to.to } 
                 isSelected={ day == from.from || day === to.to} 
+                hasPassed= {today.isMonthNow ? today.day > day : false}
                 onClick={() =>{ 
-                
                   if(!isNaN(from.from) && !isNaN(to.to)){
                     from.setFrom(NaN)
                     to.setTo(NaN)
@@ -55,7 +57,6 @@ export const DaysList:React.FC<Props> = ({days,from,to,animationVariant}) => {
                   }else {
                     return  handleTo(day)
                   }
-
                   }} 
                 key={day} 
                 day={day}/>)}
