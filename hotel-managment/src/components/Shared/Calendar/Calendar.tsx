@@ -3,6 +3,7 @@ import { Button } from '../Button/Button';
 import { DaysList } from './DaysList/DaysList';
 import { useCalendarManipulation } from '../../../hooks/Calendar/useCalendarManipulation';
 import { useState } from 'react';
+import { useCurrentDate } from '../../../hooks/Calendar/useCurrentDate';
 interface Props {
     year: number,
     month: number,
@@ -21,6 +22,8 @@ interface Props {
 export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFrom,setTo,to,days,setDays}) => {
 
     const [ animationDirection, setAnimationDirection ] = useState<'left' | 'right'>()
+
+    const {today} = useCurrentDate(month,year)
 
     const monthNames = [
         "January", "February", "March", "April", "May", "June", "July",
@@ -57,7 +60,11 @@ export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFr
     return (
         <div className={styles["calendar"]}>
             <div className={styles['selected-month']}>
-                <Button width='2rem' onClick={previousMonth}>&larr;</Button>
+                {year === today.year ? (today.month <= month - 1 && (
+                    <Button width='2rem' onClick={previousMonth}>&larr;</Button>
+                  )) : (
+                    <Button width='2rem' onClick={previousMonth}>&larr;</Button>
+                  )}
                 <div className={styles['selected-month-info']}>
                   <p>{monthNames[month - 1]}</p>
                   <p>{year}</p>
@@ -65,7 +72,7 @@ export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFr
                 <Button width='2rem' onClick={nextMonth}>&rarr;</Button>
             </div>
 
-            <DaysList days={days} to={{setTo,to}} from={{setFrom,from}} animationVariant={daysListVariant}/>
+            <DaysList today={today} days={days} to={{setTo,to}} from={{setFrom,from}} animationVariant={daysListVariant}/>
 
         </div>
         )
