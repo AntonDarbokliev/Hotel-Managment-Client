@@ -26,11 +26,21 @@
 
 .has-passed {
     // color: red;
-    background: gray;
+    background: gray !important;
     &:hover {
         background:gray;
         color:$main-color-text;
         cursor: not-allowed;
+    }
+}
+
+.is-booked {
+    background: red;
+    &:hover {
+        color:$main-color-text;
+        cursor: not-allowed;
+        background:red;
+
     }
 }
 
