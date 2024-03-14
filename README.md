@@ -5,7 +5,7 @@ The idea for this project is to create an application that would assist the staf
 
 The project currently consists of three members: two for the Back-End (.NET), and myself, fully responsible for the Front-End.
 
-# Current techologies being used: React, TypeScript, Sass (CSS pre-processor), Zustand and Framer Motion (animation framework)
+### Current techologies being used: React, TypeScript, Sass (CSS pre-processor), Zustand and Framer Motion (animation framework)
 # Goal
 My main goal for this project is to show my improvement in my Front-End tech stack and to implement much better practices than my last project.
 
