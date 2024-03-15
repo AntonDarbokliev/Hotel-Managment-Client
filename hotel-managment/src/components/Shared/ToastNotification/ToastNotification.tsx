@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 interface Props {
     text: string,
     timer? : number,
-    setText?: React.Dispatch<React.SetStateAction<string>>
+    setText?: (toastText: string) => void
 }
 
 const toastVariant = {

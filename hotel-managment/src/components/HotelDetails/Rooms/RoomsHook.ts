@@ -5,7 +5,8 @@ import { FormValues } from "../../../types/FormValues";
 export const useRooms = (
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
     formValues: FormValues,
-    toastSetter:React.Dispatch<React.SetStateAction<string>>,
+    // toastSetter:React.Dispatch<React.SetStateAction<string>>,
+    toastSetter: (toastText: string) => void
     ) => {
 
     const onAddRoomClick = () => {

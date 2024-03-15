@@ -8,15 +8,15 @@ import { ConfirmEmail } from './ConfirmEmail/ConfirmEmail'
 import {  useState } from 'react'
 import { onImageChangeHandler } from '../../../utils/imageChangeHandler'
 import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
-import { ToastNotification } from '../../Shared/ToastNotification/ToastNotification'
 import { useRegister } from '../../../hooks/Auth/useRegister'
 import { InputFieldslist } from '../../Shared/InputFieldsList/InputFieldsList'
 import { InputFieldType } from '../../../types/InputField'
+import { useToastStore } from '../../../stores/ToastStore'
 
 export const Register = () => {
     
+    const setToastText = useToastStore(s => s.setToastText)
     const [hasRegistered, setHasRegistered] = useState(false)
-    const [toastText,setToastText] = useState('')
 
     const onSuccess = () => setHasRegistered(true)
     const onFail = (text:string) => setToastText(text)
@@ -74,10 +74,6 @@ export const Register = () => {
 
     return (
         <div className={styles["register"]}>
-
-            {toastText !== '' && 
-                <ToastNotification text={toastText} setText={setToastText} timer={3000}/>
-            }
 
             {!hasRegistered && !isLoading && 
             <>

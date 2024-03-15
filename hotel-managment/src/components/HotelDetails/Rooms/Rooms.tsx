@@ -4,7 +4,6 @@ import styles from './Rooms.module.scss'
 import { Button } from "../../Shared/Button/Button"
 import { Modal } from "../../Shared/Modal/Modal"
 import { InputField } from "../../Shared/InputField/InputField"
-import { ToastNotification } from "../../Shared/ToastNotification/ToastNotification"
 import { useRooms } from "./RoomsHook"
 import { RoomsList } from "./RoomsList/RoomsList"
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
@@ -19,13 +18,15 @@ import { Floor } from "../../../types/FloorType"
 import { useDeleteFloor } from "../../../hooks/Floors/useDeleteFloor"
 
 import { AnimatePresence} from 'framer-motion'
+import { useToastStore } from "../../../stores/ToastStore"
 
 export const Rooms = () => {
     
     const [roomModal,setRoomModal] = useState(false)
     const [floorModal, setFloorModal] = useState(false)
     const [deleteFloorModal, setDeleteFloorModal] = useState(false)
-    const [toastText, setToastText] = useState('')
+    // const [toastText, setToastText] = useState('')
+    const setToastText = useToastStore(s => s.setToastText)
 
     const {formValues,onChangeHandler} = useForm({
         floorValue: '',
@@ -93,11 +94,7 @@ export const Rooms = () => {
                     <Button width="8rem" onClick={() => setDeleteFloorModal(false)}>Cancel</Button>
                 </Modal>
             }
-
-            { toastText !== ''  && 
-                <ToastNotification text={toastText} timer={3000} setText={setToastText}></ToastNotification>
-            }
-
+            
         <div className={styles["rooms"]}>
             <h1>Rooms</h1>
             <div className={styles["dropdowns"]}>

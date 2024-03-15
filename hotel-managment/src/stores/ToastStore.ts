@@ -6,8 +6,7 @@ interface ToastStore  {
 }
 
 
-// Define your store
 export const useToastStore = create<ToastStore>(set => ({
-  toastText: "", // Initial state for error
-  setToastText: (toastText:string) => set({ toastText }), // Action to set error
+  toastText: "", 
+  setToastText: (toastText:string) => set({ toastText }),
 }));
