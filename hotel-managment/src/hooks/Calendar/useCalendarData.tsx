@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FromTo } from "../../types/CalendarFromTo";
 
 export const useCalendarData = () => {
     const now = new Date();
@@ -7,8 +8,8 @@ export const useCalendarData = () => {
     const [year, setYear ]  = useState(now.getFullYear())
 
     const [days, setDays ] = useState<number[]>([]) 
-    const [from, setFrom] = useState<number>(NaN)
-    const [to, setTo] = useState<number>(NaN)
+    const [from, setFrom] = useState<FromTo>()
+    const [to, setTo] = useState<FromTo>()
 
 
     return {

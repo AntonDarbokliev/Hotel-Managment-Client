@@ -5,13 +5,11 @@ interface Props  {
     setMonth: React.Dispatch<React.SetStateAction<number>>,
     setYear: React.Dispatch<React.SetStateAction<number>>,
     year: number,
-    setFrom: React.Dispatch<React.SetStateAction<number>>,
-    setTo: React.Dispatch<React.SetStateAction<number>>,
     setDays : React.Dispatch<React.SetStateAction<number[]>>
 }
 
 export const useCalendarManipulation = (props:Props) => {
-    const {month,setMonth,setYear,setDays,setFrom,setTo,year} = props
+    const {month,setMonth,setYear,setDays,year} = props
 
 const handleNextMonth = () => {
     if (month === 12) {
@@ -31,13 +29,8 @@ const handleNextMonth = () => {
     }
   };
 
-  const reset = () => {
-    setFrom(NaN)
-    setTo(NaN)
-  }
 
   useEffect(() => {
-    console.log('fetch reservations for month now')
     const daysArr = []
     const totalDays = new Date(year, month, 0).getDate()
 
@@ -46,7 +39,6 @@ const handleNextMonth = () => {
     }
 
   setDays([...daysArr])
-  reset()
 
   },[month])
 
