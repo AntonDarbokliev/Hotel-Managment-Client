@@ -32,11 +32,11 @@ export const useReserveValidations = (
         validationValues.Country === true;
 
     const isEGNFPNValid =
-        checkLengthValidation("EGN/FPN",formValues, 10) &&
-        validationValues["EGN/FPN"] === true;
+        checkLengthValidation("EGN",formValues, 10) &&
+        validationValues["EGN"] === true;
 
-    const isICNValid =
-        checkLengthValidation("ICN",formValues, 5) && validationValues["ICN"] === true;
+    const isIDNValid =
+        checkLengthValidation("IDN",formValues, 5) && validationValues["IDN"] === true;
 
     const isGenderValid =
         checkLengthValidation("Gender",formValues, 1) &&
@@ -52,7 +52,7 @@ export const useReserveValidations = (
         isEGNFPNValid,
         isFirstNameValid,
         isGenderValid,
-        isICNValid,
+        isIDNValid,
         isLastNameValid,
         isPhoneNumberValid,
     ];
@@ -67,7 +67,7 @@ export const useReserveValidations = (
         isCountryValid,
         isPhoneNumberValid,
         isGenderValid,
-        isICNValid,
+        isIDNValid,
         disableButton,
     };
 };
