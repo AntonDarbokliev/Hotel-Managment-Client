@@ -5,28 +5,38 @@ import { RoomReservationModal } from './RoomReservationModal/RoomReservationModa
 import { Calendar } from '../../Shared/Calendar/Calendar'
 import { useCalendarData } from '../../../hooks/Calendar/useCalendarData'
 import { AnimatePresence } from 'framer-motion'
+import { useReservations } from '../../../hooks/Rooms/useReservations'
+import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
 
 
 
 export const RoomReservartions = () => {
     const [ reserveModal, setReserveModal ] = useState(false)
-    
+    const {isLoading,reservations} = useReservations()
+
     const calendarData = useCalendarData()
    
-    return (
+return (
         <div className={styles["container"]}>
             <AnimatePresence>
-            {reserveModal && 
-                <RoomReservationModal date={{...calendarData}} modalSetter={setReserveModal}/>
+            {reserveModal && calendarData.from && calendarData.to && 
+                <RoomReservationModal date={{from: calendarData.from,to: calendarData.to}} modalSetter={setReserveModal}/>
             }
             </AnimatePresence>
 
-            <Calendar {...calendarData} />
-            {!isNaN(calendarData.from) && !isNaN(calendarData.to) && 
+            {!isLoading && 
+                <Calendar reservations={reservations} {...calendarData} />
+            }
+            {isLoading &&  
+            <Spinner/>
+             }
+
+            
+            {calendarData.from && calendarData.to && 
                 <Button onClick={() => setReserveModal(true)}>Make a Reservation</Button>
             }
-
-            {isNaN(calendarData.from) || isNaN(calendarData.to)  && 
+            
+            { calendarData.from != undefined || calendarData.to != undefined  && 
                 <p>Select two dates</p>
             }
             

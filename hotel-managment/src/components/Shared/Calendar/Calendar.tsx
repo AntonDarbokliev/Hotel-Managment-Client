@@ -4,22 +4,25 @@ import { DaysList } from './DaysList/DaysList';
 import { useCalendarManipulation } from '../../../hooks/Calendar/useCalendarManipulation';
 import { useState } from 'react';
 import { useCurrentDate } from '../../../hooks/Calendar/useCurrentDate';
+import { RoomReservation } from '../../../types/RoomReservation';
+import { FromTo } from '../../../types/CalendarFromTo';
 interface Props {
     year: number,
     month: number,
     setMonth: React.Dispatch<React.SetStateAction<number>>,
     setYear: React.Dispatch<React.SetStateAction<number>>,
-    from :number,
-    to: number,
-    setFrom: React.Dispatch<React.SetStateAction<number>>,
-    setTo: React.Dispatch<React.SetStateAction<number>>,
+    from? :FromTo,
+    to?: FromTo,
+    setFrom?: React.Dispatch<React.SetStateAction<FromTo | undefined>>,
+    setTo?: React.Dispatch<React.SetStateAction<FromTo | undefined>>,
     days: number[],
     setDays:React.Dispatch<React.SetStateAction<number[]>>,
+    reservations?: RoomReservation[]
 }
 
 
 
-export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFrom,setTo,to,days,setDays}) => {
+export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFrom,setTo,to,days,setDays,reservations}) => {
 
     const [ animationDirection, setAnimationDirection ] = useState<'left' | 'right'>()
 
@@ -55,7 +58,7 @@ export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFr
       }
 
     
-   const {handleNextMonth,handlePreviousMonth} = useCalendarManipulation({month,year,setMonth,setFrom,setYear,setTo,setDays})
+   const {handleNextMonth,handlePreviousMonth} = useCalendarManipulation({month,year,setMonth,setYear,setDays})
 
     return (
         <div className={styles["calendar"]}>
@@ -71,8 +74,15 @@ export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFr
                 </div>
                 <Button width='2rem' onClick={nextMonth}>&rarr;</Button>
             </div>
-
-            <DaysList today={today} days={days} to={{setTo,to}} from={{setFrom,from}} animationVariant={daysListVariant}/>
+                <DaysList 
+                month={month} 
+                year={year} 
+                reservations={reservations} 
+                today={today} 
+                days={days} 
+                to={{setTo,to}} 
+                from={{setFrom,from}} 
+                animationVariant={daysListVariant}/>
 
         </div>
         )
