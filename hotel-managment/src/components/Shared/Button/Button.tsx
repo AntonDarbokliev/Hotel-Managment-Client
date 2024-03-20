@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 interface Props {
     children: ReactNode,
-    onClick?: (event?: React.MouseEvent) => void
+    onClick?: (event?: React.MouseEvent | React.FormEvent | undefined) => void
     disable? : boolean,
     color?: string,
     width?: string

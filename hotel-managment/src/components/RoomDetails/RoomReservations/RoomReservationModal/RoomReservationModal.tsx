@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import { Modal } from "../../../Shared/Modal/Modal"
 import { Button } from "../../../Shared/Button/Button"
 import { InputFieldslist } from "../../../Shared/InputFieldsList/InputFieldsList"
@@ -11,19 +11,25 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import styles  from './RoomReservationModal.module.scss'
 import { useReserveRoom } from "../../../../hooks/Rooms/useReserveRoom"
 import { FromTo } from "../../../../types/CalendarFromTo"
+import { useToastStore } from "../../../../stores/ToastStore"
+import Spinner from "../../../Shared/LoadSpinner/LoadSpinner"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
-    date: { from: FromTo,to : FromTo}
+    date: { from: FromTo,to : FromTo},
 }
 
 export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     const [modalStage, setModalStage ] = useState(1)
     const from = `${date.from.year}-${date.from.month}-${date.from.day}`
     const to= `${date.to.year}-${date.to.month}-${date.to.day}`
+    const setToastText = useToastStore(s => s.setToastText)
 
-    const onFail= () => console.log('err')
-    const { reserveRoom } = useReserveRoom(onFail)
+
+    const onFail= () => setToastText('An error occured while adding a reservation')
+    const { reserveRoom,isLoading } = useReserveRoom(onFail,() => {
+        modalSetter(false)
+     })
 
     const {formValues,onChangeHandler,onSubmit} = useForm({
         EGN: '',
@@ -90,24 +96,32 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     }
     return (
         <Modal stateSetter={modalSetter} title="Reserve">
-            {modalStage == 1 && 
+            { !isLoading && 
             <>
+            {modalStage == 1 && 
+                <>
                 <InputFieldslist {...listProps} ></InputFieldslist>
                 <Button onClick={() => setModalStage(state => state + 1)} disable={disableButton}>Next</Button>
-            </>
-
+                </>
+                
             }
 
             {modalStage == 2 && 
-            <>
-            <div className={styles["stage-2"]}>
-                    <p><FontAwesomeIcon color="#4844bf" icon={faUser}/> Name: {formValues.FirstName} {formValues.LastName}</p>
-                    <p><FontAwesomeIcon color="#4844bf" icon={faCalendarDays}/> From: {from}</p>
-                    <p><FontAwesomeIcon color="#4844bf" icon={faCalendarDays}/> To: {to}</p>
-                    <Button onClick={onSubmit}>Finish</Button>
-            </div>
-            </>
+                <>
+                <div className={styles["stage-2"]}>
+                <p><FontAwesomeIcon color="#4844bf" icon={faUser}/> Name: {formValues.FirstName} {formValues.LastName}</p>
+                <p><FontAwesomeIcon color="#4844bf" icon={faCalendarDays}/> From: {from}</p>
+                <p><FontAwesomeIcon color="#4844bf" icon={faCalendarDays}/> To: {to}</p>
+                <Button onClick={ (e?:FormEvent) => e ? onSubmit(e) : {}}>Finish</Button>
+                </div>
+                </>
             }
+            
+            </>
+        }
+
+        {isLoading && <Spinner/>}
+            
 
         </Modal>
     )

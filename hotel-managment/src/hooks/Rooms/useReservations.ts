@@ -22,5 +22,6 @@ export const useReservations = () => {
         return {
             reservations,
             isLoading,
+            setReservations
         }
 }

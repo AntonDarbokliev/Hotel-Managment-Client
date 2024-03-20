@@ -25,7 +25,6 @@ export const Rooms = () => {
     const [roomModal,setRoomModal] = useState(false)
     const [floorModal, setFloorModal] = useState(false)
     const [deleteFloorModal, setDeleteFloorModal] = useState(false)
-    // const [toastText, setToastText] = useState('')
     const setToastText = useToastStore(s => s.setToastText)
 
     const {formValues,onChangeHandler} = useForm({

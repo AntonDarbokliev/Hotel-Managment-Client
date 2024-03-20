@@ -12,7 +12,7 @@ import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
 
 export const RoomReservartions = () => {
     const [ reserveModal, setReserveModal ] = useState(false)
-    const {isLoading,reservations} = useReservations()
+    const {isLoading,reservations,setReservations} = useReservations()
 
     const calendarData = useCalendarData()
    
@@ -20,22 +20,25 @@ return (
         <div className={styles["container"]}>
             <AnimatePresence>
             {reserveModal && calendarData.from && calendarData.to && 
-                <RoomReservationModal date={{from: calendarData.from,to: calendarData.to}} modalSetter={setReserveModal}/>
+                <RoomReservationModal  date={{from: calendarData.from,to: calendarData.to}} modalSetter={setReserveModal}/>
             }
             </AnimatePresence>
 
-            {!isLoading && 
+            {!isLoading &&
+            <>
                 <Calendar reservations={reservations} {...calendarData} />
+            </> 
             }
             {isLoading &&  
             <Spinner/>
-             }
+              }
 
             
             {calendarData.from && calendarData.to && 
                 <Button onClick={() => setReserveModal(true)}>Make a Reservation</Button>
             }
             
+          
             { calendarData.from != undefined || calendarData.to != undefined  && 
                 <p>Select two dates</p>
             }
