@@ -3,7 +3,7 @@ import { roomServiceFactory } from "../../../services/room"
 import { useParams } from "react-router-dom"
 import { AmenityCard } from "./AmenityCard/AmenityCard"
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-
+import {AnimatePresence} from 'framer-motion'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from './RoomInfo.module.scss'
 import { Button } from "../../Shared/Button/Button"
@@ -28,9 +28,11 @@ export const RoomInfo = () => {
         <>
         <div className={styles["container"]}>
 
+        <AnimatePresence>
         { amenityModal && 
             <AmenityModal currentAmenities={room!.roomExtras} roomSetter={setRoom} modalSetter={setAmenityModal}/>
         } 
+        </AnimatePresence>
 
         {!isLoading && 
         

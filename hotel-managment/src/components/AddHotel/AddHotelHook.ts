@@ -21,7 +21,7 @@ export const useAddHotelValidations = (formValues: FormValues, validationValues:
     const [disableButton, setDisableButton] = useState(true)
 
     const isHotelNameValid = (
-        checkLengthValidation('Name', 2, formValues) &&
+        checkLengthValidation('Name', formValues, 2) &&
         validationValues.Name === true
     )
 
@@ -33,12 +33,12 @@ export const useAddHotelValidations = (formValues: FormValues, validationValues:
     )
 
     const isAddressValid = (
-        checkLengthValidation('Address', 5, formValues) &&
+        checkLengthValidation('Address', formValues, 5) &&
         validationValues.Address === true
     )
 
     const isTelephoneNumberValid = (
-        checkLengthValidation('TelephoneNumber',10, formValues) &&
+        checkLengthValidation('TelephoneNumber', formValues,10) &&
         validationValues.TelephoneNumber === true
     )
 

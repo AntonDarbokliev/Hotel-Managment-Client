@@ -2,13 +2,35 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './ToastNotification.module.scss'
 import { useEffect } from 'react'
-// import { useEffect, useState } from 'react'
-// import {  fa-faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { motion } from 'framer-motion'
 
 interface Props {
     text: string,
     timer? : number,
-    setText?: React.Dispatch<React.SetStateAction<string>>
+    setText?: (toastText: string) => void
+}
+
+const toastVariant = {
+    hidden: {
+        opacity: 0,
+        top: '-20vh'
+    },
+    visible: {
+        opacity: 1,
+        top: '1vh',
+        transition: {
+            type: 'spring',
+            damping: 10,
+            stiffness: 100,
+
+        }
+    },
+    exit: {
+        opacity: 0,
+        top: '-20vh',
+        
+
+    }
 }
 
 export const ToastNotification: React.FC<Props> = ({text,timer,setText}) => {
@@ -23,10 +45,13 @@ export const ToastNotification: React.FC<Props> = ({text,timer,setText}) => {
     },[])
     return (
         <>
-        <div className={styles["toast-notification"]}>
+        <motion.div variants={toastVariant} key='toast-notification' className={styles["toast-notification"]} 
+        initial="hidden"
+        animate="visible"
+        exit="hidden">
             <FontAwesomeIcon size='2x' icon={faTriangleExclamation}></FontAwesomeIcon>
             <p>{text}</p>
-        </div>
+        </motion.div>
         </>
     )
 }

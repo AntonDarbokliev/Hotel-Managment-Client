@@ -3,17 +3,16 @@ import { Button } from "../../Shared/Button/Button";
 import styles from "./Login.module.scss";
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import { useLoginValidations } from "./LoginHook";
-import { useState } from "react";
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner.tsx";
-import { ToastNotification } from "../../Shared/ToastNotification/ToastNotification.tsx";
 import { useLogin } from "../../../hooks/Auth/useLogin.ts";
 import { InputFieldType } from "../../../types/InputField.ts";
 import { InputFieldslist } from "../../Shared/InputFieldsList/InputFieldsList.tsx";
+import { useToastStore } from "../../../stores/ToastStore.ts";
 
 
 export const Login = () => {
 
-  const [toastText,setToastText] = useState('')
+  const setToastText = useToastStore(s => s.setToastText)
 
   const navigate = useNavigate();
   const onSuccess = () => { navigate("/hotels")} 
@@ -50,9 +49,6 @@ export const Login = () => {
 
   return (
     <div className={styles["login"]}>
-      {toastText !== '' && 
-      <ToastNotification text={toastText} timer={3000} setText={setToastText}></ToastNotification>
-      }
 
       {!isLoading && 
       <>

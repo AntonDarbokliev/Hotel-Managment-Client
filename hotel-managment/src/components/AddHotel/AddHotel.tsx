@@ -8,9 +8,9 @@ import { InputField } from "../Shared/InputField/InputField.tsx";
 import { Button } from "../Shared/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
 import { onImageChangeHandler } from "../../utils/imageChangeHandler.ts";
-import { ToastNotification } from "../Shared/ToastNotification/ToastNotification.tsx";
 import { extractErrors } from "../../utils/extractErrors.ts";
 import { ErrorObj } from "../../types/ErrorTypes.ts";
+import { useToastStore } from "../../stores/ToastStore.ts";
 
 interface Data {
   [key: string]: string | File;
@@ -20,10 +20,9 @@ const hotelService = hotelServiceFactory();
 
 export const AddHotel = () => {
   const navigate = useNavigate();
-  // const [hasAddHotel, hasSetAddHotel] = useState(false);
   const [hotelImage, setHotelImage] = useState<File | undefined>();
   const [isImageValid, setIsImageValid] = useState(true);
-  const [toastText, setToastText] = useState('')
+  const setToastText = useToastStore(s => s.setToastText)
 
   const onFormSubmit = async () => {
 
@@ -48,13 +47,11 @@ export const AddHotel = () => {
         }
 
         try {
-       await hotelService.add(formData)
-          // hasSetAddHotel(true);
+        await hotelService.add(formData)
           navigate("/hotels");
         } catch (err) {
           const text = extractErrors(err as ErrorObj)
           setToastText(text)
-          // throw new Error(String(err));
         }
       } else {
         setIsImageValid(false);
@@ -90,10 +87,6 @@ export const AddHotel = () => {
 
   return (
     <div className={styles["add"]}>
-
-      {toastText !== '' && 
-        <ToastNotification text={toastText} timer={3000} setText={setToastText}/>
-      }
 
           <h1>Add Your Hotel</h1>
           <form className={styles["add-form"]} onSubmit={onSubmit}>

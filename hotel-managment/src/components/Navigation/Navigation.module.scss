@@ -1,5 +1,22 @@
 @import '../../styling-properties.scss';
 
+
+.sidebar-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    &.closed {
+        opacity: 0;
+      }
+}
+
 .sideBar {
     background-color: white;
     position: fixed;
@@ -10,16 +27,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // justify-content: center;
-    z-index: 1;
+    z-index: 2;
     overflow-y:scroll;
-
-    &.closed {
-        display: none;
-      }
-    // &.opened {
-    //     animation: slideInRight 0.5s ease;
-    // }
 
     .hotelImage-container{
         width: 7rem;
@@ -28,8 +37,6 @@
         margin-top: 1rem;
         border-radius: $main-border-radius;
 
-        // .hotelImage {
-        // }
     }
 
 
@@ -63,18 +70,21 @@
     font-size: 3.3rem;
     border: none;
     height: 100vh;
-    z-index: 1;
+    z-index: 2;
+    right: 0;
+    // transition: right 0.3s ease; /* Transition property */
+
 
     &:hover {
         background: darken( #f0f0f0, 30%);
         cursor: pointer;
     }
 
-    &.navigation-button-opened{
-        right: 40vw;
-      }
+    // &.navigation-button-opened{
+    //     right: 40vw;
+    //   }
     &.navigation-button-closed {
-        right: 0vw;
+        right: 0;
       }
 }
 
@@ -88,17 +98,6 @@
     padding: 0.5rem;
     }
 }
-// @keyframes slideInRight {
-//     from {
-//       transform: translateX(100%); /* Start off-screen to the right */
-//     }
-  
-//     to {
-//       transform: translateX(0); /* Move on-screen */
-//     }
-//   }
-
-
 
 
 @media (min-width: $min-width-media) {
@@ -108,9 +107,9 @@
 
     .navigation-button{
         width: $side-nav-width-pc;
-        &.navigation-button-opened{
-            right: 15vw;
-          }
+        // &.navigation-button-opened{
+        //     right: 15vw;
+        //   }
     }
 
 }

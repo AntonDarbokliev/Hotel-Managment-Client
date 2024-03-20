@@ -1,11 +1,3 @@
-// .amenity-modal {
-//     display: flex;
-//     input {
-//         margin-left: 1rem;
-//         width: 5rem;
-//     }
-// }
-
 .other {
     display: flex;
     align-items: last baseline;
@@ -16,7 +8,8 @@
     margin-bottom: 1rem;
 
 }
-
-button {
-    margin-bottom: 1rem;
+.amenity-modal {
+    button {
+        margin-bottom: 1rem;
+    }
 }
