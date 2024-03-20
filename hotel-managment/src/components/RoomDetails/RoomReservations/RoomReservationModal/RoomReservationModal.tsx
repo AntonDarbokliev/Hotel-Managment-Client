@@ -29,7 +29,7 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     const params = useParams()
 
     const onFail= () => setToastText('An error occured while adding a reservation')
-    const { reserveRoom,isLoading } = useReserveRoom(onFail,() => navigate(`/room/${params.id}/history`))
+    const { reserveRoom,isLoading } = useReserveRoom(onFail,(data: {id:string}) => navigate(`/room/${params.id}/reservation/${data.id}`))
 
     const {formValues,onChangeHandler,onSubmit} = useForm({
         EGN: '',
@@ -103,7 +103,6 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
                 <InputFieldslist {...listProps} ></InputFieldslist>
                 <Button onClick={() => setModalStage(state => state + 1)} disable={disableButton}>Next</Button>
                 </>
-                
             }
 
             {modalStage == 2 && 
