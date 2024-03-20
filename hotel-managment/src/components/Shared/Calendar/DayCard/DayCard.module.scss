@@ -1,8 +1,10 @@
 @import '../../../../styling-properties.scss';
 
+
 .day-card {
     margin: 0 0.2rem;
     padding: 0.8rem;
+    position: relative;
     height: 10%;
     width: 10%;
     display: flex;
@@ -13,6 +15,7 @@
         background: $main-color;
         color:white;
         cursor: pointer;
+        
     }
 }
 
@@ -28,7 +31,6 @@
     background: red;
     &:hover {
         color:$main-color-text;
-        cursor: not-allowed;
         background:red;
 
     }
@@ -52,4 +54,18 @@
     .day-card {
         width: 9%;
     }
+
+    
+.click-bubble {
+    z-index: 1;
+    position: absolute;
+    font-size: 0.8rem;
+    min-width: 130%;
+    margin-bottom: 5rem;
+    background: black;
+    color: white;
+    border-radius: $main-border-radius;
+    text-align: center;
+    padding: 0.3rem;
+}
 }
