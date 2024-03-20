@@ -12,7 +12,7 @@ import Spinner from '../../Shared/LoadSpinner/LoadSpinner'
 
 export const RoomReservartions = () => {
     const [ reserveModal, setReserveModal ] = useState(false)
-    const {isLoading,reservations,setReservations} = useReservations()
+    const {isLoading,reservations} = useReservations()
 
     const calendarData = useCalendarData()
    

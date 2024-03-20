@@ -11,7 +11,7 @@ export const useDisableValidations = (formValues: FormValues,validations:boolean
     useEffect(() => {
         if(
             validations.every(validation => !validation) && 
-            Object.values(formValues).every(x => x.length != 0))
+            Object.entries(formValues).every(([key,value]) => key.length != 0 || value == 'AdditionalInformation'))
             {
             setDisableButton(false)
         }else {

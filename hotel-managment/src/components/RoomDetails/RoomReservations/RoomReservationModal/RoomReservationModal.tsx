@@ -13,6 +13,7 @@ import { useReserveRoom } from "../../../../hooks/Rooms/useReserveRoom"
 import { FromTo } from "../../../../types/CalendarFromTo"
 import { useToastStore } from "../../../../stores/ToastStore"
 import Spinner from "../../../Shared/LoadSpinner/LoadSpinner"
+import { useNavigate, useParams } from "react-router-dom"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -24,12 +25,11 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     const from = `${date.from.year}-${date.from.month}-${date.from.day}`
     const to= `${date.to.year}-${date.to.month}-${date.to.day}`
     const setToastText = useToastStore(s => s.setToastText)
-
+    const navigate = useNavigate()
+    const params = useParams()
 
     const onFail= () => setToastText('An error occured while adding a reservation')
-    const { reserveRoom,isLoading } = useReserveRoom(onFail,() => {
-        modalSetter(false)
-     })
+    const { reserveRoom,isLoading } = useReserveRoom(onFail,() => navigate(`/room/${params.id}/history`))
 
     const {formValues,onChangeHandler,onSubmit} = useForm({
         EGN: '',
@@ -40,7 +40,7 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
         Address: '',
         IDN: '',
         Country: '',
-        AdditionalInformation: '(optional)'
+        AdditionalInformation: ''
     },() => {
         reserveRoom({
             ...formValues,
@@ -91,7 +91,7 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
         { name: 'Address',errorMessage: 'Address should be at least 5 characters long' ,validation: !isAddressValid,},
         { name: 'IDN',errorMessage: 'IDN should be at least 5 characters long' ,validation: !isIDNValid, maxLength: 10,type: 'number'},
         { name: 'Country',errorMessage: 'Country name should be at least 4 characters long' ,validation: !isCountryValid},
-        { name: 'AdditionalInformation',errorMessage: 'First Name should be at least 2 characters long' ,validation: true,display:'Additional Information'},
+        { name: 'AdditionalInformation',errorMessage: 'First Name should be at least 2 characters long' ,validation: true,display:'Additional Information (optional)'},
         ] as InputFieldType[]
     }
     return (
