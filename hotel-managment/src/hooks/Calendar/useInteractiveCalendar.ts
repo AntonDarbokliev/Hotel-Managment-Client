@@ -61,35 +61,41 @@ export const useInteractiveCalendar = (
       }
 
 
-       const isDayBooked = (day: number,) => {
-            if(reservations){
+      const isDayBooked = (day: number,) => {
+        if(reservations){
 
-                let shouldColor = false
-                reservations.some(reservation => {
-                    const from = extractDate(reservation.from)
-                    const to = extractDate(reservation.to)          
-                    
-                    if (to.month == from.month && month == from.month){
-                        shouldColor = day <= to.day && day >= from.day
-                        return shouldColor
-                    }else if(from.month < to.month && month === from.month ) {
-                        shouldColor = day >= from.day
-                        return shouldColor
-                    }else if(from.month < to.month && month == to.month) {
-                        shouldColor = day <= to.day
-                        return shouldColor
-                    }else if ( from.month < to.month && month > from.month && month < to.month){
-                        shouldColor = true
-                        return shouldColor
-                    }else {
-                        false
-                    }
-                    
-                })
+            let shouldColor = false
+            let dayReservation: RoomReservation = {from: '',id: '', to: ''};
+            reservations.some(reservation => {
+                const from = extractDate(reservation.from)
+                const to = extractDate(reservation.to)          
                 
-                return shouldColor
+                if (to.month == from.month && month == from.month){
+                    shouldColor = day <= to.day && day >= from.day
+                }else if(from.month < to.month && month === from.month ) {
+                    shouldColor = day >= from.day
+                }else if(from.month < to.month && month == to.month) {
+                    shouldColor = day <= to.day
+                }else if ( from.month < to.month && month > from.month && month < to.month){
+                    shouldColor = true
+                }else {
+                    false
+                }
+                if(shouldColor) {
+                  dayReservation = reservation
+                  return true
+                }else {
+                  return false
+                }
+                
+            })
+            if(shouldColor) {
+              return dayReservation
+            }else {
+              return false
             }
-    } 
+        }
+} 
 
     return {
         handleDayClick,

@@ -1,5 +1,7 @@
 import { AnimatePresence,motion } from 'framer-motion'
 import styles from './DayCard.module.scss'
+import { RoomReservation } from '../../../../types/RoomReservation'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
     day: string | number,
@@ -7,7 +9,7 @@ interface Props {
     isSelected?: boolean,
     isHighlighted?: boolean,
     hasPassed?: boolean,
-    isBooked?: boolean
+    isBooked?: false | undefined | RoomReservation
 }
 
 const hoverDayVariant = {
@@ -28,18 +30,22 @@ const hoverDayVariant = {
 }
 
 export const DayCard: React.FC<Props> = ({day,onClick,isSelected,isHighlighted,hasPassed,isBooked}) => {
-
+    const navigate = useNavigate()
+    
     return (
         <motion.div 
         initial="hidden" 
         whileHover="visible" 
-        onClick={ hasPassed || isBooked ?  () => {}: onClick } 
+        onClick={ hasPassed || isBooked ?  () => {
+            if(isBooked)  navigate(`${isBooked.id}`)
+            
+        }: onClick } 
         className={
             `${styles[`day-card`]} 
             ${isSelected ? styles[`selected`] : ''} 
             ${isHighlighted ? styles[`highlighted`] : ''}
             ${hasPassed ? styles[`has-passed`] : ''}
-            ${isBooked ? styles[`is-booked`] : ''}
+            ${isBooked  ? styles[`is-booked`] : ''}
             `
             }>
 
@@ -48,6 +54,7 @@ export const DayCard: React.FC<Props> = ({day,onClick,isSelected,isHighlighted,h
                     <motion.p 
                     variants={hoverDayVariant} 
                     className={styles['click-bubble']}
+                    onClick={() => navigate(`${isBooked.id}`) }
                     >Click to view reservation</motion.p>
                 }
                 </AnimatePresence>

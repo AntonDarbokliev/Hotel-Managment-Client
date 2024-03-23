@@ -55,7 +55,7 @@ export const DaysList:React.FC<Props> = ({days,from,to,animationVariant,today,re
             isSelected={ isDaySelected(day)} 
             hasPassed= {hasDayPassed(today,day)}
             isBooked = {isDayBooked(day)}
-            onClick={ () => handleDayClick(day)} 
+            onClick={() => handleDayClick(day)} 
             key={day} 
             day={day}
             />)}
