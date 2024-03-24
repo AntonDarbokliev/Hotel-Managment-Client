@@ -18,6 +18,8 @@ import { RoomInfo } from "./components/RoomDetails/RoomInfo/RoomInfo.tsx";
 import { PrivateRoute } from "./components/Root/PrivateRoute/PrivateRoute.tsx";
 import { RoomReservartions } from "./components/RoomDetails/RoomReservations/RoomReservations.tsx";
 import { ReservationDetails } from "./components/Reservation/ReservationDetails/ReservationDetails.tsx";
+import { Settings } from "./components/Settings/Settings.tsx";
+import { Account } from "./components/Settings/Account/Account.tsx";
 
 
 
@@ -80,6 +82,16 @@ const router = createBrowserRouter([
             path: 'reservations/:reservationId',
             element: <ReservationDetails/>
           
+          }
+        ]
+      },
+      {
+        path: 'settings',
+        element: <Settings/>,
+        children: [
+          {
+            path: 'account',
+            element: <Account/>
           }
         ]
       }

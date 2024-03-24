@@ -21,7 +21,7 @@ export const HotelDetails = () => {
 
     return (
         <>
-        <Details isLoading={isLoading} title='Control your hotel' tabs={tabs}/>
+        <Details route="hotel" isLoading={isLoading} title='Control your hotel' tabs={tabs}/>
         </>
     )
 }
