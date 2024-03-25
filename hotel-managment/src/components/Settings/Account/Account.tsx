@@ -1,11 +1,17 @@
-import { useAuthStore } from "../../../stores/Auth"
+import { useAuthStore } from "../../../stores/Auth";
+import { ProfilePicture } from "../../Shared/ProfilePicture/ProfilePicture";
+import styles from "./Account.module.scss";
 
 export const Account = () => {
-    const user = useAuthStore.getState().user
+    
+    const user = useAuthStore(s => s.user);
 
     return (
         <>
-        <h1>{user.fullName}</h1>
+            <div className={styles["container"]}>
+                <ProfilePicture/>
+                <h3>{user.fullName}</h3>
+            </div>
         </>
-    )
-}
+    );
+};

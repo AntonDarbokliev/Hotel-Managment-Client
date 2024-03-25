@@ -8,6 +8,6 @@ export const RoomDetails = () => {
     const tabs = ['Info', 'Reservations','History']
 
     return (
-        <Details route="room" isLoading={isLoading} title={title} tabs={tabs}></Details>
+        <Details root="room" isLoading={isLoading} title={title} tabs={tabs}></Details>
     )
 }

@@ -1,13 +1,26 @@
-import { Details } from "../Shared/Details/Details"
+import { useEffect } from "react";
+import { Details } from "../Shared/Details/Details";
+import { useAuthStore } from "../../stores/Auth";
 
 export const Settings = () => {
-    // Temporary variables
-    const isLoading = false
-    const title = 'Settings'
+    const updateUser = useAuthStore(s => s.updateUser)
+
+    useEffect(() => {
+        updateUser()
+    },[])
     
-    const tabs = ['Account', 'Employees','Preferences']
+    // Temporary variables
+    const isLoading = false;
+    const title = "Settings";
+
+    const tabs = ["Account", "Employees", "Preferences"];
 
     return (
-        <Details route='settings' isLoading={isLoading} title={title} tabs={tabs}></Details>
-    )
-}
+        <Details
+            root="settings"
+            isLoading={isLoading}
+            title={title}
+            tabs={tabs}
+        ></Details>
+    );
+};

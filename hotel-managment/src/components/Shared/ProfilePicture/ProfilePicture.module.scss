@@ -1,0 +1,24 @@
+@import '../../../styling-properties.scss';
+
+.profile-picture-wrapper{
+    margin-top: 1rem;
+    background-image:url("yourImage.png");
+    width:70%;
+    border-radius:50%;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.6);
+    
+  }
+  
+  .profile-picture-wrapper:after{
+    content:"";
+    padding-bottom:100%;
+    display:block;
+  }
+
+  @media(min-width: $min-width-media) {
+    .profile-picture-wrapper{
+      width:18%;
+    }
+  }

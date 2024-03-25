@@ -7,11 +7,11 @@ interface Props {
     isLoading: boolean,
     tabs: string[]
     title?: string,
-    route: string,
+    root: string,
 }
 
 
-export const Details: React.FC<Props> = ({isLoading,title,tabs,route}) => {
+export const Details: React.FC<Props> = ({isLoading,title,tabs,root}) => {
     return (
         <div className={styles['container']}>
         {!isLoading && 
@@ -19,7 +19,7 @@ export const Details: React.FC<Props> = ({isLoading,title,tabs,route}) => {
             <h1>{title}</h1>
         <div className={styles["details"]}>
             <div className={styles["tabs"]}>
-                {tabs.map(x => <TabButton to={route} key={x}>{x}</TabButton>)}
+                {tabs.map(x => <TabButton to={root} key={x}>{x}</TabButton>)}
             </div>
             <div className={styles["tab-content"]}>
                 <Outlet/>
