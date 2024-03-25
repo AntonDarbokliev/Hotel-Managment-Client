@@ -7,6 +7,7 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import {AnimatePresence, motion} from 'framer-motion'
 import { backdrop } from '../../animationVariants/backdrop';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { ProfilePicture } from '../Shared/ProfilePicture/ProfilePicture';
 
 
 export const Navigation = () => {
@@ -87,9 +88,7 @@ export const Navigation = () => {
             onClick={(e) => e.stopPropagation()} className={` ${styles["sideBar"]}`}>
             {isLoggedIn && 
             <>
-                <div className={styles['hotelImage-container']}>
-                    <img src="" alt="" className={styles['hotelImage']} />
-                </div>
+                <ProfilePicture width='55%'/>
                 <p>{user.fullName}</p>
             </>
             }
