@@ -1,5 +1,4 @@
 import styles from './ConfirmEmail.module.scss'
-// import envelope from '../../../../assets/envelope.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
