@@ -97,7 +97,10 @@ export const Rooms = () => {
         <div className={styles["rooms"]}>
             <h1>Rooms</h1>
             <div className={styles["dropdowns"]}>
-                <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue} options={floors}>Floor</Dropdown>
+                <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue}>
+                    <option>Select a Floor</option>
+                    {floors.map(floor => <option key={floor.id}>{floor.floorNumber}</option>) }
+                </Dropdown>
                 {formValues.floorValue !== '' && 
                 <Button onClick={() => setDeleteFloorModal(true)}>
                     <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
