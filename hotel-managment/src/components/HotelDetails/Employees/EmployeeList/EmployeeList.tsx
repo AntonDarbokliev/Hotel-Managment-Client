@@ -1,15 +1,14 @@
-import { Employee } from "../../../../types/Employee"
+import { ReceivedEmployee } from "../../../../types/ReceivedEmployee"
 import { EmployeeCard } from "../EmployeeCard/EmployeeCard"
 import styles from './EmployeeList.module.scss'
 
 interface Props {
-    employees: Employee[]
+    employees: ReceivedEmployee[],
 }
-
-export const EmployeeList:React.FC<Props> = ({employees}) => {
+export const EmployeeList:React.FC<Props> = ({employees}) => {    
     return (
         <div className={styles["employee-list"]}>
-            {employees.map(emp => <EmployeeCard employee={emp}/>)}
+            {employees.map(emp => <EmployeeCard  key={emp.id} employee={emp}/>)}
         </div>
     )
 }
