@@ -50,12 +50,6 @@
     background: $background-color;   
 }
 
-@media (min-width: $min-width-media ) {
-    .day-card {
-        width: 9%;
-    }
-
-    
 .click-bubble {
     z-index: 1;
     position: absolute;
@@ -68,4 +62,9 @@
     text-align: center;
     padding: 0.3rem;
 }
+
+@media (min-width: $min-width-media ) {
+    .day-card {
+        width: 9%;
+    }
 }

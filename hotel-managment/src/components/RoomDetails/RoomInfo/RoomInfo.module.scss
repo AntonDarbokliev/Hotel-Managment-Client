@@ -15,12 +15,17 @@
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    >button {
-        position: absolute;
-        bottom: 1rem;
+    position: relative;
 
+    >button {
+        position: sticky;
+        bottom: 1rem;
     }
     // overflow: hidden;
+}
+
+.edit-button {
+    margin-top: 1rem;
 }
 
 .amenities {
@@ -46,22 +51,32 @@
         margin: 0.3rem 0;
         margin-left: 0.3rem;
     }
+    >button {
+    //    position: absolute;
+    }
 }
 
 @media (min-width:$min-width-media ){
     .info{
         width: 25%;
         min-height: 35%;
+        >button {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        }
+    }
+
+    .edit-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
     }
 
     .amenities {
-        // display: flex;
         flex-direction: row;
         width: 80%;
         flex-wrap: wrap;
-        // width: 100%;
-        // align-items: center;
-        // margin: 1rem 0;
     }
 }
 
