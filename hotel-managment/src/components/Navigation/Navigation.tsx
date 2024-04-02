@@ -7,6 +7,7 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import {AnimatePresence, motion} from 'framer-motion'
 import { backdrop } from '../../animationVariants/backdrop';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { ProfilePicture } from '../Shared/ProfilePicture/ProfilePicture';
 
 
 export const Navigation = () => {
@@ -87,9 +88,7 @@ export const Navigation = () => {
             onClick={(e) => e.stopPropagation()} className={` ${styles["sideBar"]}`}>
             {isLoggedIn && 
             <>
-                <div className={styles['hotelImage-container']}>
-                    <img src="" alt="" className={styles['hotelImage']} />
-                </div>
+                <ProfilePicture width='55%'/>
                 <p>{user.fullName}</p>
             </>
             }
@@ -106,6 +105,7 @@ export const Navigation = () => {
                     <>
                     <li><Link to="/hotels" onClick={CloseOpenNavigation}>Home</Link></li>
                     <li><Link to="/add" onClick={CloseOpenNavigation}>Add</Link></li>
+                    <li><Link to="/settings" onClick={CloseOpenNavigation}>Settings</Link></li>
                     <div className={styles['log-out__div']}>
                     <FontAwesomeIcon color='#ff0000' icon={faArrowRightFromBracket}></FontAwesomeIcon>
                     <li><Link className={styles['log-out']} to="/login" onClick={logOutHandler}>Log Out</Link></li>

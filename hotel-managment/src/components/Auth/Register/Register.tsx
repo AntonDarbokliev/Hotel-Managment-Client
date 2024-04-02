@@ -32,7 +32,6 @@ export const Register = () => {
         Password: false,
         Email : false,
         RepeatPassword : false,
-
     })
 
     const { 

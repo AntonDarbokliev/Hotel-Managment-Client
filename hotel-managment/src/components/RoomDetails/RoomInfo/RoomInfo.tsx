@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { roomServiceFactory } from "../../../services/room"
 import { useParams } from "react-router-dom"
 import { AmenityCard } from "./AmenityCard/AmenityCard"
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faCircleInfo,faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import {AnimatePresence} from 'framer-motion'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from './RoomInfo.module.scss'
@@ -11,17 +11,23 @@ import { AmenityModal } from "./AmenityModal/AmenityModal"
 import { useLoading } from "../../../hooks/useLoading"
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
 import { Room } from "../../../types/RoomType"
+import { InfoField } from "../../Shared/InfoField/InfoField"
+import { EditModal } from "./EditModal/EditModal"
 
 export const RoomInfo = () => {
     const roomService = roomServiceFactory()
     const params = useParams()
     const [room,setRoom] = useState<Room>()
     const [amenityModal, setAmenityModal] = useState(false)
+    const [editModal, setEditModal] = useState(false)
+
 
     const { requestWithLoading,isLoading } = useLoading()
 
     useEffect(() => {
-        requestWithLoading(() => roomService.getSingle(params.id!).then((data: {room: Room}) => setRoom(data.room)))
+        requestWithLoading(() => roomService.getSingle(params.id!)
+        .then((data: {room: Room}) => setRoom(data.room))
+        )
     },[])
 
     return (
@@ -32,20 +38,26 @@ export const RoomInfo = () => {
         { amenityModal && 
             <AmenityModal currentAmenities={room!.roomExtras} roomSetter={setRoom} modalSetter={setAmenityModal}/>
         } 
+        {editModal && 
+            <EditModal room={room!} modalSetter={setEditModal}/>
+        }
         </AnimatePresence>
 
         {!isLoading && 
         
         <div className={styles["room-info"]}>
 
-                <div className={styles["info"]}>
+                <span className={styles["edit-button"]}>
+                    <Button onClick={() => setEditModal(true)}><FontAwesomeIcon icon={faPenToSquare}/></Button>
+                </span>
+
+                <InfoField>
                     <FontAwesomeIcon icon={faCircleInfo} color="#4844bf"/>
                     <p>Floor: 1</p>
                     <p>Number: {room?.roomNumber}</p>
                     <p>Status: Free</p>
-                    <p>Cleaned: Yes</p>
-
-                </div>
+                    <p>Cleaned: {room?.isCleaned ? 'Yes': 'No'}</p>
+                </InfoField>
 
 
                 <h1>Amenities</h1>

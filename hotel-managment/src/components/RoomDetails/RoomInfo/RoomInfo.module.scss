@@ -2,10 +2,10 @@
 
 .container {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
+    position: relative;
     
 }
 
@@ -15,7 +15,17 @@
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
+    position: relative;
+
+    >button {
+        position: sticky;
+        bottom: 1rem;
+    }
     // overflow: hidden;
+}
+
+.edit-button {
+    margin-top: 1rem;
 }
 
 .amenities {
@@ -37,12 +47,12 @@
         align-items: center;
         display: flex;
     flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    // text-align: right;
     p{
         margin: 0.3rem 0;
         margin-left: 0.3rem;
+    }
+    >button {
+    //    position: absolute;
     }
 }
 
@@ -50,16 +60,23 @@
     .info{
         width: 25%;
         min-height: 35%;
+        >button {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        }
+    }
+
+    .edit-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
     }
 
     .amenities {
-        // display: flex;
         flex-direction: row;
         width: 80%;
         flex-wrap: wrap;
-        // width: 100%;
-        // align-items: center;
-        // margin: 1rem 0;
     }
 }
 

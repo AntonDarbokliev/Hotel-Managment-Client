@@ -1,0 +1,44 @@
+@import '../../../styling-properties.scss';
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    background: white;
+    width: 93%;
+    min-height: 30%;
+    margin-top: 1rem;
+    border-radius: $main-border-radius;
+    text-align: left;
+    box-shadow: $main-box-shadow;
+
+    svg {
+        color: $main-color
+    }
+
+    >button {
+        svg {
+            color: white
+        }
+        
+        &:hover {
+            svg {
+                color: $main-color
+            }
+        }
+    }
+
+    p{
+        margin: 0.3rem 0;
+        margin-left: 0.3rem;
+    }
+}
+
+@media (min-width:$min-width-media ){
+    .room-info{
+        width: 35%;
+        min-height: 35%;
+        padding: 1rem
+    }
+}

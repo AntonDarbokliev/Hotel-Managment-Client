@@ -1,7 +1,7 @@
 import { Amenity } from "../types/AmenityType";
 
 interface RequestProps {
-    method: 'GET' | 'POST' | 'DELETE',
+    method: 'GET' | 'POST' | 'DELETE' | 'PUT',
     url : string,
     data? : FormData | null | Amenity[] 
 }
@@ -12,7 +12,7 @@ interface Options {
         "Authorization"?:string,
     },
     body?:FormData |string,
-    method: 'GET' | 'POST' | 'DELETE'
+    method: 'GET' | 'POST' | 'DELETE' | 'PUT'
 }
 const request = async ({method, url, data}: RequestProps) =>  {
 
@@ -22,7 +22,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
     };
 
 
-    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/(Hotel|Room|Floor|Reservation).*/.test(url)) {
+    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/(Hotel|Room|Floor|Reservation|Employee).*/.test(url)) {
             const token = localStorage.getItem('token');
             if(!token) {
                 throw new Error('Token is missing');
@@ -64,10 +64,12 @@ export const RequestFactory = ( ) => {
     const getRequest = (url:string) => request({ method: 'GET', url })
     const postRequest =  (url:string, data: FormData | Amenity[]) => request({method:'POST', url,data})
     const deleteRequest = (url:string) => request({ method: 'DELETE', url })
+    const putRequest = (url:string, data: FormData) => request({method: 'PUT',url,data})
 
     return {
         get: getRequest,
         post: postRequest,
-        delete: deleteRequest
+        delete: deleteRequest,
+        put: putRequest
     }
 }

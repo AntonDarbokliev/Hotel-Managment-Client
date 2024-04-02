@@ -97,7 +97,10 @@ export const Rooms = () => {
         <div className={styles["rooms"]}>
             <h1>Rooms</h1>
             <div className={styles["dropdowns"]}>
-                <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue} options={floors}>Floor</Dropdown>
+                <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue}>
+                    <option>Select a Floor</option>
+                    {floors.map(floor => <option key={floor.id}>{floor.floorNumber}</option>) }
+                </Dropdown>
                 {formValues.floorValue !== '' && 
                 <Button onClick={() => setDeleteFloorModal(true)}>
                     <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
@@ -117,9 +120,9 @@ export const Rooms = () => {
                 <p>Select a floor to view rooms</p>
             }
 
-            {noRoomsFound && 
+            {/* {noRoomsFound && 
                 <p>No rooms added yet</p>
-            }
+            } */}
             <div className={styles["buttons"]}>
                 <Button width="90%" onClick={() => setFloorModal(true)}>Add a Floor</Button>
                 <Button width="90%" onClick={onAddRoomClick}>Add a Room</Button>

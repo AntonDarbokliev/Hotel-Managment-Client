@@ -7,6 +7,7 @@ export const reserveServiceFactory = () => {
 
     return {
         add: (data: FormData) => request.post(baseUrl,data),
-        getAll: (roomId:string) => request.get(`${baseUrl}/calendar/${roomId}`)
+        getAll: (roomId:string) => request.get(`${baseUrl}/calendar/${roomId}`),
+        getOne: (reservationId:string) => request.get(`${baseUrl}/${reservationId}`)
     }
 }

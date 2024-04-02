@@ -1,0 +1,30 @@
+@import '../../../../styling-properties.scss';
+
+.employee-card {
+    display: flex;
+    background: white;
+    border-radius: $main-border-radius;
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0.2rem 0;
+    align-items: center;
+    position: relative;
+    box-shadow: $main-box-shadow;
+
+    &:hover {
+        background: darken(white, 30%);
+        cursor: pointer;
+    }
+    button {
+        position: absolute;
+        right: 0.4rem;
+    }
+
+    .employee-info {
+        display: flex;
+        flex-direction: column;
+        p {
+            margin: 0;
+        }
+    }
+}
