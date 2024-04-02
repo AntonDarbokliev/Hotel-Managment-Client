@@ -26,6 +26,7 @@ export const EmployeeCard: React.FC<Props> = ({employee}) => {
                 <div className={styles["employee-info"]}>
                     <p>{employee.firstName} {employee.lastName}</p>
                     <p className="highlight">{employee.role}</p>
+                    {/* <p className="highlight">Receptionist</p> */}
                 </div>
                 <Button><FontAwesomeIcon icon={faTrashCan}/></Button>
             </div>

@@ -48,8 +48,8 @@ export const AddEmployee: React.FC<Props> = ({modalSetter,employeesSetter}) => {
         Email : '',
     },() => {})
 
-    const afterAdd = (addedEmployee: ReceivedEmployee) => {
-        employeesSetter(s => [...s,addedEmployee])
+    const afterAdd = (addedEmployee: { employee: ReceivedEmployee}) => {
+        employeesSetter(s => [...s,addedEmployee.employee])
         modalSetter(false)
     }
 
