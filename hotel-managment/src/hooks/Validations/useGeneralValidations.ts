@@ -61,6 +61,14 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         && formValues.Email !== '' 
         && validationValues.Email === true
         ) 
+
+        
+    const isEmailAddressValid =  (
+        !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
+        .test(formValues['EmailAddress']) 
+        && formValues.EmailAddress !== '' 
+        && validationValues.EmailAddress === true
+        ) 
         
 
     const isRepeatPasswordValid = (
@@ -79,6 +87,7 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         isMiddleNameValid,
         isPasswordValid,
         isRepeatPasswordValid,
+        isEmailAddressValid
     ]
 
     const {disableButton } = useDisableValidations(formValues,validations)
@@ -94,5 +103,6 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         isRepeatPasswordValid,
         isEmailValid,
         disableButton,
+        isEmailAddressValid
     }
 } 

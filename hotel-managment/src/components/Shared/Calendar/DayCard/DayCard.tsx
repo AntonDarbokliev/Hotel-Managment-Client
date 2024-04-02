@@ -54,7 +54,6 @@ export const DayCard: React.FC<Props> = ({day,onClick,isSelected,isHighlighted,h
                     <motion.p 
                     variants={hoverDayVariant} 
                     className={styles['click-bubble']}
-                    onClick={() => navigate(`${isBooked.id}`) }
                     >Click to view reservation</motion.p>
                 }
                 </AnimatePresence>

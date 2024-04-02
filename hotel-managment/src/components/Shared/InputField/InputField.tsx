@@ -15,7 +15,6 @@ export interface InputFieldProps {
         errorMessage: string
     },
     maxLength?: number,
-    // ref?: RefObject<HTMLInputElement>
 } 
 
 export const InputField = forwardRef( (props: InputFieldProps,ref: ForwardedRef<HTMLInputElement>) => {    
