@@ -120,9 +120,9 @@ export const Rooms = () => {
                 <p>Select a floor to view rooms</p>
             }
 
-            {noRoomsFound && 
+            {/* {noRoomsFound && 
                 <p>No rooms added yet</p>
-            }
+            } */}
             <div className={styles["buttons"]}>
                 <Button width="90%" onClick={() => setFloorModal(true)}>Add a Floor</Button>
                 <Button width="90%" onClick={onAddRoomClick}>Add a Room</Button>
