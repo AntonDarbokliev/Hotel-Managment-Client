@@ -13,7 +13,7 @@ export const useEmployees = () => {
 
     useEffect(() => {
         requestWithLoading(() => emlpoyeeService.getAll(params.id!)
-        .then(data => setEmployees(data.empoyees)) // empoyees is a misspell on the backend 
+        .then(data => setEmployees(data.employees))
         .catch(err => console.log(err)))
     },[])
 

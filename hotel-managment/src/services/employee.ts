@@ -9,6 +9,7 @@ export const employeeServiceFactory = ( ) => {
     return {
         getAll: (hotelId:string) => request.get(baseUrl + `?hotelId=${hotelId}`),
         add: (data: FormData) => request.post(baseUrl,data),
-        getRoles: () => request.get(baseUrl + '/Roles')
+        getRoles: () => request.get(baseUrl + '/Roles'),
+        edit: (data: FormData) => request.put(baseUrl,data) 
     }   
 }
