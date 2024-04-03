@@ -3,6 +3,8 @@ import { employeeServiceFactory } from "../../services/employee"
 import { makeFormData } from "../../utils/makeFormData"
 import { useLoading } from "../useLoading"
 import { ReceivedEmployee } from "../../types/ReceivedEmployee"
+import { useToastStore } from "../../stores/ToastStore"
+import { extractErrors } from "../../utils/extractErrors"
 
 const employeeService = employeeServiceFactory()
 
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export const useAddEmployee = (props: Props) => {
+    const setToastText = useToastStore(s => s.setToastText)
 
     const {formValues,onFail,onSuccess} = props
 
@@ -33,7 +36,10 @@ export const useAddEmployee = (props: Props) => {
             
             requestWithLoading(() => employeeService.add(formData))
         .then((data) => onSuccess ?  onSuccess(data): null)
-        .catch((error) => onFail  ?  onFail(error): null)
+        .catch((error) => {
+            const errorStr = extractErrors(error)
+            setToastText(errorStr)
+        })
     }
         
     return {
