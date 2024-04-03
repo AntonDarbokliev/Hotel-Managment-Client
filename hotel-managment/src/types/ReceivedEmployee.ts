@@ -5,5 +5,6 @@ export interface ReceivedEmployee {
     egn: string,
     address: string,
     role: string,
-    id: string
+    id: string,
+    email: string
 }
