@@ -5,6 +5,10 @@ export interface ReceivedEmployee {
     egn: string,
     address: string,
     role: string,
-    id: string,
     email: string
+    id: string,
+    isActive: boolean,
+    salary: number,
+    salaryReports: number[],
+    hotelId: string
 }
