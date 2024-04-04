@@ -16,6 +16,7 @@ export const InputFieldslist:React.FC<Props> = ({formValues,inputs,onBlurHandler
     const change = (e:FormEvent) => onChangeHandler(e)
 
     return (
+        // <div>
         <>
         {inputs.map(input => 
         <InputField 
@@ -31,5 +32,6 @@ export const InputFieldslist:React.FC<Props> = ({formValues,inputs,onBlurHandler
         type={input.type}
         >{input.display ? input.display : input.name}</InputField>)}
         </>
+        // {/* </div> */}
     )
 }

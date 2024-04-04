@@ -71,12 +71,17 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         ) 
         
 
-    const isRepeatPasswordValid = (
+    let isRepeatPasswordValid = (
         !(formValues['RepeatPassword'] == formValues['Password'])
         && formValues.Password !== '' 
         && validationValues.Password === true
-
     )
+
+    if(formValues['ConfirmPassword']) {
+        isRepeatPasswordValid =  !(formValues['ConfirmPassword'] == formValues['Password'])
+        && formValues.ConfirmPassword !== '' 
+        && validationValues.ConfirmPassword === true
+    }
 
     const validations = [
         isAddressValid,

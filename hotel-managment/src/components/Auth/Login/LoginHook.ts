@@ -2,22 +2,24 @@ import { useDisableValidations } from "../../../hooks/Validations/useDisableVali
 
 interface FormValues {
     [key:string]: string,
-    hotelCode: string;
-    password: string;
 }
 
 interface ValidationValues {
-    hotelCode: boolean;
-    password: boolean;
+    [key:string]: boolean,
 }
 
 export const useLoginValidations = (formValues: FormValues, validationValues: ValidationValues) => {
 
-    const isCodeValid =  (
-        !/^.{3,}$/.test(formValues['hotelCode']) 
-        && formValues.hotelCode !== '' 
-        && validationValues.hotelCode === true
-        )
+    let isCodeValid =  !/^.{3,}$/.test(formValues['hotelCode']) 
+    && formValues.hotelCode !== '' 
+    && validationValues.hotelCode === true
+
+   if(formValues['LoginCode'] !== undefined) {
+        isCodeValid =  !/^.{3,}$/.test(formValues['LoginCode']) 
+        && formValues.LoginCode !== '' 
+        && validationValues.LoginCode === true
+      }
+        
     
     const isPasswordValid = (
         !/^.{5,}$/.test(formValues['password']) 

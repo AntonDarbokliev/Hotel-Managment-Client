@@ -5,10 +5,7 @@ export const makeFormData = (data: {[key:string] : string | number}) => {
 
     for (const [key,value] of array) {
         formData.append(key, String(value));
-    }
-
-    console.log(formData);
-    
+    }    
 
     return formData
 }

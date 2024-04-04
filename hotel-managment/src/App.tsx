@@ -20,6 +20,7 @@ import { RoomReservartions } from "./components/RoomDetails/RoomReservations/Roo
 import { ReservationDetails } from "./components/Reservation/ReservationDetails/ReservationDetails.tsx";
 import { Settings } from "./components/Settings/Settings.tsx";
 import { Account } from "./components/Settings/Account/Account.tsx";
+import { PasswordResetForm } from "./components/Settings/Account/PasswordResetForm/PasswordResetForm.tsx";
 
 
 
@@ -91,8 +92,13 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'account',
-            element: <Account/>
+            element: <Account/>,
           },
+          {
+              path: 'account/pass-reset',
+              element: <PasswordResetForm/>
+            }
+          
         ]
       }
 

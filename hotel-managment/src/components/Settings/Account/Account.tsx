@@ -28,9 +28,6 @@ export const Account = () => {
                 <InfoField >
                     <ul>
                        <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Passsword</SettingsOption>
-                       {/* <SettingsOption icon={faKey}>Reset Passsword</SettingsOption>
-                       <SettingsOption icon={faKey}>Reset Passsword</SettingsOption>
-                       <SettingsOption icon={faKey}>Reset Passsword</SettingsOption> */}
                     </ul>
                 </InfoField>
             </div>
