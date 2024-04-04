@@ -7,13 +7,15 @@
     position: relative;
     align-items: center;
     padding: 0.4rem;
+    width: 100%;
 }
 
 .input-field {
     margin: 1rem 0;
     height: 1.8rem ;
-    width: 50vw;
-    max-width: 350px;
+    // width: 50vw;
+    width: 100%;
+    // max-width: 350px;
     border-radius: $main-border-radius ;
     border: none;
     border: 1px solid black;
@@ -25,7 +27,7 @@
 .error-message {
     color: red;
     font-size: 0.8rem;
-    position: absolute;
+    // position: absolute;
     top: 65%;
     text-wrap: wrap;
 }
