@@ -4,6 +4,7 @@ import { Room } from "../../../../types/RoomType"
 import { Button } from "../../../Shared/Button/Button"
 import { InputField } from "../../../Shared/InputField/InputField"
 import { Modal } from "../../../Shared/Modal/Modal"
+import { Toggle } from "../../../Shared/Toggle/Toggle"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -14,13 +15,13 @@ export const EditModal:React.FC<Props> = ({modalSetter,room}) => {
     const {formValues,onChangeHandler} = useForm({
         roomNumber: String(room.roomNumber),
     },() => {})
-    const [checkbox,setCheckbox ] = useState(room.isCleaned)
+    const [toggle,setToggle ] = useState(room.isCleaned)
+    
     return (
         <Modal stateSetter={modalSetter} title="Edit room">
             <InputField value={formValues.roomNumber} onChange={onChangeHandler} type="text" name="roomNumber">Room Number</InputField>
             <p>Cleaned</p>
-            <input style={{height: '25px',width: '25px',margin: '1rem'}} type="checkbox" checked={checkbox} onClick={() => setCheckbox(s => !s)}></input>
-            {/* TODO: Make a custom toggle component */}
+            <Toggle toggleSetter={setToggle} toggleState={toggle}/>
             <Button>Save</Button>
         </Modal>
     )

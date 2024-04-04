@@ -1,10 +1,24 @@
-import styles from './Toggle.module.scss'
+import styles from './Toggle.module.scss';
+import { motion } from "framer-motion";
 
-export const Toggle = () => {
+interface Props {
+    toggleSetter: React.Dispatch<React.SetStateAction<boolean>>,
+    toggleState: boolean
+}
+
+export const Toggle: React.FC<Props> = ({toggleSetter,toggleState}) => {
+    
     return (
-        <label className={styles["toggle"]}>
-            <input type="checkbox" />
-            <span className={styles["slider"]}/>
-        </label>
+        <div className={`${styles["toggle-container"]}  ${toggleState ? styles.toggled : styles.untoggled}`}>
+           <div className={`${styles['toggle']}`} onClick={() => toggleSetter(s => !s)}>
+                <motion.div className={styles["toggle-ball"]} layout transition={spring}/>
+           </div>
+        </div>
     )
 }
+
+const spring = {
+    type: "spring",
+    stiffness: 400,
+    damping: 30
+};
