@@ -21,22 +21,27 @@ export const Employees = () => {
 
     return (
         <>
-        <AnimatePresence>
-            {addEmployee && 
-                <AddEmployee modalSetter={setAddEmployee}/>
-            }
-            
-        </AnimatePresence>
         <div className={styles["container"]}>
-            <h1>Employees</h1>
-            {!isLoading && 
-            <EmployeeList/>
+
+            <AnimatePresence>
+                {addEmployee && 
+                    <AddEmployee modalSetter={setAddEmployee}/>
+                }
+                
+            </AnimatePresence>
+            <div className={styles["employees"]}>
+                <h1>Employees</h1>
+                {!isLoading && 
+                <EmployeeList/>
             }
-            {isLoading && 
-                <Spinner/>
-            }
-            <Button onClick={() => setAddEmployee(true)}>Add an Employee</Button>
-        </div>
+                {isLoading && 
+                    <Spinner/>
+                }
+              <span className={styles["add-btn"]}> <Button onClick={() => setAddEmployee(true)}>Add an Employee</Button></span>
+            </div>
+
+
+            </div>
         </>
     )
 }
