@@ -12,18 +12,20 @@ import { InputFieldslist } from "../InputFieldsList/InputFieldsList"
 import { Dropdown } from "../Dropdown/Dropdown"
 import { Button } from "../Button/Button"
 import { useEditEmployee } from "../../../hooks/Employees/useEditEmployee"
+import { useEmployeeStore } from "../../../stores/EmployeeStore"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
-    employeesSetter?:  React.Dispatch<React.SetStateAction<ReceivedEmployee[]>>,
+    // employeesSetter?:  React.Dispatch<React.SetStateAction<ReceivedEmployee[]>>,
     type: 'Edit' | 'Add',
     employee? : ReceivedEmployee
 }
 
 const employeeService = employeeServiceFactory()
 
-export const EmployeeForm: React.FC<Props> = ({modalSetter,employeesSetter,type,employee}) => {
+export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
 
+    const {setEmployees,employees} = useEmployeeStore()
     const [roles,setRoles] = useState<string[]>([])
     
     useEffect(() => {
@@ -52,7 +54,7 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,employeesSetter,type,
     },() => {})
 
     const afterAdd = (addedEmployee: { employee: ReceivedEmployee}) => {
-        employeesSetter!(s => [...s,addedEmployee.employee])
+        setEmployees!([...employees,addedEmployee.employee])
         modalSetter(false)
     }
     const {addEmployee} = useAddEmployee({formValues,onSuccess: afterAdd})
