@@ -55,6 +55,11 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
            formValues.Password !== '' 
         )
 
+        const isPhoneNumberValid = (
+        checkLengthValidation("PhoneNumber",formValues, 5) &&
+        validationValues.PhoneNumber === true &&
+        formValues.PhoneNumber.length <= 15)
+
     const isEmailValid =  (
         !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
         .test(formValues['Email']) 
@@ -92,7 +97,8 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         isMiddleNameValid,
         isPasswordValid,
         isRepeatPasswordValid,
-        isEmailAddressValid
+        isEmailAddressValid,
+        isPhoneNumberValid
     ]
 
     const {disableButton } = useDisableValidations(formValues,validations)
@@ -108,6 +114,7 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         isRepeatPasswordValid,
         isEmailValid,
         disableButton,
-        isEmailAddressValid
+        isEmailAddressValid,
+        isPhoneNumberValid
     }
 } 

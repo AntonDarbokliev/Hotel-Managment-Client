@@ -16,7 +16,6 @@ import { useEmployeeStore } from "../../../stores/EmployeeStore"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
-    // employeesSetter?:  React.Dispatch<React.SetStateAction<ReceivedEmployee[]>>,
     type: 'Edit' | 'Add',
     employee? : ReceivedEmployee
 }
@@ -41,6 +40,9 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         Address : false,
         Role: false,
         Email : false,
+        Salary: false,
+        PhoneNumber: false,
+
     })
 
     const {formValues,onChangeHandler} = useForm({
@@ -49,8 +51,10 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         LastName : type == 'Edit' ? `${employee?.lastName}`: '',
         EGN : type == 'Edit' ? `${employee?.egn}`: '',
         Address : type == 'Edit' ? `${employee?.address}`: '',
-        Role: type == 'Edit' ? `${employee?.role}`: '',
+        Role: type == 'Edit' ? `${employee?.roles[0]}`: '',
         Email : type == 'Edit' ? `${employee?.email}`: '',
+        Salary : type == 'Edit' ? `${employee?.salary}`: '',
+        PhoneNumber: type == 'Edit' ? `${employee?.phoneNumber}`: '',
     },() => {})
 
     const afterAdd = (addedEmployee: { employee: ReceivedEmployee}) => {
@@ -68,6 +72,7 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         isEGNValid,
         isAddressValid,
         isEmailValid,
+        isPhoneNumberValid
     } = useGeneralValidations(formValues,validationValues)
 
 
@@ -77,6 +82,8 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         { name: 'LastName',errorMessage: 'LastName should be at least 2 characters long' ,validation: !isLastNameValid, display: 'Last Name'},
         { name: 'EGN',errorMessage: 'EGN should be at least 10 characters long' ,validation: !isEGNValid, maxLength: 10},
         { name: 'Email',errorMessage: 'Invalid Email' ,validation: !isEmailValid},
+        { name: 'Salary', type: 'number'},
+        { name: 'PhoneNumber', type: 'number',validation: !isPhoneNumberValid},
         { name: 'Address',errorMessage: 'Address should be at least 5 characters long' ,validation: !isAddressValid},
     ] as InputFieldType[]
 

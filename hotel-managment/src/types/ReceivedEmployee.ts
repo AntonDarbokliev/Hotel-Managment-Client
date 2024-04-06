@@ -12,5 +12,6 @@ export interface ReceivedEmployee {
     isActive: boolean,
     salary: number,
     salaryReports: SalaryReport[],
-    hotelId: string
+    hotelId: string,
+    phoneNumber: string
 }
