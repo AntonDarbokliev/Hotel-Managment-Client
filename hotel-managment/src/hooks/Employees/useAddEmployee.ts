@@ -10,7 +10,7 @@ const employeeService = employeeServiceFactory()
 
 interface Props {
     formValues: {[key:string]: string},
-    onSuccess?: (data: ReceivedEmployee) => void,
+    onSuccess?: (addedEmployee: { employee: ReceivedEmployee}) => void,
     onFail?: (text:string) => void
 }
 

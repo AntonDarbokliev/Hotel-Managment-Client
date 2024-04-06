@@ -1,4 +1,4 @@
-export const makeFormData = (data: {[key:string] : string | number}) => {
+export const makeFormData = (data: {[key:string] : string | number | boolean}) => {
     const formData = new FormData();
 
     const array = Object.entries(data)
