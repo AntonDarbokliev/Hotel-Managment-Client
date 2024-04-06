@@ -1,14 +1,16 @@
+import { SalaryReport } from "./SalaryReport"
+
 export interface ReceivedEmployee {
     firstName:string,
     middleName: string,
     lastName: string,
     egn: string,
     address: string,
-    role: string,
+    roles: string[],
     email: string
     id: string,
     isActive: boolean,
     salary: number,
-    salaryReports: number[],
+    salaryReports: SalaryReport[],
     hotelId: string
 }
