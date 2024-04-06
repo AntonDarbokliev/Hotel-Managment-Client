@@ -6,6 +6,7 @@ const employeeService = employeeServiceFactory()
 export const useActivateDeactivate = (activeState: boolean | null,employeeId:string) => {
     
     useEffect(() => {
+console.log(activeState);
 
         if(activeState != null) {
 

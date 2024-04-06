@@ -1,6 +1,3 @@
-import { Button } from "../../../Shared/Button/Button"
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import styles from './EmployeeCard.module.scss'
 import { useState } from "react"
 import { EmployeeDetails } from "../Modals/EmployeeDetails/EmployeeDetails"
@@ -25,9 +22,9 @@ export const EmployeeCard: React.FC<Props> = ({employee}) => {
                 
                 <div className={styles["employee-info"]}>
                     <p>{employee.firstName} {employee.lastName}</p>
-                    <p className="highlight">{employee.role}</p>
+                    <p className="highlight">{employee.roles.join(' ')}</p>
                 </div>
-                <Button><FontAwesomeIcon icon={faTrashCan}/></Button>
+                <div className={`${styles['activity-circle']} ${ employee.isActive ? styles.active : styles.inactive}`}></div>
             </div>
         </>
     )
