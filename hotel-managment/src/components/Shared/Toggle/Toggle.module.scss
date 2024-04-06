@@ -3,7 +3,9 @@
 .toggle-container {
     height: 1.8rem;
     width: 4.5rem;
-    
+    &:hover {
+        cursor: pointer;
+    }
 
     .toggle {
         height: 100%;
