@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react"
-
 import styles from './EmployeeForm.module.scss'
 import { ReceivedEmployee } from "../../../types/ReceivedEmployee"
-import { employeeServiceFactory } from "../../../services/employee"
 import { useFormValidation } from "../../../hooks/useFormValidation"
 import { useForm } from "../../../hooks/useForm"
 import { useAddEmployee } from "../../../hooks/Employees/useAddEmployee"
@@ -13,6 +10,9 @@ import { Dropdown } from "../Dropdown/Dropdown"
 import { Button } from "../Button/Button"
 import { useEditEmployee } from "../../../hooks/Employees/useEditEmployee"
 import { useEmployeeStore } from "../../../stores/EmployeeStore"
+import { useRoles } from '../../../hooks/Employees/useRoles'
+import { useParams } from 'react-router-dom'
+import Spinner from '../LoadSpinner/LoadSpinner'
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -20,17 +20,12 @@ interface Props {
     employee? : ReceivedEmployee
 }
 
-const employeeService = employeeServiceFactory()
 
 export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
 
     const {setEmployees,employees} = useEmployeeStore()
-    const [roles,setRoles] = useState<string[]>([])
-    
-    useEffect(() => {
-        employeeService.getRoles()
-        .then(obj => setRoles(obj.roles))
-    },[])
+    const {roles} = useRoles()
+    const hotelId = useParams().id
 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
         FirstName : false,
@@ -61,8 +56,16 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         setEmployees!([...employees,addedEmployee.employee])
         modalSetter(false)
     }
-    const {addEmployee} = useAddEmployee({formValues,onSuccess: afterAdd})
-    const {editEmployee} = useEditEmployee({formValues})
+
+    const afterEdit = (editedEmployee: { employee: ReceivedEmployee}) => {
+        const employeesCopy = [...employees]
+        const index = employeesCopy.findIndex(x => x.id == editedEmployee.employee.id)
+        employeesCopy[index] = editedEmployee.employee        
+        setEmployees(employeesCopy)
+        modalSetter(false)
+    }
+    const {addEmployee,isLoading: isAddLoading} = useAddEmployee({formValues,onSuccess: afterAdd})
+    const {editEmployee,isLoading: isEditLoading} = useEditEmployee({formValues,employeeId: employee?.id,hotelId,onSuccess: afterEdit})
 
 
     const {
@@ -83,12 +86,14 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         { name: 'EGN',errorMessage: 'EGN should be at least 10 characters long' ,validation: !isEGNValid, maxLength: 10},
         { name: 'Email',errorMessage: 'Invalid Email' ,validation: !isEmailValid},
         { name: 'Salary', type: 'number'},
-        { name: 'PhoneNumber', type: 'number',validation: !isPhoneNumberValid},
+        { name: 'PhoneNumber', type: 'number',validation: !isPhoneNumberValid,errorMessage: 'Phone Number should be longer'},
         { name: 'Address',errorMessage: 'Address should be at least 5 characters long' ,validation: !isAddressValid},
     ] as InputFieldType[]
 
     return (
             <div className={styles["container"]}> 
+            {!isAddLoading && !isEditLoading && 
+            <>
                 <form action="">
                     <InputFieldslist 
                     formValues={formValues} 
@@ -99,16 +104,22 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
                     />
                     <p>Role</p>
                     <Dropdown onChange={onChangeHandler} name="Role" value={formValues.Role}>
-                        <option value="">Select a Role</option>
+                        <option value="" >Select a Role</option>
                         {roles.map(role => <option key={role} value={role}>{role}</option>)}
                     </Dropdown>
                 </form>
                 {type == "Add" && 
-                    <Button width="30%" onClick={addEmployee}>Add</Button>
+                    <Button  onClick={addEmployee}>Add</Button>
                 }
                 {type == 'Edit' && 
-                    <Button width="30%" onClick={editEmployee}>Save</Button>
+                    <Button onClick={editEmployee}>Save</Button>
                 }
+            </>
+            }
+
+            {isAddLoading || isEditLoading && 
+                <Spinner/>
+            }
             </div>
     )
 }

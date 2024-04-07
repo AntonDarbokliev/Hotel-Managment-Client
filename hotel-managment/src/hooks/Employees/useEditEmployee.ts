@@ -8,17 +8,20 @@ import { useLoading } from "../useLoading"
 
 interface Props {
     formValues: {[key:string]: string},
-    onSuccess?: (data: ReceivedEmployee) => void,
+    employeeId?: string,
+    hotelId?: string
+    onSuccess?: (updatedEmployee: { employee: ReceivedEmployee}) => void,
 }
 const employeeService =  employeeServiceFactory()
-export const useEditEmployee = ({formValues,onSuccess}:Props) => {
+export const useEditEmployee = ({formValues,employeeId,onSuccess,hotelId}:Props) => {
 
     const setToastText = useToastStore(s => s.setToastText)
     const {isLoading,requestWithLoading} = useLoading()
 
     const editEmployee = async () => {
         try {
-            const data = makeFormData(formValues)
+            if(!employeeId || !hotelId) throw new Error('No employee or hotel id found') 
+            const data = makeFormData({...formValues,Id: employeeId,HotelId: hotelId})
             const editedEmployee = await requestWithLoading( () => employeeService.edit(data))
             if(onSuccess)
             onSuccess(editedEmployee)
