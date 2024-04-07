@@ -8,8 +8,9 @@ export interface RegisterData {
 }
 
 export interface AuthInfo {
-    nameId: string,
+    nameid: string,
     FullName: string,
     ProfilePicture: string,
+    role: string,
     exp? : number
 }
