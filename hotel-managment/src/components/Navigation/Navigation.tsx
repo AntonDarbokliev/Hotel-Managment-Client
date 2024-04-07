@@ -90,6 +90,7 @@ export const Navigation = () => {
             <>
                 <ProfilePicture width='55%'/>
                 <p>{user.fullName}</p>
+                <p className='highlight' style={{margin: 0}}>{user.role}</p>
             </>
             }
 
