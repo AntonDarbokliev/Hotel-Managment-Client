@@ -1,5 +1,7 @@
 import { FocusEventHandler, FormEvent, ForwardedRef, ReactNode, forwardRef } from 'react'
 import styles from './InputField.module.scss'
+import { AnimatePresence, motion } from 'framer-motion'
+
 
 export interface InputFieldProps {
     children : ReactNode,
@@ -34,10 +36,23 @@ export const InputField = forwardRef( (props: InputFieldProps,ref: ForwardedRef<
             onChange={props.onChange}
             onFocus={props.onFocusHandler}
             onBlur={props.onBlurHandler}
-            style={props.isValid?.boolean === false ?{border: 'red 1px solid'} : {} } 
+            style={props.isValid?.boolean === false ? {border: 'red 1px solid'} : {} } 
             ref={ref}
             ></input>
-            {!props.isValid?.boolean ? <p className={styles['error-message']}>{props.isValid?.errorMessage}</p>: <></> }
+            <AnimatePresence>
+
+             {props.isValid?.boolean === false &&
+                    <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className={styles['error-message']}
+                    >
+                        {props.isValid?.errorMessage}
+                    </motion.p>
+                }
+            </AnimatePresence>
         </div>
         </>
     )   
