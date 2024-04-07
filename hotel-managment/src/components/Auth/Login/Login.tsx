@@ -39,8 +39,8 @@ export const Login = () => {
     onBlurHandler,
     onFocusHandler,
     inputs: [
-      { name: 'hotelCode',errorMessage: 'Hotel Code should be at least 3 characters long' ,
-      validation: !isCodeValid, type: 'password',display: 'Hotel Code'},
+      { name: 'hotelCode',errorMessage: 'Hotel Code should be at least 3 characters long',
+      validation: !isCodeValid, type: 'password',display: 'Hotel Code (make login code)'},
       { name: 'password',errorMessage: 'Password should be at least 5 characters long' ,
       validation: !isPasswordValid, type: 'password',display: 'Password'},
 

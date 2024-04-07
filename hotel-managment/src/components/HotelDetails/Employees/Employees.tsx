@@ -26,9 +26,9 @@ export const Employees = () => {
             <AnimatePresence>
                 {addEmployee && 
                     <AddEmployee modalSetter={setAddEmployee}/>
-                }
-                
+                }    
             </AnimatePresence>
+
             <div className={styles["employees"]}>
                 <h1>Employees</h1>
                 {!isLoading && 

@@ -12,8 +12,6 @@ export const Account = () => {
     
     const user = useAuthStore(s => s.user);
     const [resetPassModal,setResetPassModal] = useState(false)
-    console.log(user);
-    
     return (
         <>
         <AnimatePresence>

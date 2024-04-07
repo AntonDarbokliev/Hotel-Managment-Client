@@ -10,7 +10,6 @@ interface Props {
 
 export const EmployeeCard: React.FC<Props> = ({employee}) => {
     const [employeeDetails, setEmployeeDetails] = useState(false)
-
     return (
         <>
             <AnimatePresence>
