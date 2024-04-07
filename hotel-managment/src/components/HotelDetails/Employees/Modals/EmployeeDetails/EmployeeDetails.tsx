@@ -74,7 +74,7 @@ export const EmployeeDetails:React.FC<Props> = ({modalSetter,employeeId}) => {
                     <p>Email: {employee.email}</p>
                     <p>Salary: {employee.salary}</p>
                     <p>Salary Reports: {employee.salaryReports.length == 0 ? 'No reports' : null} </p>
-                    {employee.salaryReports.map(report => <ReportCard report={report}/>)}
+                    {employee.salaryReports.map(report => <ReportCard key={report.id} report={report}/>)}
                     <Button onClick={ () => setStage(3)}>Create Report</Button>
                 </div>
                 }
