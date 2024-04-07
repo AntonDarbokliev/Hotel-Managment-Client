@@ -7,11 +7,6 @@
     align-items: center;
     position: relative;
     overflow-y: auto;
-
-    >button {
-        position: absolute;
-        bottom: 1rem
-    }
 }
 
 .employees {
@@ -23,7 +18,5 @@
 }
 
 .add-btn{
-    // margin: 1rem 0;
-    position: sticky;
-    bottom: 1rem
+    margin: 1rem 0;
 }
