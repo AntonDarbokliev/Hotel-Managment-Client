@@ -48,27 +48,6 @@
   
 }
 
-.floor-modal-buttons {
-    display:flex;
-    flex-direction: column;
-    margin: 1rem;
-    button {
-        margin: 1rem;
-    }
-}
-
-.room-modal-form  {
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.delete-warning {
-    color:red;
-    padding: 1rem 0 ;
-}
-
 @media (min-width: $min-width-media) {
 
     .buttons {
@@ -77,11 +56,6 @@
             width: 40% !important;
             margin: 0 2rem;
         }
-    }
-
-    .floor-modal-buttons {
-        flex-direction: row;
-        margin-top: 2rem;
     }
 
     .dropdowns {

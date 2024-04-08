@@ -2,23 +2,20 @@ import { useState } from "react"
 import { Dropdown } from "../../Shared/Dropdown/Dropdown"
 import styles from './Rooms.module.scss'
 import { Button } from "../../Shared/Button/Button"
-import { Modal } from "../../Shared/Modal/Modal"
-import { InputField } from "../../Shared/InputField/InputField"
 import { useRooms } from "./RoomsHook"
 import { RoomsList } from "./RoomsList/RoomsList"
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { useSetRooms } from "../../../hooks/Rooms/useSetRooms"
-import { useAddRoom } from "../../../hooks/Rooms/useAddRoom"
 import { useForm } from "../../../hooks/useForm"
 import { useSetFloors } from "../../../hooks/Floors/useSetFloors"
-import { useAddFloor } from "../../../hooks/Floors/useAddFloor"
-import { Floor } from "../../../types/FloorType"
-import { useDeleteFloor } from "../../../hooks/Floors/useDeleteFloor"
 
 import { AnimatePresence} from 'framer-motion'
 import { useToastStore } from "../../../stores/ToastStore"
+import { AddRoomModal } from "./modals/AddRoomModal/AddRoomModal"
+import { AddFloorModal } from "./modals/AddFloorModal/AddFloorModal"
+import { DeleteFloorModal } from "./modals/DeleteFloorModal/DeleteFloorModal"
 
 export const Rooms = () => {
     
@@ -27,31 +24,13 @@ export const Rooms = () => {
     const [deleteFloorModal, setDeleteFloorModal] = useState(false)
     const setToastText = useToastStore(s => s.setToastText)
 
+
     const {formValues,onChangeHandler} = useForm({
         floorValue: '',
-        roomNumber: '',
         },() => {})
 
-    const onAddFail = () => {setToastText('An error occured, please try again later')}
-    const afterAdd = () => {setRoomModal(false)}
-    
     const { floors,floor,setFloors } = useSetFloors(formValues)
     const {noRoomsFound,rooms,setRooms} = useSetRooms(floors,formValues) 
-    const {addRoom} = useAddRoom(setRooms,onAddFail,afterAdd)
-
-    const onAddFloorSuccess = (data:Floor) => {
-        setFloors((state) => [...state,data])
-        setFloorModal(false)
-    }
-    const onAddFloorFail = () => {setToastText('An error occured while adding a floor, please try again later')}
-    const {onAddFloor} = useAddFloor(floors.length + 1,onAddFloorSuccess,onAddFloorFail)
-
-    const onDeleteFloorSuccess = () => {
-        setFloors(state => state.filter(x => x.id !== floor!.id))
-        setDeleteFloorModal(false)
-    }
-    const onDeleteFloorFail = () => {setToastText('An error occured while removing this floor, please try again later')}
-    const { deleteFloor } = useDeleteFloor(floor.id,onDeleteFloorSuccess,onDeleteFloorFail)
 
     const {
         onAddRoomClick,
@@ -62,36 +41,23 @@ export const Rooms = () => {
         <>
         <AnimatePresence>
             {roomModal && 
-            <Modal key={'room-modal'} stateSetter={setRoomModal} title="Add a Room">
-                <form action="" className={styles["room-modal-form"]}>
-                    <InputField type="number" 
-                    name="roomNumber" 
-                    value={formValues.roomNumber}
-                    onChange={onChangeHandler}
-                    >Room Number</InputField>
-                    <p>Floor: {formValues.floorValue}</p>
-                    <br />
-                    <Button width="12rem" disable={formValues.roomNumber == ''} onClick={(event) => addRoom(event!,floor!.id,formValues.roomNumber)}>Add Room</Button>
-                </form>
-            </Modal>
+                <AddRoomModal 
+                key={'add-room-modal'} 
+                floor={floor} 
+                modalSetter={setRoomModal} 
+                roomSetter={setRooms}/>
             }
 
             { floorModal && 
-                <Modal key={'floor-modal'} stateSetter={setFloorModal} title="Are you sure you want to add a Floor?">
-                    <div className={styles["floor-modal-buttons"]}>
-                    <Button width="8rem" onClick={onAddFloor}>Yes</Button>
-                    <Button width="8rem" onClick={() => setFloorModal(false)}>Cancel</Button>
-                    </div>
-                </Modal>
+                <AddFloorModal key={'add-floor-modal'} 
+                floors={floors} 
+                floorsSetter={setFloors} 
+                floorModalSetter={setFloorModal}/>
             }
 
             {deleteFloorModal && 
-                <Modal key={'delete-floor-modal'} title="Are you sure you want to delete this Floor?" stateSetter={setDeleteFloorModal}>
-                    <p className={styles["delete-warning"]} >This will delete the current floor, along with all the rooms inside it.</p>
-                    <Button width="8rem" onClick={deleteFloor}>Yes</Button>
-                    <br />
-                    <Button width="8rem" onClick={() => setDeleteFloorModal(false)}>Cancel</Button>
-                </Modal>
+                <DeleteFloorModal deleteFloorModalSetter={setDeleteFloorModal} floor={floor} 
+                floorsSetter={setFloors}/>
             }
             
         <div className={styles["rooms"]}>
