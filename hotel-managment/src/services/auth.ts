@@ -9,5 +9,6 @@ export const authServiceFactory = ( ) => {
     return {
         register: (data: FormData) => request.post(baseUrl + '/Register',data),
         login: (data: FormData) => request.post(`${baseUrl}/Login`, data),
+        resetPass: (data: FormData) => request.post(`${baseUrl}/PasswordReset`, data)
     }   
 }

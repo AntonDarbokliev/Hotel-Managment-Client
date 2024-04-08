@@ -36,6 +36,17 @@
         width: 95%;
     }
 
+    button {
+        svg {
+            color: white
+        }
+        &:hover {
+            svg {
+                color: $main-color
+            }
+        }
+    }
+
     .close-button {
         position: absolute;
         right: 1rem;

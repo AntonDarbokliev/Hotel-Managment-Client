@@ -7,13 +7,15 @@
     position: relative;
     align-items: center;
     padding: 0.4rem;
+    width: 100%;
 }
 
 .input-field {
-    margin: 1rem 0;
+    margin-bottom: 1.5rem;
+    margin-top: 0.4rem;
     height: 1.8rem ;
-    width: 50vw;
-    max-width: 350px;
+    width: 35vw;
+    max-width: 100%;
     border-radius: $main-border-radius ;
     border: none;
     border: 1px solid black;
@@ -26,6 +28,19 @@
     color: red;
     font-size: 0.8rem;
     position: absolute;
-    top: 65%;
+    top: 60%;
+    width: 80vw;
     text-wrap: wrap;
+}
+
+@media (min-width: $min-width-media) {
+    .input-field {
+        margin-bottom: 2rem;
+        width: 15vw;
+    }
+
+    .error-message {
+        top: 60%;
+        width: 20vw;
+    }
 }

@@ -1,0 +1,16 @@
+@import '../../../../../../styling-properties.scss';
+
+.salary-report {
+    table {
+        border: 1px solid $main-color;
+        border-radius: $main-border-radius;
+        margin-bottom: 1rem;
+        box-shadow: $main-box-shadow;
+        // border-collapse: collapse;
+        padding: 0.4rem;
+    }
+    
+    td,tr,th {
+        border-bottom: $main-color 1px solid;
+    }
+}

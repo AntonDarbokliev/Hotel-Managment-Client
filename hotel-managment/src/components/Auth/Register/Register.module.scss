@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 50vw;
     
 }
 
@@ -26,5 +27,9 @@
 @media (min-width: $min-width-media) {
     .register-group-fields-wrapper{
         display: flex;
+    }
+
+    .register-form {
+        width: 25vw;        
     }
 }

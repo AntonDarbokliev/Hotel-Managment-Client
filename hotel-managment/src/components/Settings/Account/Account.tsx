@@ -12,7 +12,6 @@ export const Account = () => {
     
     const user = useAuthStore(s => s.user);
     const [resetPassModal,setResetPassModal] = useState(false)
-
     return (
         <>
         <AnimatePresence>
@@ -25,12 +24,10 @@ export const Account = () => {
             <div className={styles["container"]}>
                 <ProfilePicture/>
                 <h3>{user.fullName}</h3>
+                <h4>{user.role}</h4>
                 <InfoField >
                     <ul>
                        <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Passsword</SettingsOption>
-                       {/* <SettingsOption icon={faKey}>Reset Passsword</SettingsOption>
-                       <SettingsOption icon={faKey}>Reset Passsword</SettingsOption>
-                       <SettingsOption icon={faKey}>Reset Passsword</SettingsOption> */}
                     </ul>
                 </InfoField>
             </div>

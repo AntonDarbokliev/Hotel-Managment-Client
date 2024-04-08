@@ -1,6 +1,3 @@
-import { Button } from "../../../Shared/Button/Button"
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import styles from './EmployeeCard.module.scss'
 import { useState } from "react"
 import { EmployeeDetails } from "../Modals/EmployeeDetails/EmployeeDetails"
@@ -13,22 +10,20 @@ interface Props {
 
 export const EmployeeCard: React.FC<Props> = ({employee}) => {
     const [employeeDetails, setEmployeeDetails] = useState(false)
-
     return (
         <>
             <AnimatePresence>
                 {employeeDetails &&
-                    <EmployeeDetails employee={employee} modalSetter={setEmployeeDetails}/>
+                    <EmployeeDetails employeeId={employee.id} modalSetter={setEmployeeDetails}/>
                 }
             </AnimatePresence>
             <div className={styles["employee-card"]} onClick={() => setEmployeeDetails(true)}>
                 
                 <div className={styles["employee-info"]}>
                     <p>{employee.firstName} {employee.lastName}</p>
-                    <p className="highlight">{employee.role}</p>
-                    {/* <p className="highlight">Receptionist</p> */}
+                    <p className="highlight">{employee.roles.join(' ')}</p>
                 </div>
-                <Button><FontAwesomeIcon icon={faTrashCan}/></Button>
+                <div className={`${styles['activity-circle']} ${ employee.isActive ? styles.active : styles.inactive}`}></div>
             </div>
         </>
     )

@@ -1,0 +1,29 @@
+@import '../../../../../styling-properties.scss';
+
+.employee-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.activity-div {
+    display: flex;
+    align-items: center;
+    >p {
+        margin-right: 1rem;
+    }
+}
+
+
+
+// @media (min-width:$min-width-media ) {
+
+//     // .employee-details {
+//     //     >button {
+//     //             position: absolute;
+//     //             top: 2rem;
+//     //             right: 4rem;
+//     //         }
+//     //     }
+       
+//     }

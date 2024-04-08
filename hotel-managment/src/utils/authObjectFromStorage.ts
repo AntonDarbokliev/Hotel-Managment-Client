@@ -11,8 +11,9 @@ export const authObjectFromStorage = () => {
     }else {
         return {
             FullName: '',
-            nameId: '',
+            nameid: '',
             ProfilePicture: '',
+            role: ''
         }
     }
 }

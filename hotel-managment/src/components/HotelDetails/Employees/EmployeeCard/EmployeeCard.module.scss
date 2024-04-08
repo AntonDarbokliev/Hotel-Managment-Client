@@ -27,4 +27,20 @@
             margin: 0;
         }
     }
+
+    .activity-circle {
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%; 
+        position: absolute;
+        right: 1rem;
+    }
+
+    .active {
+        background-color: green;
+    }
+
+    .inactive {
+        background-color: red;
+    }
 }

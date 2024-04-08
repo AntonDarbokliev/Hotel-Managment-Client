@@ -1,25 +1,26 @@
-import { create } from "zustand"
-import { authObjectFromStorage } from "../utils/authObjectFromStorage"
+import { create } from "zustand";
+import { authObjectFromStorage } from "../utils/authObjectFromStorage";
 
 interface User {
-    fullName: string,
-    picture: string,
-    id: string
+    fullName: string;
+    picture: string;
+    id: string;
+    role: string
 }
 
-interface AuthStore  {
-    user: User
-    isLoggedIn: boolean,
-    updateUser: () => void,
-    clearUser: () => void
+interface AuthStore {
+    user: User;
+    isLoggedIn: boolean;
+    updateUser: () => void;
+    clearUser: () => void;
 }
-
 
 export const useAuthStore = create<AuthStore>((set) => ({
     user: {
-        fullName: '',
-        picture: '',
-        id: '',
+        fullName: "",
+        picture: "",
+        id: "",
+        role: ""
     },
     isLoggedIn: false,
     clearUser: () => {
@@ -28,43 +29,42 @@ export const useAuthStore = create<AuthStore>((set) => ({
                 fullName: "",
                 id: "",
                 picture: "",
+                role: "",
             },
             isLoggedIn: false,
-        }))
+        }));
 
-        localStorage.removeItem('token')
+        localStorage.removeItem("token");
     },
 
     updateUser: () => {
-        const newUser = authObjectFromStorage()
-        
-        const currentTime =  Math.floor(Date.now() / 1000);
+        const newUser = authObjectFromStorage();
+                
+        const currentTime = Math.floor(Date.now() / 1000);
 
-        if(newUser.FullName.length > 0  && currentTime < newUser.exp!){
+        if (newUser && currentTime < newUser.exp!) {
             set((state) => ({
                 ...state,
                 user: {
                     fullName: newUser.FullName,
-                    id: newUser.nameId,
-                    picture: newUser.ProfilePicture
+                    id: newUser.nameid,
+                    picture: newUser.ProfilePicture,
+                    role: newUser.role,
                 },
-                isLoggedIn: true
+                isLoggedIn: true,
             }));
         } else {
             set((state) => ({
                 ...state,
                 user: {
-                    fullName: '',
-                    id: '',
-                    picture: ''
+                    fullName: "",
+                    id: "",
+                    picture: "",
+                    role: "",
                 },
-                isLoggedIn: false
+                isLoggedIn: false,
             }));
-            localStorage.removeItem('token')
+            localStorage.removeItem("token");
         }
     },
-    
-}))
-
-    
-            
+}));
