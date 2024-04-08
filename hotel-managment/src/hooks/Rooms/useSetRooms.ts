@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { roomServiceFactory } from "../../services/room";
 import { FormValues } from "../../types/FormValues";
+import { SentRoom } from "../../types/SentRoom";
 
 export const useSetRooms = (floors: {floorNumber:number,id:string }[],formValues:FormValues ) => {
-    const [rooms,setRooms ] = useState<{roomNumber: number,id: string}[]>([])
+    const [rooms,setRooms ] = useState<SentRoom[]>([])
     const [noRoomsFound, setNoRoomsFound] = useState(false)
 
    

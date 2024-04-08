@@ -1,4 +1,5 @@
 import { roomServiceFactory } from "../../services/room";
+import { useLoading } from "../useLoading";
 
 export const useAddRoom = (
     roomSetter: React.Dispatch<React.SetStateAction<{roomNumber: number;id: string;}[]>>,
@@ -7,15 +8,14 @@ export const useAddRoom = (
     ) => {
     
     const roomService = roomServiceFactory()
+    const {isLoading,requestWithLoading} = useLoading()
 
-    const addRoom = async (e:React.MouseEvent,floorId:string,roomNumber: string | number) => {
-        e.preventDefault()
-        // const floorId = floors.find(x => String(x.floorNumber) == formValues.floorValue)!.id
+    const addRoom = async (floorId:string,roomNumber: string | number) => {
         const formData = new FormData()
         formData.append('RoomNumber',String(roomNumber))
         formData.append('FLoorId',floorId)
         try {
-            const data = await roomService.add(formData)
+            const data = await requestWithLoading( () => roomService.add(formData))
             roomSetter(state => [...state,data.room])
         }catch(error) {
             onAddFail()
@@ -25,6 +25,7 @@ export const useAddRoom = (
     }
 
     return {
-        addRoom
+        addRoom,
+        isLoading
     }
 }
