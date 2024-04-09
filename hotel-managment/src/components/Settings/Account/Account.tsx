@@ -2,22 +2,28 @@ import { useAuthStore } from "../../../stores/Auth";
 import { InfoField } from "../../Shared/InfoField/InfoField";
 import { ProfilePicture } from "../../Shared/ProfilePicture/ProfilePicture";
 import { SettingsOption } from "../../Shared/SettingsOption/SettingsOption";
-import { faKey } from '@fortawesome/free-solid-svg-icons'
+import { faKey,faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import styles from "./Account.module.scss";
 import { useState } from "react";
 import { ResetPassword } from "../Modals/ResetPassword/ResetPassword";
 import { AnimatePresence } from "framer-motion";
+import { ChangeEmail } from "../Modals/ChangeEmail/ChangeEmail";
 
 export const Account = () => {
     
     const user = useAuthStore(s => s.user);
     const [resetPassModal,setResetPassModal] = useState(false)
+    const [resetEmailModal, setResetEmailModal] = useState(false)
     return (
         <>
         <AnimatePresence>
 
         {resetPassModal && 
-            <ResetPassword userEmail="antondarbokliev@gmail.com" modalSetter={setResetPassModal}/>
+            <ResetPassword key={'reset-pass-modal'} userEmail="antondarbokliev@gmail.com" modalSetter={setResetPassModal}/>
+        }
+
+        {resetEmailModal && 
+            <ChangeEmail key={'change-email-modal'} modalSetter={setResetEmailModal}/>
         }
         </AnimatePresence>
 
@@ -28,6 +34,7 @@ export const Account = () => {
                 <InfoField >
                     <ul>
                        <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Passsword</SettingsOption>
+                       <SettingsOption onClick={() => setResetEmailModal(true)} icon={faEnvelope}>Change Email Address</SettingsOption>
                     </ul>
                 </InfoField>
             </div>
