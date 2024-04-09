@@ -9,6 +9,7 @@ export const authServiceFactory = ( ) => {
     return {
         register: (data: FormData) => request.post(baseUrl + '/Register',data),
         login: (data: FormData) => request.post(`${baseUrl}/Login`, data),
-        resetPass: (data: FormData) => request.post(`${baseUrl}/PasswordReset`, data)
+        resetPass: (data: FormData) => request.post(`${baseUrl}/PasswordReset`, data),
+        sendResetEmail: (data: FormData) => request.post(`${baseUrl}/SendReset`, data),  // Waiting for back-end to make the actual endpoint
     }   
 }
