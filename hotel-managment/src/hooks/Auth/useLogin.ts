@@ -1,15 +1,19 @@
 import { authServiceFactory } from "../../services/auth";
 import { useAuthStore } from "../../stores/Auth";
+import { useToastStore } from "../../stores/ToastStore";
+import { ErrorObj } from "../../types/ErrorTypes";
+import { extractErrors } from "../../utils/extractErrors";
 import { useForm } from "../useForm";
 import { useLoading } from "../useLoading";
 
-export const useLogin = (onSuccess: () => void, onFail: (text: string) => void) => {
+export const useLogin = (onSuccess: () => void) => {
 
     const {isLoading,requestWithLoading} =  useLoading()
 
     const updateUser = useAuthStore((s) => s.updateUser)
 
     const authService = authServiceFactory();
+    const toastSetter = useToastStore(s => s.setToastText)
 
     const onLogin = async () => {
         const data = new FormData();
@@ -24,9 +28,8 @@ export const useLogin = (onSuccess: () => void, onFail: (text: string) => void) 
         
           onSuccess()
         } catch (error) {
-          if(typeof error == 'object'){
-            onFail((error as {error:string}).error)
-        }
+         const errorTxt = extractErrors(error as ErrorObj)
+         toastSetter(errorTxt)
       } finally {
         resetForm()
       }

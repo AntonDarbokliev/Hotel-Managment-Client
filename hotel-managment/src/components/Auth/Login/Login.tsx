@@ -7,18 +7,14 @@ import Spinner from "../../Shared/LoadSpinner/LoadSpinner.tsx";
 import { useLogin } from "../../../hooks/Auth/useLogin.ts";
 import { InputFieldType } from "../../../types/InputField.ts";
 import { InputFieldslist } from "../../Shared/InputFieldsList/InputFieldsList.tsx";
-import { useToastStore } from "../../../stores/ToastStore.ts";
-
 
 export const Login = () => {
 
-  const setToastText = useToastStore(s => s.setToastText)
 
   const navigate = useNavigate();
   const onSuccess = () => { navigate("/hotels")} 
-  const onFail = (text:string) => { setToastText(text) }
 
-  const { isLoading, onChangeHandler, onSubmit, formValues} = useLogin(onSuccess,onFail)
+  const { isLoading, onChangeHandler, onSubmit, formValues} = useLogin(onSuccess)
 
 
   const { onBlurHandler, onFocusHandler, validationValues } = useFormValidation(
@@ -58,6 +54,10 @@ export const Login = () => {
         <InputFieldslist {...listProps}/>
         <Button width='10rem' disable={disableButton}>Login</Button>
       </form>
+
+      <p>
+        Forgot your password? <Link to="/forgot-password">Reset here</Link>
+      </p>
 
       <p>
         Don't have a registration? <Link to="/register">Sign up.</Link>

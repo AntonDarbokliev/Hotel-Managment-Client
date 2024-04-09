@@ -106,7 +106,7 @@ export const Navigation = () => {
                     <>
                     <li><Link to="/hotels" onClick={CloseOpenNavigation}>Home</Link></li>
                     <li><Link to="/add" onClick={CloseOpenNavigation}>Add</Link></li>
-                    <li><Link to="/settings" onClick={CloseOpenNavigation}>Settings</Link></li>
+                    <li><Link to="/settings/account" onClick={CloseOpenNavigation}>Settings</Link></li>
                     <div className={styles['log-out__div']}>
                     <FontAwesomeIcon color='#ff0000' icon={faArrowRightFromBracket}></FontAwesomeIcon>
                     <li><Link className={styles['log-out']} to="/login" onClick={logOutHandler}>Log Out</Link></li>

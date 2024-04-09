@@ -21,6 +21,7 @@ import { ReservationDetails } from "./components/Reservation/ReservationDetails/
 import { Settings } from "./components/Settings/Settings.tsx";
 import { Account } from "./components/Settings/Account/Account.tsx";
 import { PasswordResetForm } from "./components/Settings/Account/PasswordResetForm/PasswordResetForm.tsx";
+import { ForgotPassword } from "./components/Auth/ForgotPassword/ForgotPassword.tsx";
 
 
 
@@ -37,9 +38,11 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register/>,
-
-    },
-
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword/>
+      },
     {
       element: <PrivateRoute/>,
       children: [
