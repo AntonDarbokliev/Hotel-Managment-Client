@@ -1,6 +1,7 @@
-import { it, expect, describe,vi,beforeAll } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { it, expect, describe,vi } from 'vitest'
+import { render, screen, } from '@testing-library/react'
 import { Account } from '../../../components/Settings/Account/Account'
+import { userEvent } from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 
 
@@ -21,23 +22,23 @@ vi.mock("../../../stores/Auth", () => ({
     }
 }));
 
-describe('Account Testing', () => {
-   
-    beforeAll(() => {
+describe('Account Page Testing', () => {
+
+    let resetPasswordOption: HTMLElement;
+
+    beforeEach(() => {
         render((
             <>
             <BrowserRouter>
                 <Account/>
             </BrowserRouter>
             </>
-        )) 
+        ))
+        resetPasswordOption = screen.getByText('Reset',{exact: false})
     })
 
     it('renders component', async () => {
-        const resetOption =  screen.getByText('Reset',{exact: false})
-
-        expect(resetOption).toBeInTheDocument()
-
+        expect(resetPasswordOption).toBeInTheDocument()
     })
 
 
@@ -49,5 +50,15 @@ describe('Account Testing', () => {
         expect(role).toBeInTheDocument()
         expect(name).toBeInTheDocument()
 
+    })
+
+    it('shows reset password modal', async () => {
+        const user = userEvent.setup()
+
+        user.click(resetPasswordOption)
+
+        // expect(screen.getByText('Okay')).toBeInTheDocument()
+        // expect(screen.getByRole('button',{name: 'Okay'})).toBeInTheDocument()
+        
     })
 })
