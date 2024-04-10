@@ -1,4 +1,5 @@
 import { roomServiceFactory } from "../../services/room";
+import { useToastStore } from "../../stores/ToastStore";
 import { ErrorObj } from "../../types/ErrorTypes";
 import { Room } from "../../types/RoomType";
 import { extractErrors } from "../../utils/extractErrors";
@@ -6,10 +7,9 @@ import { makeFormData } from "../../utils/makeFormData";
 import { useLoading } from "../useLoading";
 
 export const useAddRoom = (
-    onAddFail: (text:string) => void, 
     afterAdd: (data: {room: Room}) => void 
     ) => {
-    
+    const toastSetter = useToastStore(s => s.setToastText)
     const roomService = roomServiceFactory()
     const {isLoading,requestWithLoading} = useLoading()
 
@@ -21,7 +21,7 @@ export const useAddRoom = (
             afterAdd(data)
         }catch(error) {
             const errorTxt = extractErrors(error as ErrorObj) 
-            onAddFail(errorTxt)
+            toastSetter(errorTxt)
         }
         
     }

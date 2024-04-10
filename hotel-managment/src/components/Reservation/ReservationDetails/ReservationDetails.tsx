@@ -14,7 +14,8 @@ import
     faEarthAmericas,
     faLocationDot,
     faMarsAndVenus,
-    faIdCard
+    faIdCard,
+    faDollarSign
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
@@ -58,6 +59,7 @@ export const ReservationDetails = () => {
                     <li>Email: {reservation.guest.emailAddress}</li>
                     }
                     <li> <FontAwesomeIcon icon={faLocationDot}/> Address: {reservation.guest.address}</li>
+                    <li> <FontAwesomeIcon icon={faDollarSign}/> Total: {reservation.totalPrice}</li>
 
                     {reservation.additionalInformation && 
                     <>
