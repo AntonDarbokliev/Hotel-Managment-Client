@@ -50,7 +50,7 @@ describe('Account Page', () => {
     it('shows reset password modal', async () => {
         const user = userEvent.setup()
 
-        user.click(screen.getByTestId('reset-pass'))
+        user.click(screen.getByText(/Reset Password/i))
         
         await waitFor(() => screen.getByText(/Okay/i))
         expect(screen.getByText(/Okay/i)).toBeInTheDocument()
