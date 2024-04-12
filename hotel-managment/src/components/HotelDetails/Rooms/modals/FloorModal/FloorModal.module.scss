@@ -1,0 +1,17 @@
+@import "../../../../../styling-properties.scss";
+
+.floor-modal-buttons {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    button {
+        margin: 1rem;
+    }
+}
+
+@media (min-width: $min-width-media) {
+    .floor-modal-buttons {
+        flex-direction: row;
+        margin-top: 2rem;
+    }
+}

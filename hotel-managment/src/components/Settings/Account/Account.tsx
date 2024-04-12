@@ -27,7 +27,7 @@ export const Account = () => {
                 <h4>{user.role}</h4>
                 <InfoField >
                     <ul>
-                       <SettingsOption data-testid={'reset-pass'} onClick={() => setResetPassModal(true)} icon={faKey}>Reset Passsword</SettingsOption>
+                       <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Password</SettingsOption>
                     </ul>
                 </InfoField>
             </div>

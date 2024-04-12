@@ -29,7 +29,7 @@ export const Rooms = () => {
         },() => {})
 
     const { floors,floor,setFloors } = useFloors(formValues)
-    const {rooms,setRooms} = useRooms(floors,formValues) 
+    const {rooms,setRooms} = useRooms(floors,formValues.floorValue) 
 
     const onAddRoomClick = () => {
         if(formValues.floorValue !== ''){

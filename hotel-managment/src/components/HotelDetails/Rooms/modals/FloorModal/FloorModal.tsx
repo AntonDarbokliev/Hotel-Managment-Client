@@ -20,7 +20,7 @@ export const FloorModal: React.FC<Props> = ({totalFloors,floorSetter,modalSetter
     const {onAddFloor} = useAddFloor(totalFloors,onAddFloorSuccess)
 
     return (
-        <Modal key={"floor-modal"} stateSetter={modalSetter} title="Are you sure you want to add a Floor?">
+        <Modal stateSetter={modalSetter} title="Are you sure you want to add a Floor?">
             <div className={styles["floor-modal-buttons"]}>
                 <Button width="8rem" onClick={onAddFloor}>
                     Yes

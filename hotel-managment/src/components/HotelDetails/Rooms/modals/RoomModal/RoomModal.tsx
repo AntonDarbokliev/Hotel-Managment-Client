@@ -33,7 +33,7 @@ export const RoomModal: React.FC<Props> = ({ floor, modalSetter, roomsSetter }) 
     );
 
     return (
-        <Modal key={"room-modal"} stateSetter={modalSetter} title="Add a Room">
+        <Modal stateSetter={modalSetter} title="Add a Room">
             <form action="" className={styles["room-modal-form"]}>
                 <InputField type="number" name="roomNumber" value={formValues.roomNumber} onChange={onChangeHandler}>
                     Room Number

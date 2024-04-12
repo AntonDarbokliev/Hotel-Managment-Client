@@ -19,7 +19,7 @@ export const Toggle: React.FC<Props> = ({toggleSetter,toggleState,onToggle}) => 
         };
     
     return (
-        <div className={`${styles["toggle-container"]}  ${toggleState ? styles.toggled : styles.untoggled}`}>
+        <div data-testid="toggle" className={`${styles["toggle-container"]}  ${toggleState ? styles.toggled : styles.untoggled}`}>
            <div className={`${styles['toggle']}`} onClick={onClick}>
                 <motion.div className={styles["toggle-ball"]} layout transition={spring}/>
            </div>

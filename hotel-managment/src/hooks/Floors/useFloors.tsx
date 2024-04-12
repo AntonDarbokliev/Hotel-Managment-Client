@@ -3,14 +3,15 @@ import { floorServiceFactory } from "../../services/floors"
 import { useParams } from "react-router-dom"
 import { FormValues } from "../../types/FormValues"
 import { Floor } from "../../types/FloorType"
-import { extractErrors } from "../../utils/extractErrors"
-import { useToastStore } from "../../stores/ToastStore"
+// import { extractErrors } from "../../utils/extractErrors"
+// import { useToastStore } from "../../stores/ToastStore"
+// import { ErrorObj } from "../../types/ErrorTypes"
 
 export const useFloors = (formValues: FormValues) => {
 
     const [floors, setFloors ] = useState<Floor[]>([])
     const [ floor, setFloor] = useState<Floor>({floorNumber:0,id:'0' })
-    const toastSetter = useToastStore(s => s.setToastText)
+    // const toastSetter = useToastStore(s => s.setToastText)
 
     const floorService = floorServiceFactory()
     const params = useParams()
@@ -18,10 +19,7 @@ export const useFloors = (formValues: FormValues) => {
     useEffect(() => {
         floorService.get(String(params.id))
         .then( data => setFloors(data.floors))
-        .catch(err => {
-            const errorTxt = extractErrors(err)
-            toastSetter(errorTxt)
-        })
+        .catch(err => console.error(err))
     },[])
 
     useEffect(() => {

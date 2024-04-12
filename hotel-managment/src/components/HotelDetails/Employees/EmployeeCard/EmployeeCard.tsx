@@ -1,30 +1,32 @@
-import styles from './EmployeeCard.module.scss'
-import { useState } from "react"
-import { EmployeeDetails } from "../Modals/EmployeeDetails/EmployeeDetails"
-import { AnimatePresence } from "framer-motion"
-import { ReceivedEmployee } from "../../../../types/ReceivedEmployee"
+import styles from "./EmployeeCard.module.scss";
+import { useState } from "react";
+import { EmployeeDetails } from "../Modals/EmployeeDetails/EmployeeDetails";
+import { AnimatePresence } from "framer-motion";
+import { ReceivedEmployee } from "../../../../types/ReceivedEmployee";
 
 interface Props {
-    employee: ReceivedEmployee,
+    employee: ReceivedEmployee;
 }
 
-export const EmployeeCard: React.FC<Props> = ({employee}) => {
-    const [employeeDetails, setEmployeeDetails] = useState(false)
+export const EmployeeCard: React.FC<Props> = ({ employee }) => {
+    const [employeeDetails, setEmployeeDetails] = useState(false);
     return (
         <>
             <AnimatePresence>
-                {employeeDetails &&
-                    <EmployeeDetails employeeId={employee.id} modalSetter={setEmployeeDetails}/>
-                }
+                {employeeDetails && <EmployeeDetails employeeId={employee.id} modalSetter={setEmployeeDetails} />}
             </AnimatePresence>
             <div className={styles["employee-card"]} onClick={() => setEmployeeDetails(true)}>
-                
                 <div className={styles["employee-info"]}>
-                    <p>{employee.firstName} {employee.lastName}</p>
-                    <p className="highlight">{employee.roles.join(' ')}</p>
+                    <p>
+                        {employee.firstName} {employee.lastName}
+                    </p>
+                    <p data-testid="roles" className="highlight">{employee.roles.join(" ")}</p>
                 </div>
-                <div className={`${styles['activity-circle']} ${ employee.isActive ? styles.active : styles.inactive}`}></div>
+                <div
+                    data-testid="activity-circle"
+                    className={`${styles["activity-circle"]}  ${employee.isActive ? styles.active : styles.inactive}`}
+                ></div>
             </div>
         </>
-    )
-}
+    );
+};
