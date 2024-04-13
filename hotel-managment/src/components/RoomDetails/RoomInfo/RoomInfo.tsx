@@ -50,8 +50,8 @@ export const RoomInfo = () => {
                 {!isLoading && (
                     <div className={styles["room-info"]}>
                         <span className={styles["edit-button"]}>
-                            <Button onClick={() => setEditModal(true)}>
-                                <FontAwesomeIcon icon={faPenToSquare} />
+                            <Button data-testid='edit-btn' onClick={() => setEditModal(true)}>
+                                <FontAwesomeIcon  icon={faPenToSquare} />
                             </Button>
                         </span>
 

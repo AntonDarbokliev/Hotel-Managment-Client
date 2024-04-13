@@ -7,7 +7,7 @@ interface Props {
     onClick?: (event?: React.MouseEvent | React.FormEvent | undefined) => void
     disable? : boolean,
     color?: string,
-    width?: string
+    width?: string,
 }
 
 export const Button  = (props: Props) => {

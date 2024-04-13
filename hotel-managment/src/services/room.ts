@@ -8,7 +8,7 @@ export const roomServiceFactory = () => {
 
     return {
         add: (data: FormData) => request.post(baseUrl,data),
-        get: (floorId:string) => request.get(baseUrl + `/floor/${floorId}`),
+        get: (floorId:string) =>  request.get(baseUrl + `/floor/${floorId}`),
         getSingle: (roomId: string) => request.get(baseUrl + `/${roomId}`),
         addAmenities: (data: Amenity[]) => request.post(baseUrl + '/AddExtra',data),
         edit: (data: FormData ) => request.put(baseUrl,data)
