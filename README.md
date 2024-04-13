@@ -1,4 +1,5 @@
 # Hotel Management Client
+### February 2024 - Present
 This is part of a project, work in progress 🛠️, the group currently consits of three people. Two for the Back-End ( .Net). I'm fully taking care of the Front-End.  
 
 The idea for this project is to create an application that would assist the staff of a hotel in managing the establishment.
