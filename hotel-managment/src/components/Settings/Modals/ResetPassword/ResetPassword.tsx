@@ -1,38 +1,66 @@
-import { useState } from "react"
-import { Button } from "../../../Shared/Button/Button"
-import { Modal } from "../../../Shared/Modal/Modal"
-import styles from './ResetPassword.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { Button } from "../../../Shared/Button/Button";
+import { Modal } from "../../../Shared/Modal/Modal";
+import { useForm } from "../../../../hooks/useForm";
+import { useFormValidation } from "../../../../hooks/useFormValidation";
+import { useGeneralValidations } from "../../../../hooks/Validations/useGeneralValidations";
+import { InputFieldType } from "../../../../types/InputField";
+import { InputFieldslist } from "../../../Shared/InputFieldsList/InputFieldsList";
+import { useChangePass } from "../../../../hooks/Auth/useChangePass";
+import Spinner from "../../../Shared/LoadSpinner/LoadSpinner";
 
 interface Props {
-    modalSetter:  React.Dispatch<React.SetStateAction<boolean>>,
+    modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
     userEmail: string;
 }
 
-export const ResetPassword:React.FC<Props> = ({modalSetter,userEmail}) => {
-    const [stage,setStage] = useState(1)
+export const ResetPassword: React.FC<Props> = ({ modalSetter }) => {
 
-    const closeModal = () => modalSetter(false)
+    const {formValues,onChangeHandler} = useForm({
+        CurrentPassword: '',
+        NewPassword: '',
+        ConfirmPassword: '',
+    },() => {})
+
+    const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
+        CurrentPassword: false,
+        NewPassword: false,
+        ConfirmPassword: false,
+    })
+
+    const {isPasswordValid,isRepeatPasswordValid} = useGeneralValidations(formValues,validationValues)
+
+    const {isLoading,resetPass} = useChangePass()
+
+    const inputs: InputFieldType[] = [
+        {name: 'CurrentPassword', display:'Current Password',type: 'password' },
+        {name: 'NewPassword',display: 'New Password',type: 'password',validation: !isPasswordValid,
+        errorMessage: '6 characters, 1 capital letter, 1 lowercase letter, and 1 symbol are required.'
+        },
+        {name: 'ConfirmPassword', display:'Confirm Password',type: 'password',validation: !isRepeatPasswordValid, 
+        errorMessage: 'Passwords not matching'
+    },
+    ]
+    
     return (
-            <Modal stateSetter={modalSetter} title="Reset Account Password">
-                {stage == 1 && 
+        <Modal stateSetter={modalSetter} title="Reset Account Password">
                 <>
-                    <p>An email containing a link to reset your password will be sent to you.</p>
-                    <div className={styles["buttons"]}>
-                    <Button onClick={() => setStage(2)}>Okay</Button>
-                    <Button onClick={closeModal}>Cancel</Button>
-                    </div>
-                </>
+                    {!isLoading && 
+                    <> 
+                        <InputFieldslist
+                        formValues={formValues}
+                        inputs={inputs}
+                        onBlurHandler={onBlurHandler}
+                        onFocusHandler={onFocusHandler}
+                        onChangeHandler={onChangeHandler}
+                        />
+                        <Button onClick={() => resetPass(formValues)}>Confrim</Button>
+                    </>
                 }
 
-                {stage == 2 && 
-                <>
-                    <FontAwesomeIcon size='6x' icon={faEnvelope}/>
-                    <p>An email has been sent to <span className="highlight">{userEmail}</span></p>
-                    <Button onClick={closeModal} >Close</Button>
-                </>
+                {isLoading && 
+                    <Spinner/>
                 }
-            </Modal>
-    )
-} 
+                </>
+        </Modal>
+    );
+};

@@ -48,12 +48,21 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         validationValues.Address === true
         )
 
-    const isPasswordValid = (
+    let isPasswordValid = (
         !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
         .test(formValues.Password) &&
            validationValues.Password === true &&
            formValues.Password !== '' 
         )
+
+        if(formValues['NewPassword']) {
+            isPasswordValid = (
+                !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+                .test(formValues.NewPassword) &&
+                   validationValues.NewPassword === true &&
+                   formValues.NewPassword !== '' 
+                )
+        }
 
         const isPhoneNumberValid = (
         checkLengthValidation("PhoneNumber",formValues, 5) &&
@@ -83,9 +92,9 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
     )
 
     if(formValues['ConfirmPassword']) {
-        isRepeatPasswordValid =  !(formValues['ConfirmPassword'] == formValues['Password'])
-        && formValues.ConfirmPassword !== '' 
-        && validationValues.ConfirmPassword === true
+        isRepeatPasswordValid =  !(formValues['ConfirmPassword'] == formValues['NewPassword'])
+        && formValues.NewPassword !== '' 
+        && validationValues.NewPassword === true
     }
 
     const isCodeValid =  (!/^.{4,}$/.test(formValues['loginCode']) 
