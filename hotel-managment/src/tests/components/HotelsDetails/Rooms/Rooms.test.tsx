@@ -5,6 +5,9 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { Floor } from "../../../../types/FloorType";
 import { Room } from "../../../../types/RoomType";
+import { Amenity } from "../../../../types/AmenityType";
+
+const amenities: Amenity[] = [{name: 'Fridge',roomId: '5126hrn1cm91h9'}]
 
 vi.mock("../../../../services/room", () => ({
     roomServiceFactory: () => ({        
@@ -21,7 +24,7 @@ vi.mock("../../../../services/room", () => ({
                     id: "5126hrn1cm91h9",
                     isBooked: false,
                     isCleaned: false,
-                    roomExtras: [],
+                    roomExtras: [...amenities],
                     roomNumber: 1,
                 },
 
