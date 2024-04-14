@@ -13,9 +13,9 @@ interface Props {
 
 export const SettingsOption: React.FC<Props> = ({children,icon,onClick,redirectTo}) => {
     return (
-        <div className={styles["option"]} onClick={onClick}>
+        <div data-testid={'reset-pass'} className={styles["option"]} onClick={onClick}>
             <Link  to={redirectTo ?? ''}>
-                <p> {icon && <FontAwesomeIcon icon={icon}/> } {children} </p>
+                <p >  {icon && <FontAwesomeIcon icon={icon}/> } {children} </p>
             </Link>
         </div>
     )

@@ -36,6 +36,7 @@ export const DayCard: React.FC<Props> = ({day,onClick,isSelected,isHighlighted,h
         <motion.div 
         initial="hidden" 
         whileHover="visible" 
+        data-testid='day-card'
         onClick={ hasPassed || isBooked ?  () => {
             if(isBooked)  navigate(`${isBooked.id}`)
             

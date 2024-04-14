@@ -9,8 +9,6 @@ import {
     faFan,
     faLemon
 } from '@fortawesome/free-solid-svg-icons'
-// import { faBath } from '@fortawesome/free-solid-svg-icons'
-// import { faTv } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './AmenityCard.module.scss'
 import { Amenity } from '../../../../types/AmenityType'
@@ -36,7 +34,7 @@ export const AmenityCard: React.FC<Props> = ({name,onClick,amenities}) => {
 
 
     return (
-        <div  onClick={onClick} id={name} className={styles['amenity-card']}>
+        <div  onClick={onClick} data-testid='amenity-card' id={name} className={styles['amenity-card']}>
             {extrasLib[name] && 
             <FontAwesomeIcon size='2x' color='#4844bf' icon={extrasLib[name]}/>
             }
@@ -46,7 +44,7 @@ export const AmenityCard: React.FC<Props> = ({name,onClick,amenities}) => {
             }
             <p>{name}</p>
             {amenities?.some(x => x.name === name) && 
-                <FontAwesomeIcon className={styles['check']} color='#4844bf' icon={faCheck}/>
+                <FontAwesomeIcon className={styles['check']} data-testid='check'color='#4844bf' icon={faCheck}/>
             }
         </div>
     )

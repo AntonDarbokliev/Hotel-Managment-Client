@@ -18,7 +18,7 @@ export const Account = () => {
 
         {resetPassModal && 
             <ResetPassword userEmail="antondarbokliev@gmail.com" modalSetter={setResetPassModal}/>
-        }
+         }
         </AnimatePresence>
 
             <div className={styles["container"]}>
@@ -27,7 +27,7 @@ export const Account = () => {
                 <h4>{user.role}</h4>
                 <InfoField >
                     <ul>
-                       <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Passsword</SettingsOption>
+                       <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Password</SettingsOption>
                     </ul>
                 </InfoField>
             </div>

@@ -20,7 +20,7 @@ return (
         <div className={styles["container"]}>
             <AnimatePresence>
             {reserveModal && calendarData.from && calendarData.to && 
-                <RoomReservationModal  date={{from: calendarData.from,to: calendarData.to}} modalSetter={setReserveModal}/>
+                <RoomReservationModal date={{from: calendarData.from,to: calendarData.to}} modalSetter={setReserveModal}/>
             }
             </AnimatePresence>
 

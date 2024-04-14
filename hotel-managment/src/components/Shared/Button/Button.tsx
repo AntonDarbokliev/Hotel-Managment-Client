@@ -7,7 +7,8 @@ interface Props {
     onClick?: (event?: React.MouseEvent | React.FormEvent | undefined) => void
     disable? : boolean,
     color?: string,
-    width?: string
+    width?: string,
+    testId?: string
 }
 
 export const Button  = (props: Props) => {
@@ -22,6 +23,7 @@ export const Button  = (props: Props) => {
         initial={{opacity: 0}}
         animate={{opacity: 1}}
         transition={{ duration: 0.2}}
+        data-testid={props.testId}
         >{props.children}</motion.button>
     )
 }
