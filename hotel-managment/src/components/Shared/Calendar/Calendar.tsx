@@ -64,15 +64,15 @@ export const Calendar:React.FC<Props> = ({month,year,setMonth,setYear,from,setFr
         <div className={styles["calendar"]}>
             <div className={styles['selected-month']}>
                 {year === today.year ? (today.month <= month - 1 && (
-                    <Button width='2rem' onClick={previousMonth}>&larr;</Button>
+                    <Button width='2rem' testId='previous-month' onClick={previousMonth}>&larr;</Button>
                   )) : (
-                    <Button width='2rem' onClick={previousMonth}>&larr;</Button>
+                    <Button width='2rem' testId='previous-month' onClick={previousMonth}>&larr;</Button>
                   )}
                 <div className={styles['selected-month-info']}>
-                  <p>{monthNames[month - 1]}</p>
-                  <p>{year}</p>
+                  <p data-testid='month'>{monthNames[month - 1]}</p>
+                  <p data-testid='year'>{year}</p>
                 </div>
-                <Button width='2rem' onClick={nextMonth}>&rarr;</Button>
+                <Button width='2rem' testId='next-month' onClick={nextMonth}>&rarr;</Button>
             </div>
                 <DaysList 
                 month={month} 
