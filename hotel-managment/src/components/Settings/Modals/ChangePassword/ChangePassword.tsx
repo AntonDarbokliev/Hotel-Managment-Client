@@ -13,7 +13,7 @@ interface Props {
     userEmail: string;
 }
 
-export const ResetPassword: React.FC<Props> = ({ modalSetter }) => {
+export const ChangePassword: React.FC<Props> = ({ modalSetter }) => {
 
     const {formValues,onChangeHandler} = useForm({
         CurrentPassword: '',
@@ -42,7 +42,7 @@ export const ResetPassword: React.FC<Props> = ({ modalSetter }) => {
     ]
     
     return (
-        <Modal stateSetter={modalSetter} title="Reset Account Password">
+        <Modal stateSetter={modalSetter} title="Change Account Password">
                 <>
                     {!isLoading && 
                     <> 

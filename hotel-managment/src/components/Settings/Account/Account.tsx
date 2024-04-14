@@ -5,21 +5,21 @@ import { SettingsOption } from "../../Shared/SettingsOption/SettingsOption";
 import { faKey,faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import styles from "./Account.module.scss";
 import { useState } from "react";
-import { ResetPassword } from "../Modals/ResetPassword/ResetPassword";
+import { ChangePassword } from "../Modals/ChangePassword/ChangePassword";
 import { AnimatePresence } from "framer-motion";
 import { ChangeEmail } from "../Modals/ChangeEmail/ChangeEmail";
 
 export const Account = () => {
     
     const user = useAuthStore(s => s.user);
-    const [resetPassModal,setResetPassModal] = useState(false)
+    const [resetPassModal,setChangePassModal] = useState(false)
     const [resetEmailModal, setResetEmailModal] = useState(false)
     return (
         <>
         <AnimatePresence>
 
         {resetPassModal && 
-            <ResetPassword key={'reset-pass-modal'} userEmail="antondarbokliev@gmail.com" modalSetter={setResetPassModal}/>
+            <ChangePassword key={'reset-pass-modal'} userEmail="antondarbokliev@gmail.com" modalSetter={setChangePassModal}/>
         }
 
         {resetEmailModal && 
@@ -33,7 +33,7 @@ export const Account = () => {
                 <h4>{user.role}</h4>
                 <InfoField >
                     <ul>
-                       <SettingsOption onClick={() => setResetPassModal(true)} icon={faKey}>Reset Passsword</SettingsOption>
+                       <SettingsOption onClick={() => setChangePassModal(true)} icon={faKey}>Change Passsword</SettingsOption>
                        <SettingsOption onClick={() => setResetEmailModal(true)} icon={faEnvelope}>Change Email Address</SettingsOption>
                     </ul>
                 </InfoField>
