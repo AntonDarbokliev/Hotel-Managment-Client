@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from "react"
 
 
-export const useForm = <T>(initialValue : T,onSubmitHandler : (values: T) => void) => {
+export const useForm = <T>(initialValue : T,onSubmitHandler? : (values: T) => void) => {
     const [formValues, setFormValues ] = useState(initialValue)
 
     const onChangeHandler = useCallback( (e: FormEvent | ChangeEvent) => {
@@ -11,6 +11,7 @@ export const useForm = <T>(initialValue : T,onSubmitHandler : (values: T) => voi
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault()
+        if(onSubmitHandler)
         onSubmitHandler(formValues)
     }
 

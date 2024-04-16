@@ -3,10 +3,10 @@ import { useAuthStore } from "../../stores/Auth";
 import { useToastStore } from "../../stores/ToastStore";
 import { ErrorObj } from "../../types/ErrorTypes";
 import { extractErrors } from "../../utils/extractErrors";
-import { useForm } from "../useForm";
+import { makeFormData } from "../../utils/makeFormData";
 import { useLoading } from "../useLoading";
 
-export const useLogin = (onSuccess: () => void) => {
+export const useLogin = (formValues: {[key:string] : string},onSuccess: () => void,resetForm:() => void) => {
 
     const {isLoading,requestWithLoading} =  useLoading()
 
@@ -15,10 +15,9 @@ export const useLogin = (onSuccess: () => void) => {
     const authService = authServiceFactory();
     const toastSetter = useToastStore(s => s.setToastText)
 
-    const onLogin = async () => {
-        const data = new FormData();
-        data.append("LoginCode", formValues.hotelCode);
-        data.append("Password", formValues.password);
+    const login = async () => {
+        const data = makeFormData(formValues)
+
         try {
           const response =  await requestWithLoading( () => authService.login(data));
           const token = response.success; 
@@ -35,16 +34,8 @@ export const useLogin = (onSuccess: () => void) => {
       }
 };
 
-      const {  onChangeHandler, onSubmit,resetForm,formValues } = useForm({
-          hotelCode: "",
-          password: "",
-        }, onLogin);
-    
-
     return {
         isLoading,
-        onChangeHandler,
-        onSubmit,
-        formValues
+        login
     }
 }

@@ -1,10 +1,14 @@
-export const makeFormData = (data: {[key:string] : string | number | boolean}) => {
+export const makeFormData = (data: {[key:string] : string | number | boolean | File}) => {
     const formData = new FormData();
 
     const array = Object.entries(data)
 
     for (const [key,value] of array) {
-        formData.append(key, String(value));
+        if( value instanceof File) {
+            formData.append(key, value);
+        }else {
+            formData.append(key, String(value));
+        }
     }    
 
     return formData
