@@ -22,7 +22,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
     };
 
 
-    if( !url.includes('Login') && !url.includes('Register')) {
+    if( !url.includes('Login') && !url.includes('Register') && !url.includes('PasswordReset')) {
         const token = localStorage.getItem('token');
         if(!token) {
             throw new Error('Token is missing');

@@ -17,7 +17,7 @@ export const useChangeAuth = (change: "email" | "password") => {
 
     const { isLoading, requestWithLoading } = useLoading();
 
-    const resetPass = async (formValues: { [key: string]: string }) => {
+    const reset = async (formValues: { [key: string]: string }) => {
         const formData = makeFormData(formValues);
 
         try {
@@ -32,11 +32,11 @@ export const useChangeAuth = (change: "email" | "password") => {
             }
         } catch (error) {
             const errorTxt = extractErrors(error as ErrorObj)
-            setToast(errorTxt);
+            setToast(errorTxt);            
         }
     };
     return {
-        resetPass,
+        reset,
         isLoading,
     };
 };

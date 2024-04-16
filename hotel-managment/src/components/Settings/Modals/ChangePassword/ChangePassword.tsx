@@ -29,7 +29,7 @@ export const ChangePassword: React.FC<Props> = ({ modalSetter }) => {
 
     const {isPasswordValid,isRepeatPasswordValid} = useGeneralValidations(formValues,validationValues)
 
-    const {isLoading,resetPass} = useChangeAuth('password')
+    const {isLoading,reset} = useChangeAuth('password')
 
     const inputs: InputFieldType[] = [
         {name: 'CurrentPassword', display:'Current Password',type: 'password' },
@@ -53,7 +53,7 @@ export const ChangePassword: React.FC<Props> = ({ modalSetter }) => {
                         onFocusHandler={onFocusHandler}
                         onChangeHandler={onChangeHandler}
                         />
-                        <Button onClick={() => resetPass(formValues)}>Confrim</Button>
+                        <Button onClick={() => reset(formValues)}>Confrim</Button>
                     </>
                 }
 
