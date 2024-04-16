@@ -15,6 +15,7 @@ import { useToastStore } from "../../../../stores/ToastStore"
 import Spinner from "../../../Shared/LoadSpinner/LoadSpinner"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGeneralValidations } from "../../../../hooks/Validations/useGeneralValidations"
+import { Dropdown } from "../../../Shared/Dropdown/Dropdown"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -32,13 +33,19 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     const onFail= () => setToastText('An error occured while adding a reservation')
     const { reserveRoom,isLoading } = useReserveRoom(onFail,(data: {id:string}) => navigate(`/room/${params.id}/reservations/${data.id}`))
 
+    enum GenderSelection {
+        Female = 1,
+        Other = 2,
+        Male = 0,
+    }
+    const [selectedGender,setSelectedGender] = useState(0)
+
     const {formValues,onChangeHandler,onSubmit} = useForm({
         EGN: '',
         PhoneNumber: '',
         FirstName: '',
         LastName: '',
         EmailAddress: '',
-        Gender: '',
         Address: '',
         IDN: '',
         Country: '',
@@ -46,7 +53,7 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     },() => {
         reserveRoom({
             ...formValues,
-            Gender: Number(formValues.Gender),
+            Gender: selectedGender,
             EGN: Number(formValues.EGN),
             From: from,
             To: to,
@@ -72,7 +79,6 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
         disableButton,
         isCountryValid,
         isPhoneNumberValid,
-        isGenderValid,
         isIDNValid
     } = useReserveValidations(formValues,validationValues)
 
@@ -93,7 +99,6 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
         { name: 'FirstName',errorMessage: 'First Name should be at least 2 characters long' ,validation: !isFirstNameValid, display: 'First Name'},
         { name: 'LastName',errorMessage: 'LastName should be at least 2 characters long' ,validation: !isLastNameValid, display: 'Last Name'},
         { name: 'PhoneNumber',errorMessage: 'Phone Number should be at least 5 characters long' ,validation: !isPhoneNumberValid, display: 'Phone Number', maxLength: 10},
-        { name: 'Gender',errorMessage: 'Gender is required' ,validation: !isGenderValid},
         { name: 'EGN',errorMessage: 'EGN should be at least 10 characters long' ,validation: !isEGNValid,maxLength: 10,display: 'EGN/FPN'},
         { name: 'Address',errorMessage: 'Address should be at least 5 characters long' ,validation: !isAddressValid,},
         { name: 'IDN',errorMessage: 'IDN should be at least 5 characters long' ,validation: !isIDNValid, maxLength: 10},
@@ -109,6 +114,13 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
             {modalStage == 1 && 
                 <>
                 <InputFieldslist {...listProps} ></InputFieldslist>
+                <p>Gender</p>
+                <Dropdown onChange={e => setSelectedGender(Number(e.target.value))}>
+                    <option value=''>Select gender</option>
+                    <option value={GenderSelection.Male}>Male</option>
+                    <option value={GenderSelection.Female}>Female</option>
+                    <option value={GenderSelection.Other}>Other</option>
+                </Dropdown>
                 <Button onClick={() => setModalStage(state => state + 1)} disable={disableButton}>Next</Button>
                 </>
             }
