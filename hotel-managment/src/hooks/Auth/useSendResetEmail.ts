@@ -11,13 +11,14 @@ export const useSendResetEmail = () => {
     const { isLoading, requestWithLoading } = useLoading();
     const toastSetter = useToastStore(s => s.setToastText)
 
-    const sendResetEmail = async (loginCode: string) => {
+    const sendResetEmail = async (newEmail: string) => {
         try {
-            const formData = makeFormData({loginCode})
+            const formData = makeFormData({newEmail})
             await requestWithLoading( () => authService.sendResetEmail(formData))
         } catch (error) {
             const errorTxt = extractErrors(error as ErrorObj)
             toastSetter(errorTxt)
+            
         }
     } 
 

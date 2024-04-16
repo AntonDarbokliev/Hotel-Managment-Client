@@ -81,8 +81,13 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         && formValues.Email !== '' 
         && validationValues.Email === true 
         ) 
-
-        
+    const isNewEmailValid = (
+        !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
+        .test(formValues['newEmail']) 
+        && formValues.newEmail !== '' 
+        && validationValues.newEmail === true 
+    )
+      
     const isEmailAddressValid =  (
         !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/
         .test(formValues['EmailAddress']) 
@@ -118,7 +123,8 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         isRepeatPasswordValid,
         isEmailAddressValid,
         isPhoneNumberValid,
-        isCodeValid
+        isCodeValid,
+        isNewEmailValid
     ]
 
     const {disableButton } = useDisableValidations(formValues,validations)
@@ -136,6 +142,7 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
         disableButton,
         isEmailAddressValid,
         isPhoneNumberValid,
-        isCodeValid
+        isCodeValid,
+        isNewEmailValid
     }
 } 

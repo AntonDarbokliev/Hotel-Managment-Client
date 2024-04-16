@@ -53,7 +53,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
         return {}
     } 
 
-    if(url.includes('Register') || url.includes('ChangePassword')){
+    if(url.includes('Register') || url.includes('Change')){
         return response
     }else {
         return response.json() 

@@ -5,7 +5,7 @@ import { useFormValidation } from "../../../../hooks/useFormValidation";
 import { useGeneralValidations } from "../../../../hooks/Validations/useGeneralValidations";
 import { InputFieldType } from "../../../../types/InputField";
 import { InputFieldslist } from "../../../Shared/InputFieldsList/InputFieldsList";
-import { useChangePass } from "../../../../hooks/Auth/useChangePass";
+import { useChangeAuth } from "../../../../hooks/Auth/useChangeAuth";
 import Spinner from "../../../Shared/LoadSpinner/LoadSpinner";
 
 interface Props {
@@ -29,7 +29,7 @@ export const ChangePassword: React.FC<Props> = ({ modalSetter }) => {
 
     const {isPasswordValid,isRepeatPasswordValid} = useGeneralValidations(formValues,validationValues)
 
-    const {isLoading,resetPass} = useChangePass()
+    const {isLoading,resetPass} = useChangeAuth('password')
 
     const inputs: InputFieldType[] = [
         {name: 'CurrentPassword', display:'Current Password',type: 'password' },
