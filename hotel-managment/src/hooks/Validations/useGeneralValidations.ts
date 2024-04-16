@@ -9,24 +9,23 @@ interface FormValues {
 
 interface ValidationValues {
     [key:string]: boolean,
-
-    // FirstName?: boolean,
-    // MiddleName?: boolean,
-    // LastName?: boolean,
-    // Address?: boolean,
-    // EGN ?: boolean,
-    // Password?: boolean,
-    // RepeatPassword?:boolean,
-    // Email?: boolean,
 }
 
 
 export const useGeneralValidations = (formValues: FormValues,validationValues: ValidationValues) => {
 
-    const isFirstNameValid = (
+    let isFirstNameValid = (
         checkLengthValidation('FirstName',formValues,2) &&
         validationValues.FirstName === true
     ) 
+
+    if(formValues['Name']) {
+        isFirstNameValid = (
+            checkLengthValidation('Name',formValues,2) &&
+            validationValues.Name === true
+        ) 
+    
+    }
 
     const isMiddleNameValid = (
         checkLengthValidation('MiddleName',formValues,2)  &&
@@ -64,10 +63,17 @@ export const useGeneralValidations = (formValues: FormValues,validationValues: V
                 )
         }
 
-        const isPhoneNumberValid = (
+        let isPhoneNumberValid = (
         checkLengthValidation("PhoneNumber",formValues, 5) &&
         validationValues.PhoneNumber === true &&
         formValues.PhoneNumber.length <= 15)
+
+        if(formValues['TelephoneNumber']) {
+            isPhoneNumberValid = (
+                checkLengthValidation("TelephoneNumber",formValues, 5) &&
+                validationValues.TelephoneNumber === true &&
+                formValues.TelephoneNumber.length <= 15)
+        }
 
     const isEmailValid =  (
         !/^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/

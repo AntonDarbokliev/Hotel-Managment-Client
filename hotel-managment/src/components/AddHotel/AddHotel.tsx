@@ -2,7 +2,6 @@ import styles from "./AddHotel.module.scss";
 import { useState } from "react";
 import { useForm } from "../../hooks/useForm.ts";
 import { useFormValidation } from "../../hooks/useFormValidation.ts";
-import { useAddHotelValidations } from "./AddHotelHook.ts";
 import { InputField } from "../Shared/InputField/InputField.tsx";
 import { Button } from "../Shared/Button/Button.tsx";
 import { onImageChangeHandler } from "../../utils/imageChangeHandler.ts";
@@ -11,6 +10,7 @@ import { HotelSendType } from "../../types/HotelTypes.ts";
 import { useAddHotel } from "../../hooks/Hotel/useAddHotel.ts";
 import { InputFieldType } from "../../types/InputField.ts";
 import { InputFieldslist } from "../Shared/InputFieldsList/InputFieldsList.tsx";
+import { useGeneralValidations } from "../../hooks/Validations/useGeneralValidations.ts";
 
 export const AddHotel = () => {
   const [hotelImage, setHotelImage] = useState<File | undefined>();
@@ -49,19 +49,20 @@ export const AddHotel = () => {
     }
   );
 
-  const {
-    isHotelNameValid,
+  const { 
+    isFirstNameValid,
     isEmailValid,
-    isTelephoneNumberValid,
-    disableButton,
-  } = useAddHotelValidations(formValues, validationValues);
+    isPhoneNumberValid,
+    disableButton
+
+  } =  useGeneralValidations(formValues,validationValues)
 
   const fieldsProps = {
 
     inputs: [
-     {name: 'Name', validation: !isHotelNameValid, errorMessage: "Hotel Name should be at least 2 characters long", display: "Hotel Name"},
+     {name: 'Name', validation: !isFirstNameValid, errorMessage: "Hotel Name should be at least 2 characters long", display: "Hotel Name"},
      {name: 'Email', validation: !isEmailValid, errorMessage: "Invalid Email", display: "E-mail"},
-     {name: 'TelephoneNumber', validation: !isTelephoneNumberValid, errorMessage: "Telephone Number should be 10 characters long", display: "Telephone Number"},
+     {name: 'TelephoneNumber', validation: !isPhoneNumberValid, errorMessage: "Telephone Number should be 10 characters long", display: "Telephone Number"},
  
  
    ] as InputFieldType[],
