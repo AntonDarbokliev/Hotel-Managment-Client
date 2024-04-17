@@ -36,12 +36,13 @@
 
 .hotels-list {
     background: #b8b7c9 ;
-    min-height: 60vh;
+    height: 60vh;
     width: 80vw;
     display: flex;
     align-items: center;
     flex-direction: column;
     border-radius: $main-border-radius;
+    overflow-y: scroll;
 }
 
 @media (min-width: $min-width-media){

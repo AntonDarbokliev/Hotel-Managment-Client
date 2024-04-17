@@ -1,15 +1,15 @@
-@import '../../../styling-properties.scss';
+@import "../../../styling-properties.scss";
 
 .hotel-card {
     background: white;
-    width:  95%;
-    height: 15vh;
+    width: 95%;
+    min-height: 15vh;
     display: flex;
     align-items: center;
     border-radius: $main-border-radius;
     margin: 0.5rem 0;
     box-shadow: $main-box-shadow;
-    
+
     &:hover {
         background: darken(white, 10%);
         transition: 0.15s ease-in;
@@ -25,7 +25,6 @@
             width: 100%;
             border-radius: $main-border-radius;
         }
-        
     }
 
     .hotel-card-info__div {
@@ -35,49 +34,44 @@
         }
 
         p {
-            margin:  0.4rem 0;
+            margin: 0.4rem 0;
             max-width: 0.2rem;
         }
+    }
 
-            }
-
-
-    .hotel-card-info-email, .hotel-card-info-address {
+    .hotel-card-info-email,
+    .hotel-card-info-address {
         display: flex;
         align-items: center;
         overflow: hidden;
-        // text-overflow: ellipsis;      //TODO: Make text-overflow actually work
         svg {
             margin-right: 0.3rem;
             color: $main-color;
         }
-
-        // p {
-        //     text-wrap: nowrap;
-        // }
     }
-    
-    @media (min-width: $min-width-media){
+}
 
-        height: 20vh;
+@media (min-width: $min-width-media) {
+    .hotel-card {
+        min-height: 20vh;
         font-size: 1.2rem;
-        
+        overflow: hidden;
         .hotel-card-image__div {
-            width: 19%;
-            padding: 0.5rem;
+            width: 20%;
+            height: 80%;
+            border-radius: $main-border-radius;
+            overflow: hidden;
         }
-        .hotel-card-info-email, .hotel-card-info-address {
-                p{
-                    text-wrap: nowrap;
-                }
+        .hotel-card-info-email,
+        .hotel-card-info-address {
+            p {
+                text-wrap: nowrap;
+            }
         }
 
         .hotel-card-info__div {
             margin-left: auto;
             text-align: left;
         }
-
     }
-
 }
-
