@@ -8,12 +8,13 @@ import { AnimatePresence } from "framer-motion"
 export const Root = () => {
     const toastText = useToastStore(s => s.toastText)
     const setToastText = useToastStore(s => s.setToastText)
+    const positive = useToastStore(s => s.positive)
 
     return (
         <>
         <AnimatePresence>
         {toastText && 
-        <ToastNotification text={toastText} setText={setToastText} timer={3000}/>
+        <ToastNotification text={toastText} positive={positive} setText={setToastText} timer={3000}/>
         }
         </AnimatePresence>
         <Navigation/>

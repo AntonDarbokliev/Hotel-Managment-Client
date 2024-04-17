@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom'
             } }>
                 
                 <div className={styles['hotel-card-image__div']}>
-                <img className={styles['hotel-card__image']} src={hotel.profilePicture} alt="" />
+                    <img className={styles['hotel-card__image']} src={hotel.profilePicture} alt="hotel picture" />
                 </div>
 
                 <div className={styles['hotel-card-info__div']}>

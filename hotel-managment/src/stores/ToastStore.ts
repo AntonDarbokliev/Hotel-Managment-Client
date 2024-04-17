@@ -2,11 +2,13 @@ import { create } from 'zustand';
 
 interface ToastStore  {
     toastText: string,
-    setToastText: (toastText: string) => void
+    setToastText: (toastText: string,positive?:boolean) => void,
+    positive: boolean
 }
 
 
 export const useToastStore = create<ToastStore>(set => ({
   toastText: "", 
-  setToastText: (toastText:string) => set({ toastText }),
+  positive: false,
+  setToastText: (toastText:string,positive? : boolean) => set({ toastText,positive }),
 }));

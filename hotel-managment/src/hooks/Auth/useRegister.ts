@@ -6,8 +6,6 @@ import { useLoading } from "../useLoading"
 import { authServiceFactory } from "../../services/auth"
 import { useToastStore } from "../../stores/ToastStore"
 
-
-
 export const useRegister = (onSuccess: () => void) => {
    
     const [userImage, setUserImage ] = useState<File | undefined>()
@@ -34,6 +32,7 @@ export const useRegister = (onSuccess: () => void) => {
             try{
                 await requestWithLoading( async () => await authService.register(formData))
                 onSuccess()
+                toastSetter('Successfully Registered',true)
             }catch(err){
                 const errorTxt = extractErrors(err as ErrorObj)
                 toastSetter(errorTxt)

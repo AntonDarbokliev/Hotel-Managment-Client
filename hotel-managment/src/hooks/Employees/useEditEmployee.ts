@@ -25,6 +25,7 @@ export const useEditEmployee = ({formValues,employeeId,onSuccess,hotelId}:Props)
             const editedEmployee = await requestWithLoading( () => employeeService.edit(data))
             if(onSuccess)
             onSuccess(editedEmployee)
+            setToastText('Employee Edited',true)
         } catch (error) {
             const errorStr = extractErrors(error as ErrorObj)
             setToastText(errorStr)

@@ -19,6 +19,7 @@ export const useAddRoom = (
         try {
             const data = await requestWithLoading( () => roomService.add(formData))
             afterAdd(data)
+            toastSetter('Room Added',true)
         }catch(error) {
             const errorTxt = extractErrors(error as ErrorObj) 
             toastSetter(errorTxt)

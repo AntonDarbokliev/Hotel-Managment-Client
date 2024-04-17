@@ -26,6 +26,7 @@ export const useLogin = (formValues: {[key:string] : string},onSuccess: () => vo
           updateUser()
         
           onSuccess()
+          toastSetter('Logged in',true)
         } catch (error) {
          const errorTxt = extractErrors(error as ErrorObj)
          toastSetter(errorTxt)
