@@ -11,12 +11,12 @@ import { useAddHotel } from "../../hooks/Hotel/useAddHotel.ts";
 import { InputFieldType } from "../../types/InputField.ts";
 import { InputFieldslist } from "../Shared/InputFieldsList/InputFieldsList.tsx";
 import { useGeneralValidations } from "../../hooks/Validations/useGeneralValidations.ts";
+import { useAreThereEmptyFields } from "../../hooks/useAreThereEmptyFields.ts";
 
 export const AddHotel = () => {
   const [hotelImage, setHotelImage] = useState<File | undefined>();
-  const [isImageValid, setIsImageValid] = useState(true);
-  const [location,setLocation] = useState<string>('Please select an address')
-  const {addHotel} = useAddHotel(setIsImageValid)
+  const [location,setLocation] = useState<string>('')
+  const {addHotel} = useAddHotel()
 
   const onAddHotel = async () => {
 
@@ -29,6 +29,7 @@ export const AddHotel = () => {
         telephoneNumber: formValues.TelephoneNumber,
         profilePicture: hotelImage,
       };
+      
      await addHotel(data)
 
     }
@@ -41,6 +42,7 @@ export const AddHotel = () => {
       TelephoneNumber: "",
     });
 
+  const {areThereEmptyFields} = useAreThereEmptyFields(formValues)
   const { onBlurHandler, onFocusHandler, validationValues } = useFormValidation(
     {
       Name: false,
@@ -53,7 +55,6 @@ export const AddHotel = () => {
     isFirstNameValid,
     isEmailValid,
     isPhoneNumberValid,
-    disableButton
 
   } =  useGeneralValidations(formValues,validationValues)
 
@@ -84,10 +85,6 @@ export const AddHotel = () => {
               accept="image/*"
               onChange={(e) => onImageChangeHandler(e, setHotelImage)}
               name="hotelImage"
-              isValid={{
-                boolean: isImageValid,
-                errorMessage: "Hotel Image is required",
-              }}
               type="file"
             >Hotel Image</InputField>
 
@@ -95,10 +92,13 @@ export const AddHotel = () => {
               {location && 
                 <p>{location}</p>
               }
+              {!location && 
+                <p>Please select an address</p>
+              }
             <MapWindow setLocation={setLocation} clickable={true}/>
 
           </form>
-            <Button width="10rem" onClick={onAddHotel}  disable={disableButton}>Add</Button>
+            <Button width="10rem" onClick={onAddHotel}  disable={areThereEmptyFields}>Add</Button>
     </div>
   );
 };

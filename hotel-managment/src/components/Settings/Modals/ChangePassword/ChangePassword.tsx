@@ -7,6 +7,7 @@ import { InputFieldType } from "../../../../types/InputField";
 import { InputFieldslist } from "../../../Shared/InputFieldsList/InputFieldsList";
 import { useChangeAuth } from "../../../../hooks/Auth/useChangeAuth";
 import Spinner from "../../../Shared/LoadSpinner/LoadSpinner";
+import { useAreThereEmptyFields } from "../../../../hooks/useAreThereEmptyFields";
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +21,8 @@ export const ChangePassword: React.FC<Props> = ({ modalSetter }) => {
         NewPassword: '',
         ConfirmPassword: '',
     },() => {})
+
+    const {areThereEmptyFields} = useAreThereEmptyFields(formValues)
 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
         CurrentPassword: false,
@@ -53,7 +56,7 @@ export const ChangePassword: React.FC<Props> = ({ modalSetter }) => {
                         onFocusHandler={onFocusHandler}
                         onChangeHandler={onChangeHandler}
                         />
-                        <Button onClick={() => reset(formValues)}>Confrim</Button>
+                        <Button onClick={() => reset(formValues)} disable={areThereEmptyFields}>Confrim</Button>
                     </>
                 }
 

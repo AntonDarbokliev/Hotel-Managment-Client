@@ -10,6 +10,7 @@ import { useFormValidation } from "../../../../hooks/useFormValidation";
 import { InputFieldslist } from "../../../Shared/InputFieldsList/InputFieldsList";
 import { useSendResetEmail } from "../../../../hooks/Auth/useSendResetEmail";
 import Spinner from "../../../Shared/LoadSpinner/LoadSpinner";
+import { useAreThereEmptyFields } from "../../../../hooks/useAreThereEmptyFields";
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,6 +32,7 @@ export const ChangeEmail: React.FC<Props> = ({ modalSetter }) => {
 
     const { isEmailValid, isNewEmailValid } = useGeneralValidations(formValues, validationValues);
 
+    const {areThereEmptyFields} = useAreThereEmptyFields(formValues)
     const onNext = async () => {
         await sendResetEmail(formValues.newEmail);
         setStage(2);        
@@ -57,7 +59,7 @@ export const ChangeEmail: React.FC<Props> = ({ modalSetter }) => {
                                         onChangeHandler={onChangeHandler}
                                     />
                                 </form>
-                                <Button onClick={onNext}>Next</Button>
+                                <Button onClick={onNext} disable={areThereEmptyFields}>Next</Button>
                             </>
                         )}
 

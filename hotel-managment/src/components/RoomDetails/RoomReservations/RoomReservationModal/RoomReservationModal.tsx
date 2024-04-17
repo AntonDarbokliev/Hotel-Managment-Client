@@ -16,6 +16,7 @@ import Spinner from "../../../Shared/LoadSpinner/LoadSpinner"
 import { useNavigate, useParams } from "react-router-dom"
 import { useGeneralValidations } from "../../../../hooks/Validations/useGeneralValidations"
 import { Dropdown } from "../../../Shared/Dropdown/Dropdown"
+import { useAreThereEmptyFields } from "../../../../hooks/useAreThereEmptyFields"
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -61,6 +62,8 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
         })
     })
 
+    const { areThereEmptyFields } = useAreThereEmptyFields(formValues)
+ 
     const {onBlurHandler,onFocusHandler,validationValues} = useFormValidation({
         EGN: false,
         PhoneNumber: false,
@@ -76,7 +79,6 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
     })
 
     const {
-        disableButton,
         isCountryValid,
         isPhoneNumberValid,
         isIDNValid
@@ -121,7 +123,7 @@ export const RoomReservationModal:React.FC<Props> = ({modalSetter,date}) => {
                     <option value={GenderSelection.Female}>Female</option>
                     <option value={GenderSelection.Other}>Other</option>
                 </Dropdown>
-                <Button onClick={() => setModalStage(state => state + 1)} disable={disableButton}>Next</Button>
+                <Button onClick={() => setModalStage(state => state + 1)} disable={areThereEmptyFields} >Next</Button>
                 </>
             }
 

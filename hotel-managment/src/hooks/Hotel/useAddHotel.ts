@@ -8,14 +8,11 @@ import { useToastStore } from "../../stores/ToastStore";
 
 const hotelService = hotelServiceFactory();
 
-export const useAddHotel = (setIsImageValid: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const useAddHotel = () => {
     const navigate = useNavigate();
     const toastSetter = useToastStore((s) => s.setToastText);
 
     const addHotel = async (hotelData: HotelSendType) => {
-
-        if (hotelData.profilePicture && hotelData.address) {
-            setIsImageValid(true);
 
             const formData = makeFormData({ ...hotelData });
 
@@ -26,9 +23,6 @@ export const useAddHotel = (setIsImageValid: React.Dispatch<React.SetStateAction
                 const text = extractErrors(err as ErrorObj);
                 toastSetter(text);
             }
-        } else {
-            setIsImageValid(false);
-        }
     };
 
     return {
