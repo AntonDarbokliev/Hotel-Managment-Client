@@ -73,11 +73,11 @@ export const Rooms = () => {
                     {floors.map(floor => <option key={floor.id}>{floor.floorNumber}</option>) }
                 </Dropdown>
                 <SearchBar searchText={searchValue} setSearchText={setSearchValue}/>
+            </div>
                 {formValues.floorValue !== '' && 
-                <Button width="2.3rem" onClick={() => setDeleteFloorModal(true)}>
+                 <Button width="2.3rem" onClick={() => setDeleteFloorModal(true)}>
                     <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
                 </Button>}
-            </div>
 
             { rooms.length > 0 && 
                 <RoomsList rooms={searchedRooms && searchedRooms?.length > 0 ? searchedRooms :rooms}/>
