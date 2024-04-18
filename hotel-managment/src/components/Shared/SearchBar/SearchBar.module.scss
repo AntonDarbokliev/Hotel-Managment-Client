@@ -1,0 +1,23 @@
+@import '../../../styling-properties.scss';
+
+.search-bar {
+    display: flex;
+    background: white;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: $main-border-radius;
+    width: 70%;
+    max-height: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: $main-box-shadow;
+    
+    >input {
+        background: none;
+        border: none;
+        width: 90%;
+        height: 100%;
+        padding: 1rem;
+        outline: none;
+    }
+}
+
