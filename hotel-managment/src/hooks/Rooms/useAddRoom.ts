@@ -1,33 +1,35 @@
 import { roomServiceFactory } from "../../services/room";
 import { useToastStore } from "../../stores/ToastStore";
 import { ErrorObj } from "../../types/ErrorTypes";
+import { Room } from "../../types/RoomType";
 import { extractErrors } from "../../utils/extractErrors";
+import { makeFormData } from "../../utils/makeFormData";
+import { useLoading } from "../useLoading";
 
 export const useAddRoom = (
-    roomSetter: React.Dispatch<React.SetStateAction<{roomNumber: number;id: string;}[]>>,
-    afterAdd: () => void 
+    afterAdd: (data: {room: Room}) => void 
     ) => {
-    
-        const toastSetter = useToastStore(s => s.setToastText)
+    const toastSetter = useToastStore(s => s.setToastText)
     const roomService = roomServiceFactory()
+    const {isLoading,requestWithLoading} = useLoading()
 
-    const addRoom = async (floorId:string,roomNumber: string | number) => {
-
-        const formData = new FormData()
-        formData.append('RoomNumber',String(roomNumber))
-        formData.append('FLoorId',floorId)
+    const addRoom = async (floorId:string,formValues: {[key:string] : string}) => {
+        const formData = makeFormData(formValues)
+        formData.append('FloorId',floorId)
         try {
-            const data = await roomService.add(formData)
-            roomSetter(state => [...state,data.room])
+            const data = await requestWithLoading( () => roomService.add(formData))
+            afterAdd(data)
+            toastSetter('Room Added',true)
         }catch(error) {
-            const errorTxt = extractErrors(error as ErrorObj)
+
+            const errorTxt = extractErrors(error as ErrorObj) 
             toastSetter(errorTxt)
         }
-        afterAdd()
         
     }
 
     return {
-        addRoom
+        addRoom,
+        isLoading
     }
 }

@@ -40,7 +40,7 @@ export const PasswordResetForm = ()  => {
     return (
         <div className={styles["container"]}>
         <InfoField height="70%" justify="center">
-            <h1>Reset Password</h1>
+            <h1>Change Password</h1>
 
             <InputFieldslist 
             formValues={formValues}

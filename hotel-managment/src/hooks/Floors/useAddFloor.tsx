@@ -14,7 +14,7 @@ export const useAddFloor = (
     const setToast = useToastStore(s => s.setToastText)
 
     const floorService = floorServiceFactory()
-
+    const toastSetter = useToastStore(s => s.setToastText)
     const onAddFloor = async () => {
         const formData = new FormData()
         formData.append('HotelId',String(params.id)) 
@@ -22,6 +22,7 @@ export const useAddFloor = (
         try {
             const data = await floorService.add(formData)
             onSuccess(data.currentFloor)
+            toastSetter('Floor Added',true)
         } catch (error) {
             const errorTxt = extractErrors(error as ErrorObj)
             setToast(errorTxt)

@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Dropdown } from "../../Shared/Dropdown/Dropdown"
 import styles from './Rooms.module.scss'
 import { Button } from "../../Shared/Button/Button"
+
 import { RoomsList } from "./RoomsList/RoomsList"
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
@@ -15,6 +16,8 @@ import { useToastStore } from "../../../stores/ToastStore"
 import { RoomModal } from "./modals/RoomModal/RoomModal"
 import { FloorModal } from "./modals/FloorModal/FloorModal"
 import { DeleteModal } from "./modals/DeleteModal/DeleteModal"
+import { SearchBar } from "../../Shared/SearchBar/SearchBar"
+import { useSearchInRooms } from "../../../hooks/Rooms/useSearchInRooms"
 
 export const Rooms = () => {
     
@@ -22,10 +25,11 @@ export const Rooms = () => {
     const [floorModal, setFloorModal] = useState(false)
     const [deleteFloorModal, setDeleteFloorModal] = useState(false)
     const setToastText = useToastStore(s => s.setToastText)
+    const [searchValue, setSearchValue] = useState('')
+
 
     const {formValues,onChangeHandler} = useForm({
         floorValue: '',
-        roomNumber: '',
         },() => {})
 
     const { floors,floor,setFloors } = useFloors(formValues)
@@ -39,6 +43,9 @@ export const Rooms = () => {
             setRoomModal(false)
         }
     }
+    const {searchedRooms} = useSearchInRooms(searchValue,rooms)
+
+
     
     return (
         <>
@@ -53,7 +60,9 @@ export const Rooms = () => {
 
             {deleteFloorModal && 
               <DeleteModal floorId={floor.id} floorsSetter={setFloors} modalSetter={setDeleteFloorModal} />
+
             }
+
         </AnimatePresence>
 
             
@@ -61,17 +70,18 @@ export const Rooms = () => {
             <h1>Rooms</h1>
             <div className={styles["dropdowns"]}>
                 <Dropdown onChange={onChangeHandler} name="floorValue" value={formValues.floorValue}>
-                    <option>Select a Floor</option>
+                    <option value=''>Select a Floor</option>
                     {floors.map(floor => <option key={floor.id}>{floor.floorNumber}</option>) }
                 </Dropdown>
+                <SearchBar searchText={searchValue} setSearchText={setSearchValue}/>
+            </div>
                 {formValues.floorValue !== '' && 
-                <Button onClick={() => setDeleteFloorModal(true)}>
+                 <Button width="2.3rem" onClick={() => setDeleteFloorModal(true)}>
                     <FontAwesomeIcon icon={faTrashCan}></FontAwesomeIcon>
                 </Button>}
-            </div>
 
             { rooms.length > 0 && 
-                <RoomsList rooms={rooms}/>
+                <RoomsList rooms={searchedRooms && searchedRooms?.length > 0 ? searchedRooms :rooms}/>
             }
 
             { rooms.length == 0 && formValues.floorValue != '' && 

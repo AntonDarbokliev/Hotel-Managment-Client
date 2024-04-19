@@ -1,4 +1,4 @@
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faTriangleExclamation,faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './ToastNotification.module.scss'
 import { useEffect } from 'react'
@@ -7,7 +7,8 @@ import { motion } from 'framer-motion'
 interface Props {
     text: string,
     timer? : number,
-    setText?: (toastText: string) => void
+    setText?: (toastText: string) => void,
+    positive?: boolean | null;
 }
 
 const toastVariant = {
@@ -33,7 +34,7 @@ const toastVariant = {
     }
 }
 
-export const ToastNotification: React.FC<Props> = ({text,timer,setText}) => {
+export const ToastNotification: React.FC<Props> = ({text,timer,setText,positive}) => {
     useEffect(() => {
         if(timer && setText){
            const timeout = setTimeout(() => {
@@ -45,11 +46,16 @@ export const ToastNotification: React.FC<Props> = ({text,timer,setText}) => {
     },[])
     return (
         <>
-        <motion.div variants={toastVariant} key='toast-notification' className={styles["toast-notification"]} 
+        <motion.div variants={toastVariant} key='toast-notification' className={`${styles["toast-notification"]} ${positive ? styles['positive'] : ''}`} 
         initial="hidden"
         animate="visible"
         exit="hidden">
+            {!positive && 
             <FontAwesomeIcon size='2x' icon={faTriangleExclamation}></FontAwesomeIcon>
+            }
+            {positive && 
+            <FontAwesomeIcon size='2x' icon={faCheck}></FontAwesomeIcon>
+            }
             <p>{text}</p>
         </motion.div>
         </>

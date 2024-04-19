@@ -4,15 +4,15 @@ import { extractErrors } from "../../utils/extractErrors"
 import { ErrorObj } from "../../types/ErrorTypes"
 import { useLoading } from "../useLoading"
 import { authServiceFactory } from "../../services/auth"
+import { useToastStore } from "../../stores/ToastStore"
 
-
-
-export const useRegister = (onSuccess: () => void, onFail: (text: string) => void) => {
+export const useRegister = (onSuccess: () => void) => {
    
     const [userImage, setUserImage ] = useState<File | undefined>()
     const {isLoading,requestWithLoading} = useLoading()
 
     const authService = authServiceFactory()
+    const toastSetter = useToastStore(s => s.setToastText)
 
     const register = async () => {
         if(userImage) {
@@ -32,9 +32,10 @@ export const useRegister = (onSuccess: () => void, onFail: (text: string) => voi
             try{
                 await requestWithLoading( async () => await authService.register(formData))
                 onSuccess()
+                toastSetter('Successfully Registered',true)
             }catch(err){
-                const error = extractErrors(err as ErrorObj)
-                onFail(error)
+                const errorTxt = extractErrors(err as ErrorObj)
+                toastSetter(errorTxt)
             }
         }
     }

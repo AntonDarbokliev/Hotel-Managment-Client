@@ -3,7 +3,7 @@ import styles from './Dropdown.module.scss'
 
 interface Props {
     children: ReactNode,
-    onChange? : (e:ChangeEvent) => void,
+    onChange? : (e:ChangeEvent<HTMLSelectElement>) => void,
     value?:string,
     name? :string,
 }

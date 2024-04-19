@@ -14,7 +14,8 @@ import
     faEarthAmericas,
     faLocationDot,
     faMarsAndVenus,
-    faIdCard
+    faIdCard,
+    faDollarSign
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
@@ -38,34 +39,35 @@ export const ReservationDetails = () => {
 
         {!isLoading && reservation &&
         <div className={styles["container"]}>
-            <InfoField height="60%" width="50%">
-                <ul className={styles["info-list"]}>
+            <InfoField>
+                <div className={styles["info-div"]}>
 
                     <FontAwesomeIcon className={`${styles["icon"]} ${styles['full-width']}`} size="2x"  icon={faCircleInfo}/>
 
-                    <li> <FontAwesomeIcon icon={faCalendarDays}/> From: {reservation.from}</li>
-                    <li> <FontAwesomeIcon icon={faCalendarDays}/> To: {reservation.to}</li>
-                    <li>ID: {reservation.id}</li>
+                    <p> <FontAwesomeIcon icon={faCalendarDays}/> From: {reservation.from}</p>
+                    <p> <FontAwesomeIcon icon={faCalendarDays}/> To: {reservation.to}</p>
+                    <p>ID: {reservation.id}</p>
 
                     <FontAwesomeIcon className={`${styles["icon"]} ${styles['full-width']}`} size="3x"  icon={faUser}/>
 
-                    <li> <FontAwesomeIcon icon={faIdCard}/> Name: {reservation.guest.firstName} {reservation.guest.lastName}</li>
-                    <li> <FontAwesomeIcon icon={faIdCard}/> EGN: {reservation.guest.egn}</li>
-                    <li> <FontAwesomeIcon icon={faIdCard}/> IDN: {reservation.guest.identityDocumentNumber}</li>
-                    <li> <FontAwesomeIcon icon={faMarsAndVenus}/> Gender: {reservation.guest.gender}</li>
-                    <li> <FontAwesomeIcon icon={faEarthAmericas}/> Country: {reservation.guest.country}</li>
+                    <p> <FontAwesomeIcon icon={faIdCard}/> Name: {reservation.guest.firstName} {reservation.guest.lastName}</p>
+                    <p> <FontAwesomeIcon icon={faIdCard}/> EGN: {reservation.guest.egn}</p>
+                    <p> <FontAwesomeIcon icon={faIdCard}/> IDN: {reservation.guest.identityDocumentNumber}</p>
+                    <p> <FontAwesomeIcon icon={faMarsAndVenus}/> Gender: {reservation.guest.gender}</p>
+                    <p> <FontAwesomeIcon icon={faEarthAmericas}/> Country: {reservation.guest.country}</p>
                     {reservation.guest.emailAddress && 
-                    <li>Email: {reservation.guest.emailAddress}</li>
+                    <p>Email: {reservation.guest.emailAddress}</p>
                     }
-                    <li> <FontAwesomeIcon icon={faLocationDot}/> Address: {reservation.guest.address}</li>
+                    <p> <FontAwesomeIcon icon={faLocationDot}/> Address: {reservation.guest.address}</p>
+                    <p> <FontAwesomeIcon icon={faDollarSign}/> Total: {reservation.totalPrice}</p>
 
                     {reservation.additionalInformation && 
                     <>
                         <h2>Additional Information</h2>
-                        <li>{reservation.additionalInformation}</li>
+                        <p>{reservation.additionalInformation}</p>
                     </>
                     }
-                </ul>
+                </div>
             </InfoField>
         </div>
         }

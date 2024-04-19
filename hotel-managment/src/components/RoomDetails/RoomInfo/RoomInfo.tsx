@@ -66,6 +66,7 @@ export const RoomInfo = () => {
                                 Status: {room?.isBooked ? "Occupied" : "Free"}
                             </p>
                             <p>Cleaned: {room?.isCleaned ? "Yes" : "No"}</p>
+                            <p>Price per night: {room?.pricePerNight}</p>
                         </InfoField>
 
                         <h1>Amenities</h1>

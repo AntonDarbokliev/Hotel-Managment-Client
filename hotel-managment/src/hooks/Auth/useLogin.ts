@@ -1,20 +1,23 @@
 import { authServiceFactory } from "../../services/auth";
 import { useAuthStore } from "../../stores/Auth";
-import { useForm } from "../useForm";
+import { useToastStore } from "../../stores/ToastStore";
+import { ErrorObj } from "../../types/ErrorTypes";
+import { extractErrors } from "../../utils/extractErrors";
+import { makeFormData } from "../../utils/makeFormData";
 import { useLoading } from "../useLoading";
 
-export const useLogin = (onSuccess: () => void, onFail: (text: string) => void) => {
+export const useLogin = (formValues: {[key:string] : string},onSuccess: () => void,resetForm:() => void) => {
 
     const {isLoading,requestWithLoading} =  useLoading()
 
     const updateUser = useAuthStore((s) => s.updateUser)
 
     const authService = authServiceFactory();
+    const toastSetter = useToastStore(s => s.setToastText)
 
-    const onLogin = async () => {
-        const data = new FormData();
-        data.append("LoginCode", formValues.hotelCode);
-        data.append("Password", formValues.password);
+    const login = async () => {
+        const data = makeFormData(formValues)
+
         try {
           const response =  await requestWithLoading( () => authService.login(data));
           const token = response.success; 
@@ -23,25 +26,17 @@ export const useLogin = (onSuccess: () => void, onFail: (text: string) => void) 
           updateUser()
         
           onSuccess()
+          toastSetter('Logged in',true)
         } catch (error) {
-          if(typeof error == 'object'){
-            onFail((error as {error:string}).error)
-        }
+         const errorTxt = extractErrors(error as ErrorObj)
+         toastSetter(errorTxt)
       } finally {
         resetForm()
       }
 };
 
-      const {  onChangeHandler, onSubmit,resetForm,formValues } = useForm({
-          hotelCode: "",
-          password: "",
-        }, onLogin);
-    
-
     return {
         isLoading,
-        onChangeHandler,
-        onSubmit,
-        formValues
+        login
     }
 }

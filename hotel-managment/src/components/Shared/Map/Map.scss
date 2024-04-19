@@ -1,0 +1,19 @@
+@import '../../../styling-properties.scss';
+
+.leaflet-container {
+    width: 70vw;
+    height: 50vh;
+    z-index: 0;
+    border-radius: $main-border-radius;
+    box-shadow: $main-box-shadow;
+  }
+
+  .map-container {
+    margin-bottom: 1rem;
+
+  }
+
+  // width: 40vw;
+  //   height: 40vh;
+
+  // @media()

@@ -21,108 +21,106 @@ import { ReservationDetails } from "./components/Reservation/ReservationDetails/
 import { Settings } from "./components/Settings/Settings.tsx";
 import { Account } from "./components/Settings/Account/Account.tsx";
 import { PasswordResetForm } from "./components/Settings/Account/PasswordResetForm/PasswordResetForm.tsx";
-
-
-
+import { ForgotPassword } from "./components/Auth/ForgotPassword/ForgotPassword.tsx";
+import { EmailResetForm } from "./components/Settings/Account/EmailResetForm/EmailResetForm.tsx";
 
 const router = createBrowserRouter([
-  {
-      path: '/*',
-      element: <Root/>,
-      children: [
-        {
-          path: "login",
-          element: <Login/>,
-      },
-      {
-        path: "register",
-        element: <Register/>,
-
-    },
-
     {
-      element: <PrivateRoute/>,
-      children: [
-        {
-          path: "add",
-          element: <AddHotel/>
-    
-        },
-        {
-          path: 'hotels',
-          element: <HotelsHome/>
-        },
-        {
-          path: 'hotels/:id',
-          element: <HotelDetails/>,
-          children: [
+        path: "/*",
+        element: <Root />,
+        children: [
             {
-              path: "rooms",
-              element: <Rooms/>,
-          },
-          {
-            path: "employees",
-            element: <Employees/>,
-        },
-          ]
-        },
-    
-      {
-        path: 'room/:id',
-        element: <RoomDetails/>,
-        children: [
-          {
-            path: 'info',
-            element: <RoomInfo/>
-          },
-          {
-            path: 'reservations',
-            element: <RoomReservartions/>,
-          },
-          {
-            path: 'reservations/:reservationId',
-            element: <ReservationDetails/>
-          
-          }
-        ]
-      },
-      {
-        path: 'settings',
-        element: <Settings/>,
-        children: [
-          {
-            path: 'account',
-            element: <Account/>,
-          },
-          {
-              path: 'account/pass-reset',
-              element: <PasswordResetForm/>
-            }
-          
-        ]
-      }
+                path: "login",
+                element: <Login />,
+            },
+            {
+                path: "register",
+                element: <Register />,
+            },
+            {
+                path: "forgot-password",
+                element: <ForgotPassword />,
+            },
+            {
+                element: <PrivateRoute />,
+                children: [
+                    {
+                        path: "add",
+                        element: <AddHotel />,
+                    },
+                    {
+                        path: "hotels",
+                        element: <HotelsHome />,
+                    },
+                    {
+                        path: "hotels/:id",
+                        element: <HotelDetails />,
+                        children: [
+                            {
+                                path: "rooms",
+                                element: <Rooms />,
+                            },
+                            {
+                                path: "employees",
+                                element: <Employees />,
+                            },
+                        ],
+                    },
 
-      ]
+                    {
+                        path: "room/:id",
+                        element: <RoomDetails />,
+                        children: [
+                            {
+                                path: "info",
+                                element: <RoomInfo />,
+                            },
+                            {
+                                path: "reservations",
+                                element: <RoomReservartions />,
+                            },
+                            {
+                                path: "reservations/:reservationId",
+                                element: <ReservationDetails />,
+                            },
+                        ],
+                    },
+                    {
+                        path: "settings",
+                        element: <Settings />,
+                        children: [
+                            {
+                                path: "account",
+                                element: <Account />,
+                            },
+                            {
+                                path: "account/pass-reset",
+                                element: <PasswordResetForm />,
+                            },
+                            {
+                                path: "account/email-reset",
+                                element: <EmailResetForm />,
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
     },
-    
-      ],
-  
-  },
-  
 ]);
 
 function App() {
-  const updateUser = useAuthStore(s => s.updateUser)
+    const updateUser = useAuthStore((s) => s.updateUser);
 
-  useEffect(() => {
-   updateUser()
-  },[])
+    useEffect(() => {
+        updateUser();
+    }, []);
 
-  return (
-    <>
-    <RouterProvider router={router}/>   
-    </>
-  )
+    return (
+        <>
+            <RouterProvider router={router} />
+        </>
+    );
 }
 
-export default App
+export default App;

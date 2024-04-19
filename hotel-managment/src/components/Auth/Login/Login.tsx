@@ -7,26 +7,28 @@ import Spinner from "../../Shared/LoadSpinner/LoadSpinner.tsx";
 import { useLogin } from "../../../hooks/Auth/useLogin.ts";
 import { InputFieldType } from "../../../types/InputField.ts";
 import { InputFieldslist } from "../../Shared/InputFieldsList/InputFieldsList.tsx";
-import { useToastStore } from "../../../stores/ToastStore.ts";
-
+import { useForm } from "../../../hooks/useForm.ts";
 
 export const Login = () => {
 
-  const setToastText = useToastStore(s => s.setToastText)
 
   const navigate = useNavigate();
   const onSuccess = () => { navigate("/hotels")} 
-  const onFail = (text:string) => { setToastText(text) }
+  const {  onChangeHandler,formValues,resetForm } = useForm({
+    loginCode: "",
+    password: "",
+  });
 
-  const { isLoading, onChangeHandler, onSubmit, formValues} = useLogin(onSuccess,onFail)
+  const { isLoading,login} = useLogin(formValues,onSuccess,resetForm)
 
 
   const { onBlurHandler, onFocusHandler, validationValues } = useFormValidation(
     {
-      hotelCode: false,
+      loginCode: false,
       password: false,
     }
   );
+
 
   const { isCodeValid, isPasswordValid, disableButton } = useLoginValidations(
     formValues,
@@ -39,8 +41,8 @@ export const Login = () => {
     onBlurHandler,
     onFocusHandler,
     inputs: [
-      { name: 'hotelCode',errorMessage: 'Hotel Code should be at least 3 characters long',
-      validation: !isCodeValid, type: 'password',display: 'Hotel Code (make login code)'},
+      { name: 'loginCode',errorMessage: 'Login Code should be at least 3 characters long',
+      validation: !isCodeValid, type: 'password',display: 'Login Code'},
       { name: 'password',errorMessage: 'Password should be at least 5 characters long' ,
       validation: !isPasswordValid, type: 'password',display: 'Password'},
 
@@ -54,10 +56,14 @@ export const Login = () => {
       <>
       <h1>Welcome back!</h1>
 
-      <form className={styles["login-form"]} onSubmit={onSubmit}>
+      <form className={styles["login-form"]}>
         <InputFieldslist {...listProps}/>
-        <Button width='10rem' disable={disableButton}>Login</Button>
       </form>
+        <Button width='10rem' onClick={login} disable={disableButton}>Login</Button>
+
+      <p>
+        Forgot your password? <Link to="/forgot-password">Reset here</Link>
+      </p>
 
       <p>
         Don't have a registration? <Link to="/register">Sign up.</Link>

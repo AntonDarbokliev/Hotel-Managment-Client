@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button } from "../../Shared/Button/Button"
 import { EmployeeList } from "./EmployeeList/EmployeeList"
 import styles from './Employees.module.scss'
@@ -6,18 +6,14 @@ import { AddEmployee } from "./Modals/AddEmployee/AddEmployee"
 import { AnimatePresence } from "framer-motion"
 import { useEmployees } from "../../../hooks/Employees/useEmployees"
 import Spinner from "../../Shared/LoadSpinner/LoadSpinner"
-import { useEmployeeStore } from "../../../stores/EmployeeStore"
+import { SearchBar } from "../../Shared/SearchBar/SearchBar"
+import { useSearchInEmployees } from "../../../hooks/Employees/useSearchInEmployees"
 
 export const Employees = () => {
     const [addEmployee,setAddEmployee ] = useState(false)
-    const {employeesData,isLoading} = useEmployees()
-
-    const {setEmployees} = useEmployeeStore()
-
-    useEffect(() => {
-        setEmployees(employeesData)
-        
-    },[employeesData])
+    const {isLoading} = useEmployees()
+    const [searchText, setSearchText ] = useState('');
+    const {searchedEmployees} = useSearchInEmployees(searchText)
 
     return (
         <>
@@ -31,9 +27,10 @@ export const Employees = () => {
 
             <div className={styles["employees"]}>
                 <h1>Employees</h1>
+                <SearchBar searchText={searchText} setSearchText={setSearchText}/>
                 {!isLoading && 
-                <EmployeeList/>
-            }
+                <EmployeeList searchedEmployees={searchedEmployees}/>
+                }
                 {isLoading && 
                     <Spinner/>
                 }

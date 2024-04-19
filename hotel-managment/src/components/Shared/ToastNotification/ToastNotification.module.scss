@@ -10,7 +10,7 @@
     min-height: 10vh;
     max-width: 50vw;
     text-align: center;
-    z-index: 2;
+    z-index: 20;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -25,4 +25,9 @@
         white-space: pre-line;
         line-height: 1.5rem;
     }
+}
+
+.positive {
+    background: rgba(105, 242, 59, 0.9);;
+
 }

@@ -9,6 +9,8 @@ export interface Room {
     floor: {
         floorNumber:number,
         id: string,
-    }
+    },
+    pricePerNight: number,
+    peopleCapacity: number,
 }
     

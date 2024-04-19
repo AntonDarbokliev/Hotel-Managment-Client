@@ -22,13 +22,14 @@ const request = async ({method, url, data}: RequestProps) =>  {
     };
 
 
-    if( /^https:\/\/hotel-management-api-j8y8\.onrender\.com\/api\/(Hotel|Room|Floor|Reservation|Employee|SalaryReport).*/.test(url)) {
-            const token = localStorage.getItem('token');
-            if(!token) {
-                throw new Error('Token is missing');
-            }
-            options.headers['Authorization'] = `Bearer ${token}`;
+    if( !url.includes('Login') && !url.includes('Register') && !url.includes('PasswordReset')) {
+        const token = localStorage.getItem('token');
+        if(!token) {
+            throw new Error('Token is missing');
+        }
+        options.headers['Authorization'] = `Bearer ${token}`;
     }
+
 
         // options.headers = {
         //     'Content-Type' : 'multipart/form-data'   // Server returns 400 when the headers are being set manually 
@@ -52,7 +53,7 @@ const request = async ({method, url, data}: RequestProps) =>  {
         return {}
     } 
 
-    if(url.includes('Register')){
+    if(url.includes('Register') || url.includes('Change')){
         return response
     }else {
         return response.json() 

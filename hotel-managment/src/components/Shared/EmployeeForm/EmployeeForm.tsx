@@ -13,6 +13,7 @@ import { useEmployeeStore } from "../../../stores/EmployeeStore"
 import { useRoles } from '../../../hooks/Employees/useRoles'
 import { useParams } from 'react-router-dom'
 import Spinner from '../LoadSpinner/LoadSpinner'
+import { useAreThereEmptyFields } from '../../../hooks/useAreThereEmptyFields'
 
 interface Props {
     modalSetter: React.Dispatch<React.SetStateAction<boolean>>,
@@ -51,6 +52,9 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
         Salary : type == 'Edit' ? `${employee?.salary}`: '',
         PhoneNumber: type == 'Edit' ? `${employee?.phoneNumber}`: '',
     },() => {})
+
+    const {areThereEmptyFields} = useAreThereEmptyFields(formValues)
+
 
     const afterAdd = (addedEmployee: { employee: ReceivedEmployee}) => {
         setEmployees!([...employees,addedEmployee.employee])
@@ -109,10 +113,10 @@ export const EmployeeForm: React.FC<Props> = ({modalSetter,type,employee}) => {
                     </Dropdown>
                 </form>
                 {type == "Add" && 
-                    <Button  onClick={addEmployee}>Add</Button>
+                    <Button  onClick={addEmployee} disable={areThereEmptyFields}>Add</Button>
                 }
                 {type == 'Edit' && 
-                    <Button onClick={editEmployee}>Save</Button>
+                    <Button onClick={editEmployee} disable={areThereEmptyFields}>Save</Button>
                 }
             </>
             }

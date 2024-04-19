@@ -4,7 +4,7 @@ export interface ReceivedRoomReservation {
     from: string,
     to: string,
     additionalInformation: string,
-    price: number,
+    totalPrice: number,
     guest: {
         id: string,
         egn: number,
