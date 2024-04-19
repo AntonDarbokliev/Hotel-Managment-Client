@@ -22,7 +22,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
         id: "",
         role: ""
     },
-    isLoggedIn: false,
+    isLoggedIn: true,
     clearUser: () => {
         set(() => ({
             user: {

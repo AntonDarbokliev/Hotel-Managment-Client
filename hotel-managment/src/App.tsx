@@ -24,6 +24,7 @@ import { PasswordResetForm } from "./components/Settings/Account/PasswordResetFo
 import { ForgotPassword } from "./components/Auth/ForgotPassword/ForgotPassword.tsx";
 import { EmailResetForm } from "./components/Settings/Account/EmailResetForm/EmailResetForm.tsx";
 
+
 const router = createBrowserRouter([
     {
         path: "/*",
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
                 element: <ForgotPassword />,
             },
             {
-                element: <PrivateRoute />,
+                element: <PrivateRoute/>,
                 children: [
                     {
                         path: "add",
@@ -108,7 +109,6 @@ const router = createBrowserRouter([
         ],
     },
 ]);
-
 function App() {
     const updateUser = useAuthStore((s) => s.updateUser);
 
